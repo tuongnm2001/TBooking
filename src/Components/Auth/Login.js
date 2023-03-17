@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { useContext, useEffect, useRef, useState } from 'react'
 import './Login.scss'
-// import { Link, useNavigate } from 'react-router-dom'
-// import { handleLogin } from '../../services/userService'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 // import { UserContext } from '../context/UserContext'
 import { FaHome } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
+import { handleLogin } from '../../service/userService'
 
 const Login = () => {
 
@@ -20,30 +19,26 @@ const Login = () => {
 
     const handleSubmitLogin = async () => {
 
-        alert('d')
-
-        // console.log(email, password);
-        // setLoadingApi(true)
-
-        // let res = await handleLogin(email, password)
-        // console.log(res);
-        // if (res && res.errCode === 0) {
-        //     toast.success('Login success!')
-        //     //     // loginContext(email)
-        //     //     // navigate('/')
-        // } else if (res.errCode === 3) {
-        //     toast.error(res.massage)
-        // } else {
-        //     toast(res.massage)
-        // }
-        // setLoadingApi(false)
+        setLoadingApi(true)
+        setTimeout(async () => {
+            let res = await handleLogin(email, password)
+            console.log(res);
+            if (res && res.errCode === 0) {
+                toast.success('Login success!')
+                navigate('/admin')
+            } else if (res.errCode === 3) {
+                toast.error(res.massage)
+            } else {
+                toast(res.massage)
+            }
+        }, 1500);
+        setLoadingApi(false)
     }
 
 
     const handleGoBack = () => {
         navigate('/')
     }
-
 
     return (
         <>
@@ -52,6 +47,7 @@ const Login = () => {
             </div>
 
             <div className="login-container">
+                <i className="fa-solid fa-circle-notch fa-spin"></i>
                 <h1 className="text-center">Hello Guys!</h1>
                 <div className="needs-validation">
                     <div className="form-group">
@@ -100,7 +96,8 @@ const Login = () => {
                         className={email && password ? 'btn-login active' : 'btn-login'}
                         disabled={email && password ? false : true}
                     >
-                        LOGIN
+                        {loadingApi === true && <i className="fa-solid fa-circle-notch fa-spin"></i>}LOGIN
+
                     </button>
                 </div>
 

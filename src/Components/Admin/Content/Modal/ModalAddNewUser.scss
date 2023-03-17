@@ -1,0 +1,43 @@
+.modal-add-user {
+
+    .upload {
+        .iconAdd {
+            margin-bottom  : 4px;
+            margin-right   : 3px;
+            font-size      : 20px;
+        }
+
+        padding            : 6px;
+        border-radius      : 5px;
+        background-color   : #5cd966;
+        cursor             : pointer;
+
+        &:hover {
+            opacity  : 0.9;
+        }
+    }
+
+    .img-preview {
+        margin-left       : 110px;
+        width             : 260px;
+        height            : 260px;
+        border            : 2px solid #7d6767;
+        background-color  : #f6f6ef;
+        display           : flex;
+        border-radius     : 5px;
+
+        .textPreviewImg {
+            color        : #c7bdbd;
+            display      : flex;
+            margin       : 0 auto;
+            align-items  : center;
+        }
+
+        img {
+            cursor      : pointer;
+            max-width   : 100%;
+            max-height  : 100%;
+            object-fit  : cover;
+        }
+    }
+}

@@ -6,10 +6,15 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Doctor from './Components/Doctor/Doctor';
+import Admin from './Components/Admin/Admin';
 import User from './Components/User/User';
 import HomePage from './Components/Home/HomePage';
 import Login from './Components/Auth/Login';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ManageUser from './Components/Admin/Content/ManageUser';
+import DashBoard from './Components/Admin/Content/DashBoard';
+import 'react-awesome-lightbox/build/style.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,11 +28,27 @@ root.render(
           <Route path='/user' element={<User />} />
         </Route>
 
-        <Route path='/doctor' element={<Doctor />} />
+        <Route path='/admin' element={<Admin />}>
+          <Route index element={<DashBoard />} />
+          <Route path='manage-user' element={<ManageUser />} />
+        </Route>
 
         <Route path='/login' element={<Login />} />
 
       </Routes>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
 
     </BrowserRouter>
   </Provider>

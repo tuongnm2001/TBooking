@@ -13,6 +13,7 @@ import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } fro
 import { ImTumblr2 } from 'react-icons/im';
 import sidebarBg from '../../assets/img/imgSideBar.avif';
 import { Link, useNavigate } from 'react-router-dom';
+import logo from '../../assets/img/logoSideBar.png'
 
 
 const SideBar = (props) => {
@@ -47,8 +48,7 @@ const SideBar = (props) => {
                             cursor: 'pointer'
                         }}
                     >
-                        <ImTumblr2 className='logo' />
-                        TBOOKING
+                        <img src={logo} className='imgLogo' />
                     </div>
                 </SidebarHeader>
 
@@ -58,6 +58,7 @@ const SideBar = (props) => {
                             icon={<FaTachometerAlt />}
                         >
                             Dashboard
+                            <Link to='/admin' />
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
@@ -65,7 +66,10 @@ const SideBar = (props) => {
                             icon={<FaGem />}
                             title='Manage'
                         >
-                            <MenuItem> 1</MenuItem>
+                            <MenuItem>
+                                Manage User
+                                <Link to='/admin/manage-user' />
+                            </MenuItem>
                             <MenuItem> 2</MenuItem>
                             <MenuItem> 3</MenuItem>
                         </SubMenu>
