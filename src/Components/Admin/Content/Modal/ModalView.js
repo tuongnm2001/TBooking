@@ -4,16 +4,12 @@ import Modal from 'react-bootstrap/Modal';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import { GrUpdate } from 'react-icons/gr'
 import Lightbox from "react-awesome-lightbox";
-import { handleUpdateUser } from '../../../../service/userService';
-import { toast } from 'react-toastify';
 import { Buffer } from 'buffer';
-import CommonUtils from '../../../../ultis/CommonUtils';
 
-const ModalUpdateUser = (props) => {
+const ModalView = (props) => {
 
-    const { show, setShow, genders, positions, roles, getAllUser, dataUpdateUser } = props
+    const { show, setShow, genders, positions, roles, dataUpdateUser } = props
 
     const [id, setID] = useState('')
     const [email, setEmail] = useState('')
@@ -25,10 +21,13 @@ const ModalUpdateUser = (props) => {
     const [gender, setGender] = useState('M')
     const [position, setPosition] = useState('P0')
     const [role, setRole] = useState('R1')
-    const [avatar, setAvatar] = useState('')
+    const [image, setImage] = useState('')
     const [previewImage, setPreviewImage] = useState('')
     const [zoomInImage, setZoomInImage] = useState(false)
 
+    const handleClose = () => {
+        setShow(false)
+    }
 
     let imageBase64 = ''
     if (dataUpdateUser.image) {
@@ -38,7 +37,7 @@ const ModalUpdateUser = (props) => {
     useEffect(() => {
         setID(dataUpdateUser.id)
         setEmail(dataUpdateUser.email)
-        setPassword(dataUpdateUser.password)
+        setPassword('********')
         setFirstName(dataUpdateUser.firstName)
         setLastName(dataUpdateUser.lastName)
         setAddress(dataUpdateUser.address)
@@ -46,38 +45,9 @@ const ModalUpdateUser = (props) => {
         setGender(dataUpdateUser.gender)
         setPosition(dataUpdateUser.positionId)
         setRole(dataUpdateUser.roleId)
-        setAvatar('')
+        setImage('')
         setPreviewImage(imageBase64)
     }, [dataUpdateUser])
-
-    const handleClose = () => {
-        setShow(false)
-    }
-
-    console.log('check dataUpdateUser : ', dataUpdateUser);
-
-    const handleUploadImage = async (event) => {
-        if (event.target && event.target.files && event.target.files[0]) {
-            setPreviewImage(URL.createObjectURL(event.target.files[0]));
-            let base64 = await CommonUtils.getBase64(event.target.files[0])
-
-            setAvatar(base64)
-        }
-    }
-
-    const handleSubmitUpdate = async () => {
-        let res = await handleUpdateUser({
-            id, email, password, firstName, lastName, address,
-            role, position, gender, phoneNumber, avatar
-        })
-        if (res && res.errCode === 0) {
-            toast.success(res.errMessage)
-            handleClose()
-            getAllUser()
-        } else {
-            toast.error(res.errMessage)
-        }
-    }
 
     return (
         <Modal
@@ -88,49 +58,47 @@ const ModalUpdateUser = (props) => {
             className='modal-add-user'
         >
             <Modal.Header closeButton>
-                <Modal.Title>UPDATE USER</Modal.Title>
+                <Modal.Title>VIEW</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
                 <Form>
-                    {/* <Row className="mb-3">
+                    <Row className="mb-3">
                         <Form.Group as={Col}>
                             <Form.Label>Email</Form.Label>
                             <Form.Control
-                                disabled
+                                readOnly
                                 type="email"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </Form.Group>
 
                         <Form.Group as={Col} >
                             <Form.Label>Password</Form.Label>
                             <Form.Control
-                                disabled
+                                readOnly
                                 type="password"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </Form.Group>
-                    </Row> */}
+                    </Row>
 
                     <Row className="mb-3">
                         <Form.Group as={Col} >
                             <Form.Label>FirstName</Form.Label>
                             <Form.Control
+                                readOnly
                                 type="email"
                                 value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
                             />
                         </Form.Group>
 
                         <Form.Group as={Col} >
                             <Form.Label>LastName</Form.Label>
                             <Form.Control
+                                readOnly
                                 type="text"
                                 value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
                             />
                         </Form.Group>
                     </Row>
@@ -139,25 +107,25 @@ const ModalUpdateUser = (props) => {
                         <Form.Group as={Col}>
                             <Form.Label>Address</Form.Label>
                             <Form.Control
+                                readOnly
                                 type='text'
                                 value={address}
-                                onChange={(e) => setAddress(e.target.value)}
                             />
                         </Form.Group>
 
                         <Form.Group as={Col}>
                             <Form.Label>PhoneNumber</Form.Label>
                             <Form.Control
+                                readOnly
                                 type='text'
                                 value={phoneNumber}
-                                onChange={(e) => setPhoneNumber(e.target.value)}
                             />
                         </Form.Group>
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} >
                             <Form.Label>Gender</Form.Label>
-                            <Form.Select value={gender} onChange={(event) => setGender(event.target.value)}>
+                            <Form.Select disabled value={gender}>
                                 {
                                     genders && genders.length > 0 &&
                                     genders.map((item, index) => {
@@ -173,7 +141,7 @@ const ModalUpdateUser = (props) => {
 
                         <Form.Group as={Col} >
                             <Form.Label>Position</Form.Label>
-                            <Form.Select value={position} onChange={(event) => setPosition(event.target.value)}>
+                            <Form.Select disabled value={position}>
                                 {
                                     positions && positions.length > 0 &&
                                     positions.map((item, index) => {
@@ -189,7 +157,7 @@ const ModalUpdateUser = (props) => {
 
                         <Form.Group as={Col} >
                             <Form.Label>Role</Form.Label>
-                            <Form.Select value={role} onChange={(event) => setRole(event.target.value)}>
+                            <Form.Select disabled value={role}>
                                 {
                                     roles && roles.length > 0 &&
                                     roles.map((item, index) => {
@@ -203,20 +171,8 @@ const ModalUpdateUser = (props) => {
                             </Form.Select>
                         </Form.Group>
 
-                        <div className='col-md-12'>
-                            <label className='form-label my-3 upload' htmlFor='uploadImg'>
-                                <i class="fa-regular fa-images"></i> Change Image
-                            </label>
-                            <input
-                                hidden
-                                type='file'
-                                id='uploadImg'
-                                onChange={(event) => { handleUploadImage(event) }}
-                            />
-                        </div>
 
-
-                        <div className='col-md-12 img-preview'>
+                        <div className='col-md-12 img-preview-view'>
                             {
                                 previewImage ?
                                     <img
@@ -225,13 +181,13 @@ const ModalUpdateUser = (props) => {
                                         onClick={() => setZoomInImage(true)}
                                     />
                                     :
-                                    <span className='textPreviewImg'>Upload Image</span>
+                                    <span className='textPreviewImgView'>No Image</span>
                             }
 
                             {
                                 zoomInImage === true &&
                                 <Lightbox
-                                    image={[imageBase64]}
+                                    image={imageBase64}
                                     title="Image Title"
                                     onClose={() => setZoomInImage(false)}
                                 />
@@ -245,13 +201,10 @@ const ModalUpdateUser = (props) => {
                 <Button variant="secondary" onClick={handleClose}>
                     <i className="fa-solid fa-xmark"></i> Close
                 </Button>
-                <Button variant="primary" onClick={() => handleSubmitUpdate()}>
-                    Save Changes
-                </Button>
             </Modal.Footer>
         </Modal>
     );
 }
 
 
-export default ModalUpdateUser;
+export default ModalView;

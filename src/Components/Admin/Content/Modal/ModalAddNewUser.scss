@@ -40,4 +40,28 @@
             object-fit  : cover;
         }
     }
+
+    .img-preview-view {
+        width             : 260px;
+        height            : 260px;
+        border            : 2px solid #7d6767;
+        background-color  : #f6f6ef;
+        display           : flex;
+        border-radius     : 5px;
+        margin-right      : 100px;
+        margin-top        : 32px;
+
+        .textPreviewImgView {
+            margin      : 0 auto;
+            margin-top  : 114px;
+            color       : #b5b5d1;
+        }
+
+        img {
+            cursor      : pointer;
+            max-width   : 100%;
+            max-height  : 100%;
+            object-fit  : cover;
+        }
+    }
 }

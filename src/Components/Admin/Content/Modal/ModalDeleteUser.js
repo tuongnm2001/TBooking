@@ -33,7 +33,7 @@ const ModalDeleteUser = (props) => {
             <Modal.Body>Are you sure you want to delete account <span style={{ color: 'red' }}>{dataDelUser.email}</span> ? </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                    Close
+                    <i className="fa-solid fa-xmark"></i> Close
                 </Button>
                 <Button variant="danger" onClick={() => handleSubmitDeleteUser()}>
                     Delete

@@ -19,8 +19,6 @@ const handleDeleteUser = (inputId) => {
     return axios.delete(`/api/delete-user`, { data: { id: inputId } })
 }
 
-
-
 const handleUpdateUser = (inputId) => {
     return axios.put(`/api/edit-user`, inputId)
 }

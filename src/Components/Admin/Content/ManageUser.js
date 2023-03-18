@@ -6,18 +6,25 @@ import ModalAddNewUser from './Modal/ModalAddNewUser';
 import ModalDeleteUser from './Modal/ModalDeleteUser';
 import { fetchAllCode, fetchAllUsers } from '../../../service/userService';
 import ModalUpdateUser from './Modal/ModalUpdateUser';
+import ModalView from './Modal/ModalView';
 
 const ManageUser = (props) => {
 
     const [showModalAddUser, setShowModalAddUser] = useState(false)
     const [showModalUpdateUser, setShowUpdateUser] = useState(false)
     const [showModalDeleteUser, setShowDeleteAddUser] = useState(false)
+    const [showModalView, setShowView] = useState(false)
     const [genders, setGenders] = useState({})
     const [positions, setPositions] = useState({})
     const [roles, setRoles] = useState({})
     const [listUsers, setListUsers] = useState({})
     const [dataDelUser, setDataDelUser] = useState({})
     const [dataUpdateUser, setDataUpdateUser] = useState({})
+
+    const handleShowView = (user) => {
+        setShowView(true)
+        setDataUpdateUser(user)
+    }
 
     const handleShowModalAddUser = (user) => {
         setShowModalAddUser(true)
@@ -73,7 +80,11 @@ const ManageUser = (props) => {
             <div className="manage-user-container">
                 <div className="title">Manage Users</div>
                 <div className="users-content">
-                    <button className='btn btn-success mx-3 my-3' onClick={() => handleShowModalAddUser()}>Add New User</button>
+                    <button
+                        className='btn btn-success mx-3 my-3'
+                        onClick={() => handleShowModalAddUser()}>
+                        <i className="fa-solid fa-user-plus"></i> Add New User
+                    </button>
                 </div>
 
                 <div className="table-user">
@@ -101,18 +112,22 @@ const ManageUser = (props) => {
                                                 <td>{item.lastName}</td>
                                                 <td>{item.address}</td>
                                                 <td>
+                                                    <button className='btn btn-primary' onClick={() => handleShowView(item)}>
+                                                        <i className="fa-solid fa-eye"></i> View
+                                                    </button>
+
                                                     <button
                                                         className='btn btn-warning mx-3'
                                                         onClick={() => handleUpdateUser(item)}
                                                     >
-                                                        Update
+                                                        <i className="fa-solid fa-pencil"></i> Update
                                                     </button>
 
                                                     <button
                                                         className='btn btn-danger'
                                                         onClick={() => handleShowModalDelUser(item)}
                                                     >
-                                                        Delete
+                                                        <i className="fas fa-user-times"></i> Delete
                                                     </button>
                                                 </td>
                                             </tr>
@@ -150,7 +165,15 @@ const ManageUser = (props) => {
                 positions={positions}
                 roles={roles}
                 getAllUser={getAllUser}
+            />
 
+            <ModalView
+                show={showModalView}
+                setShow={setShowView}
+                dataUpdateUser={dataUpdateUser}
+                genders={genders}
+                positions={positions}
+                roles={roles}
             />
         </>
     );

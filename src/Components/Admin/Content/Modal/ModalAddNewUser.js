@@ -5,10 +5,11 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import './ModalAddNewUser.scss'
-import { HiUserAdd } from 'react-icons/hi'
+import { BiImageAdd } from 'react-icons/bi'
 import Lightbox from "react-awesome-lightbox";
 import { postCreateNewUser } from '../../../../service/userService';
 import { toast } from 'react-toastify';
+import CommonUtils from '../../../../ultis/CommonUtils';
 
 const ModalAddNewUser = (props) => {
 
@@ -23,7 +24,7 @@ const ModalAddNewUser = (props) => {
     const [gender, setGender] = useState('M')
     const [position, setPosition] = useState('P0')
     const [role, setRole] = useState('R1')
-    const [image, setImage] = useState('')
+    const [avatar, setAvatar] = useState('')
     const [previewImage, setPreviewImage] = useState('')
     const [zoomInImage, setZoomInImage] = useState(false)
 
@@ -31,10 +32,13 @@ const ModalAddNewUser = (props) => {
         setShow(false)
     }
 
-    const handleUploadImage = (event) => {
+    const handleUploadImage = async (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
-            setPreviewImage(URL.createObjectURL(event.target.files[0]));
-            setImage(event.target.files[0])
+            let base64 = await CommonUtils.getBase64(event.target.files[0])
+            if (event.target.files[0] !== 0) {
+                setPreviewImage(URL.createObjectURL(event.target.files[0]));
+            }
+            setAvatar(base64)
         }
     }
 
@@ -49,7 +53,7 @@ const ModalAddNewUser = (props) => {
             gender: gender,
             roleId: role,
             positionId: position,
-            image: image
+            avatar: avatar
         })
         if (data.errCode === 0) {
             toast.success('Add new User success!')
@@ -62,10 +66,9 @@ const ModalAddNewUser = (props) => {
             // setGender('M')
             // setPosition('P0')
             // setRole('R1')
-            // setImage(false)
+            // setAvatar(false)
             handleClose()
             getAllUser()
-
         }
     }
 
@@ -194,7 +197,7 @@ const ModalAddNewUser = (props) => {
 
                         <div className='col-md-12'>
                             <label className='form-label my-3 upload' htmlFor='uploadImg'>
-                                <HiUserAdd className='iconAdd' />Upload Image
+                                <BiImageAdd className='iconAdd' />Upload Image
                             </label>
                             <input
                                 hidden
@@ -220,7 +223,7 @@ const ModalAddNewUser = (props) => {
                             {
                                 zoomInImage === true &&
                                 <Lightbox
-                                    image={URL.createObjectURL(image)}
+                                    image={avatar}
                                     title="Image Title"
                                     onClose={() => setZoomInImage(false)}
                                 />
@@ -232,7 +235,7 @@ const ModalAddNewUser = (props) => {
 
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                    Close
+                    <i className="fa-solid fa-xmark"></i> Close
                 </Button>
                 <Button variant="primary" onClick={() => handleSubmit()}>
                     Save Changes

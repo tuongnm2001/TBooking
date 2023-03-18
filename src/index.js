@@ -15,6 +15,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import ManageUser from './Components/Admin/Content/ManageUser';
 import DashBoard from './Components/Admin/Content/DashBoard';
 import 'react-awesome-lightbox/build/style.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
