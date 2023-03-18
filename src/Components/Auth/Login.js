@@ -18,14 +18,12 @@ const Login = () => {
     const passwordRef = useRef()
 
     const handleSubmitLogin = async () => {
-
         setLoadingApi(true)
         setTimeout(async () => {
-            let res = await handleLogin(email, password)
-            console.log(res);
+            let res = await handleLogin(email.trim(), password)
             if (res && res.errCode === 0) {
                 toast.success('Login success!')
-                navigate('/admin')
+                navigate('/')
             } else if (res.errCode === 3) {
                 toast.error(res.massage)
             } else {
@@ -47,7 +45,6 @@ const Login = () => {
             </div>
 
             <div className="login-container">
-                <i className="fa-solid fa-circle-notch fa-spin"></i>
                 <h1 className="text-center">Hello Guys!</h1>
                 <div className="needs-validation">
                     <div className="form-group">
@@ -91,12 +88,13 @@ const Login = () => {
                         <input className="form-check-input" type="checkbox" id="check" />
                         <label className="form-check-label">Remember me</label>
                     </div>
+
                     <button
                         onClick={() => handleSubmitLogin()}
                         className={email && password ? 'btn-login active' : 'btn-login'}
                         disabled={email && password ? false : true}
                     >
-                        {loadingApi === true && <i className="fa-solid fa-circle-notch fa-spin"></i>}LOGIN
+                        {loadingApi && <i className="fa-solid fa-circle-notch fa-spin"></i>} LOGIN
 
                     </button>
                 </div>
