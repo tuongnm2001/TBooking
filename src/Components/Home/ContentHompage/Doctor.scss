@@ -3,7 +3,14 @@
     height            : 620px;
     background-color  : #f7fcfc;
 
+
+    .section-title {
+        text-align      : center;
+        padding-bottom  : 30px;
+    }
+
     .doctors {
+
         .member {
             margin         : 0 10px;
             gap            : 25px;
@@ -13,6 +20,20 @@
             border-radius  : 4px;
             background     : #fff;
             box-shadow     : 0px 2px 15px rgba(63, 187, 192, 0.1);
+            cursor         : pointer;
+
+            &:hover {
+                background-color  : #1977cc;
+
+                h4 {
+                    color  : #fff !important;
+                }
+
+                span {
+                    color  : #fff !important;
+                }
+            }
+
 
             .member-img {
                 position  : relative;
@@ -34,6 +55,10 @@
                     margin-bottom  : 5px;
                     font-size      : 18px;
                     color          : #555555;
+
+                    &:hover {
+                        color  : #1977cc;
+                    }
                 }
 
                 span {
