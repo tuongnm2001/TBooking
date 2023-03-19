@@ -101,7 +101,7 @@ const ManageUser = (props) => {
                 fill
                 justify
             >
-                <Tab eventKey="home" title="Home">
+                <Tab eventKey="home" title="Manage Users">
                     <div className="manage-user-container">
                         <div className="title">Manage Users</div>
                         <div className="users-content">
@@ -173,7 +173,7 @@ const ManageUser = (props) => {
                     </div>
                 </Tab>
 
-                <Tab eventKey="profile" title="Profile">
+                <Tab eventKey="profile" title="Doctor's Information">
                     <ManageDoctor />
                 </Tab>
 

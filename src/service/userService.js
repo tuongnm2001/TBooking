@@ -27,7 +27,16 @@ const getTopDoctor = (limit) => {
     return axios.get(`/api/top-doctor-home?=${limit}`)
 }
 
+const getAllDoctors = () => {
+    return axios.get(`/api/get-all-doctor`)
+}
+
+const saveDetailDoctor = (data) => {
+    return axios.post(`/api/save-infor-doctor`, data)
+}
+
 export {
     handleLogin, fetchAllCode, postCreateNewUser, fetchAllUsers,
-    handleDeleteUser, handleUpdateUser, getTopDoctor
+    handleDeleteUser, handleUpdateUser, getTopDoctor, getAllDoctors,
+    saveDetailDoctor
 }

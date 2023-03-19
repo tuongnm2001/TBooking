@@ -2,17 +2,10 @@ import MarkdownIt from 'markdown-it';
 import './ManageDoctor.scss';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
-
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-];
-
-
+import { getAllDoctors, saveDetailDoctor } from '../../../service/userService';
+import { toast } from 'react-toastify';
 
 const ManageDoctor = () => {
 
@@ -21,6 +14,8 @@ const ManageDoctor = () => {
     const mdParser = new MarkdownIt(/* Markdown-it options */);
     const [selectedDoctor, setselectedDoctor] = useState(null)
     const [description, setDescription] = useState('')
+    const [allDoctors, setAllDoctors] = useState({})
+
 
     const handleEditorChange = ({ html, text }) => {
         setContentMarkDown(text)
@@ -28,7 +23,20 @@ const ManageDoctor = () => {
         console.log('handleEditorChange', html, text);
     }
 
-    const handleSaveContentMarkDown = () => {
+    const handleSaveContentMarkDown = async () => {
+        let res = await saveDetailDoctor({
+            contentHTML: contentHTML,
+            contentMarkdown: contentMarkDown,
+            description: description,
+            doctorId: selectedDoctor.value
+        })
+
+        if (res.errCode === 0) {
+            toast.success(res.errMessage)
+        } else {
+            toast.success(res.errMessage)
+        }
+
         console.log(selectedDoctor);
     }
 
@@ -38,6 +46,33 @@ const ManageDoctor = () => {
 
     const handleOnChangeDescription = (event) => {
         setDescription(event.target.value)
+    }
+
+    useEffect(() => {
+        handleGetAllDoctors()
+    }, [])
+
+    const handleGetAllDoctors = async () => {
+        let res = await getAllDoctors();
+        if (res.errCode === 0) {
+            let dataSelect = buidDataSelect(res.data);
+            setAllDoctors(dataSelect)
+        }
+    }
+
+    const buidDataSelect = (inputData) => {
+        let result = [];
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let obj = {};
+                let labelVi = `${item.lastName} ${item.firstName}`
+
+                obj.label = labelVi
+                obj.value = item.id
+                result.push(obj)
+            })
+        }
+        return result;
     }
 
     return (
@@ -51,16 +86,17 @@ const ManageDoctor = () => {
                 <div className='content-left'>
                     <label>Chọn bác sĩ</label>
                     <Select
+                        className='select'
                         value={selectedDoctor}
                         onChange={handleChange}
-                        options={options}
+                        options={allDoctors}
                     />
                 </div>
 
                 <div className='content-right form-group'>
                     <label>Thông tin giới thiệu</label>
                     <textarea
-                        className='form-control'
+                        className='form-control infor'
                         rows={4}
                         value={description}
                         onChange={(event) => handleOnChangeDescription(event)}

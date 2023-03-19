@@ -15,10 +15,18 @@
 
         .content-left {
             width  : 40%;
+
+            .select {
+                margin-top  : 10px;
+            }
         }
 
         .content-right {
             width  : 60%;
+
+            .infor {
+                margin-top  : 10px;
+            }
         }
     }
 
@@ -27,8 +35,7 @@
         padding  : 16px 10px;
 
         button {
-            margin-right  : 9px;
-            margin-top    : -15px;
+            margin-right  : -10px;
         }
     }
 }
