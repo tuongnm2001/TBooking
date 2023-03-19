@@ -16,15 +16,13 @@ import ManageUser from './Components/Admin/Content/ManageUser';
 import DashBoard from './Components/Admin/Content/DashBoard';
 import 'react-awesome-lightbox/build/style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
-
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-
       <Routes>
-
         <Route path='/' element={<App />} >
           <Route index element={<HomePage />} />
           <Route path='/user' element={<User />} />

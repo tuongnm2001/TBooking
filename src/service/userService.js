@@ -23,7 +23,11 @@ const handleUpdateUser = (inputId) => {
     return axios.put(`/api/edit-user`, inputId)
 }
 
+const getTopDoctor = (limit) => {
+    return axios.get(`/api/top-doctor-home?=${limit}`)
+}
+
 export {
     handleLogin, fetchAllCode, postCreateNewUser, fetchAllUsers,
-    handleDeleteUser, handleUpdateUser
+    handleDeleteUser, handleUpdateUser, getTopDoctor
 }

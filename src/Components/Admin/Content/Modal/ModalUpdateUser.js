@@ -54,8 +54,6 @@ const ModalUpdateUser = (props) => {
         setShow(false)
     }
 
-    console.log('check dataUpdateUser : ', dataUpdateUser);
-
     const handleUploadImage = async (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));

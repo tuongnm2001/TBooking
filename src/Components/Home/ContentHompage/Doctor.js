@@ -1,20 +1,35 @@
-import './Doctor.scss'
-import imgDoctor from '../../../assets/img/doctors/doctors-1.jpg'
-import Carousel from 'react-bootstrap/Carousel';
-import Slider from "react-slick";
 //Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import './Doctor.scss'
+import Slider from "react-slick";
+import { getTopDoctor } from '../../../service/userService';
+import { useEffect, useState } from "react";
+import { Buffer } from 'buffer';
 
 const Doctor = () => {
+
+    const [listDoctors, setListDoctors] = useState({})
 
     let settings = {
         dots: false,
         infinite: false,
         speed: 500,
-        slidesToShow: 4,
+        slidesToShow: 5,
         slidesToScroll: 1
     };
+
+    useEffect(() => {
+        handleGetTopDoctor()
+    }, [])
+
+    const handleGetTopDoctor = async () => {
+        let res = await getTopDoctor('');
+        if (res.errCode === 0) {
+            setListDoctors(res.data)
+        }
+        console.log(listDoctors);
+    }
 
     return (
         <div className='section-doctor-container'>
@@ -27,66 +42,29 @@ const Doctor = () => {
 
                     <div className="row">
                         <Slider {...settings}>
-                            <div className="col-lg-3 col-md-6 d-flex align-items-stretch">
-                                <div className="member" data-aos="fade-up" data-aos-delay="100">
-                                    <div className="member-img">
-                                        <img src={imgDoctor} />
-                                    </div>
-                                    <div className="member-info">
-                                        <h4>Walter White</h4>
-                                        <span>Chief Medical Officer</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-lg-3 col-md-6 d-flex align-items-stretch">
-                                <div className="member" data-aos="fade-up" data-aos-delay="200">
-                                    <div className="member-img">
-                                        <img src={imgDoctor} />
-                                    </div>
-                                    <div className="member-info">
-                                        <h4>Sarah Jhonson</h4>
-                                        <span>Anesthesiologist</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-lg-3 col-md-6 d-flex align-items-stretch">
-                                <div className="member" data-aos="fade-up" data-aos-delay="300">
-                                    <div className="member-img">
-                                        <img src={imgDoctor} />
-                                    </div>
-                                    <div className="member-info">
-                                        <h4>William Anderson</h4>
-                                        <span>Cardiology</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-lg-3 col-md-6 d-flex align-items-stretch">
-                                <div className="member" data-aos="fade-up" data-aos-delay="400">
-                                    <div className="member-img">
-                                        <img src={imgDoctor} />
-                                    </div>
-                                    <div className="member-info">
-                                        <h4>Amanda Jepson</h4>
-                                        <span>Neurosurgeon</span>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div className="col-lg-3 col-md-6 d-flex align-items-stretch">
-                                <div className="member" data-aos="fade-up" data-aos-delay="400">
-                                    <div className="member-img">
-                                        <img src={imgDoctor} />
-                                    </div>
-                                    <div className="member-info">
-                                        <h4>Amanda Jepson</h4>
-                                        <span>Neurosurgeon</span>
-                                    </div>
-                                </div>
-                            </div>
+                            {
+                                listDoctors && listDoctors.length > 0 &&
+                                listDoctors.map((item, index) => {
+                                    let imageBase64 = ''
+                                    if (item.image) {
+                                        imageBase64 = new Buffer(item.image, 'base64').toString('binary')
+                                    }
+                                    let nameVi = `${item.positionData.valueVi}, ${item.firstName} ${item.lastName}`
+                                    return (
+                                        <div className="col-lg-3 col-md-6 d-flex align-items-stretch" key={`doctor-${index}`}>
+                                            <div className="member">
+                                                <div className="member-img">
+                                                    <img src={imageBase64} />
+                                                </div>
+                                                <div className="member-info">
+                                                    <h4>{nameVi}</h4>
+                                                    <span>Chief Medical Officer</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
                         </Slider>
                     </div>
                 </div>

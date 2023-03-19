@@ -66,7 +66,8 @@ const ModalAddNewUser = (props) => {
             // setGender('M')
             // setPosition('P0')
             // setRole('R1')
-            // setAvatar(false)
+            setAvatar('')
+            setPreviewImage('');
             handleClose()
             getAllUser()
         }
