@@ -1,0 +1,40 @@
+.doctor-detail-container {
+    height  : 500px;
+    margin  : 82px 100px;
+    border  : 1px solid red;
+
+    .intro-doctor {
+        display     : flex;
+        border      : 1px solid yellow;
+        margin-top  : 35px;
+
+        .content-left {
+            width  : 20%;
+
+            img {
+                width          : 130px;
+                height         : 130px;
+                border-radius  : 50%;
+                margin         : 0 10px;
+                object-fit     : cover;
+            }
+        }
+
+        .content-right {
+            width           : 80%;
+            border          : 1px solid yellow;
+            display         : flex;
+            flex-direction  : column;
+            padding-left    : 10px;
+
+            .up {
+                font-size    : 20px;
+                font-weight  : 600;
+            }
+
+            .down {
+                padding-top  : 10px;
+            }
+        }
+    }
+}

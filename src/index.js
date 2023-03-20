@@ -10,6 +10,7 @@ import Admin from './Components/Admin/Admin';
 import User from './Components/User/User';
 import HomePage from './Components/Home/HomePage';
 import Login from './Components/Auth/Login';
+import DetailDoctor from './Components/Home/ContentHompage/DetaiDoctor';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ManageUser from './Components/Admin/Content/ManageUser';
@@ -34,6 +35,7 @@ root.render(
         </Route>
 
         <Route path='/login' element={<Login />} />
+        <Route path='/detai-doctor/:id' element={<DetailDoctor />} />
 
       </Routes>
 

@@ -4,6 +4,7 @@
     box-sizing  : border-box;
 }
 
+
 .circle-home {
     background-color  : #dedede;
     border            : 2px solid #636365;
@@ -32,6 +33,7 @@
     border-radius  : 12px;
     background     : #ffffff;
     box-shadow     : rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    overflow       : hidden;
 
     h1 {
         font-size      : 36px;

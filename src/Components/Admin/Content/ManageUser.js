@@ -29,6 +29,7 @@ const ManageUser = (props) => {
     const [currentPage, setCurrentPage] = useState(1)
     const pageSize = 8;
     const [key, setKey] = useState('home');
+    const [loading, setLoading] = useState(false);
 
     const handleShowView = (user) => {
         setShowView(true)
@@ -78,10 +79,12 @@ const ManageUser = (props) => {
     }
 
     const getAllUser = async () => {
+        setLoading(true)
         let data = await fetchAllUsers("ALL")
         if (data.errCode === 0) {
             setListUsers(data.users.reverse())
         }
+        setLoading(false)
     }
 
     const handlePageChange = (page) => {
@@ -161,16 +164,24 @@ const ManageUser = (props) => {
                                         }
                                     </tbody>
                                 </Table>
-                                <Pagination
-                                    className='pagination'
-                                    items={listUsers.length}
-                                    currentPage={currentPage}
-                                    pageSize={pageSize}
-                                    onPageChange={handlePageChange}
-                                />
                             </Container>
                         </div>
                     </div>
+                    {
+                        loading === false &&
+                        <Pagination
+                            className='pagination'
+                            items={listUsers.length}
+                            currentPage={currentPage}
+                            pageSize={pageSize}
+                            onPageChange={handlePageChange}
+                        />
+                    }
+
+                    {
+                        loading &&
+                        <i className="fas fa-spinner fa-pulse spiner"></i>
+                    }
                 </Tab>
 
                 <Tab eventKey="profile" title="Doctor's Information">

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import './Login.scss'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-// import { UserContext } from '../context/UserContext'
 import { FaHome } from 'react-icons/fa'
 import { handleLogin } from '../../service/userService'
 
@@ -94,7 +93,11 @@ const Login = () => {
                         className={email && password ? 'btn-login active' : 'btn-login'}
                         disabled={email && password ? false : true}
                     >
-                        {loadingApi && <i className="fa-solid fa-circle-notch fa-spin"></i>} LOGIN
+                        {
+                            loadingApi &&
+                            <i className="fa-solid fa-circle-notch fa-spin"></i>
+                        }
+                        LOGIN
 
                     </button>
                 </div>
