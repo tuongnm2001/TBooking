@@ -23,8 +23,6 @@ const DetailDoctor = (props) => {
         }
     }
 
-    console.log(detailDoctors);
-
     let nameVi = ''
 
     if (detailDoctors && detailDoctors.positionData) {

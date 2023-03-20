@@ -4,7 +4,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { getAllDoctors, saveDetailDoctor } from '../../../service/userService';
+import { getAllDoctors, getDetailInforDoctor, saveDetailDoctor } from '../../../service/userService';
 import { toast } from 'react-toastify';
 
 const ManageDoctor = () => {
@@ -15,7 +15,7 @@ const ManageDoctor = () => {
     const [selectedDoctor, setselectedDoctor] = useState(null)
     const [description, setDescription] = useState('')
     const [allDoctors, setAllDoctors] = useState({})
-
+    const [hasOldData, setHasOldData] = useState(false)
 
     const handleEditorChange = ({ html, text }) => {
         setContentMarkDown(text)
@@ -28,7 +28,8 @@ const ManageDoctor = () => {
             contentHTML: contentHTML,
             contentMarkdown: contentMarkDown,
             description: description,
-            doctorId: selectedDoctor.value
+            doctorId: selectedDoctor.value,
+            action: hasOldData === true ? 'EDIT' : 'CREATE'
         })
 
         if (res.errCode === 0) {
@@ -40,8 +41,21 @@ const ManageDoctor = () => {
         console.log(selectedDoctor);
     }
 
-    const handleChange = (selectedDoctor) => {
+    const handleChangeSelect = async (selectedDoctor) => {
         setselectedDoctor(selectedDoctor)
+        let res = await getDetailInforDoctor(selectedDoctor.value)
+        if (res && res.errCode === 0 && res.data && res.data.Markdown) {
+            let markdown = res.data.Markdown
+            setContentHTML(markdown.contentHTML)
+            setContentMarkDown(markdown.contentMarkdown)
+            setDescription(markdown.description)
+            setHasOldData(true)
+        } else {
+            setContentHTML('')
+            setContentMarkDown('')
+            setDescription('')
+            setHasOldData(false)
+        }
     };
 
     const handleOnChangeDescription = (event) => {
@@ -88,7 +102,7 @@ const ManageDoctor = () => {
                     <Select
                         className='select'
                         value={selectedDoctor}
-                        onChange={handleChange}
+                        onChange={handleChangeSelect}
                         options={allDoctors}
                     />
                 </div>
@@ -111,15 +125,16 @@ const ManageDoctor = () => {
                     style={{ height: '500px' }}
                     renderHTML={text => mdParser.render(text)}
                     onChange={handleEditorChange}
+                    value={contentMarkDown}
                 />
             </div>
 
             <div className='btnSave'>
                 <button
-                    className='btn btn-primary '
+                    className={hasOldData === true ? 'btn btn-warning' : 'btn btn-primary'}
                     onClick={() => handleSaveContentMarkDown()}
                 >
-                    Save
+                    {hasOldData === true ? 'Update' : 'Save'}
                 </button>
             </div>
         </div>
