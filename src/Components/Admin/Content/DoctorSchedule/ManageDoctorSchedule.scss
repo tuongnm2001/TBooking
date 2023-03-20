@@ -1,0 +1,47 @@
+.manage-schedule-container {
+    .m-s-title {
+        font-size    : 20px;
+        text-align   : center;
+        margin-top   : 15px;
+        font-weight  : 600;
+    }
+
+    .pick-hour-container {
+        padding-top     : 20px;
+        padding-bottom  : 20px;
+        display         : flex;
+        flex-wrap       : wrap;
+        gap             : 20px;
+        padding         : 27px;
+        width           : 70%;
+
+        button {
+            border   : 1px solid grey;
+            padding  : 5px 15px;
+            height   : 35px;
+            width    : 160px;
+        }
+    }
+
+    .text-chooseDoctor {
+        margin-bottom  : 10px;
+        margin-left    : 18px;
+    }
+
+    .text-chooseDate {
+        margin-bottom  : 10px;
+    }
+
+    .btnSave {
+        margin-left  : 15px;
+        width        : 80px;
+    }
+
+    .select {
+        margin-left  : 18px;
+    }
+
+    .content {
+        display  : flex;
+    }
+}

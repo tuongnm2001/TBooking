@@ -1,3 +1,9 @@
+.nav-link {
+    &.active {
+        color  : #1977cc !important;
+    }
+}
+
 .sidebar-header {
     text-align  : center;
 }

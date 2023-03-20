@@ -10,9 +10,8 @@ import {
 } from 'react-pro-sidebar';
 import './SideBar.scss'
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
-import { ImTumblr2 } from 'react-icons/im';
 import sidebarBg from '../../assets/img/imgSideBar.avif';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/img/logoSideBar.png'
 
 
@@ -57,8 +56,8 @@ const SideBar = (props) => {
                         <MenuItem
                             icon={<FaTachometerAlt />}
                         >
-                            Dashboard
-                            <Link to='/admin' />
+
+                            <NavLink to='/admin' > Dashboard</NavLink>
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
@@ -67,13 +66,12 @@ const SideBar = (props) => {
                             title='Manage'
                         >
                             <MenuItem>
-                                Manage User
-                                <Link to='/admin/manage-user' />
+                                <NavLink to='/admin/manage-user' className='nav-link'>Manage User</NavLink>
                             </MenuItem>
 
                             <MenuItem>
-                                Manage Schedule
-                                <Link to='/admin/manage-schedule' />
+
+                                <NavLink to='/admin/manage-schedule' className='nav-link'>Manage Schedule</NavLink>
                             </MenuItem>
 
                             <MenuItem> 3</MenuItem>
