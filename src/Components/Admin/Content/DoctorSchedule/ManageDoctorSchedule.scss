@@ -7,21 +7,26 @@
     }
 
     .pick-hour-container {
-        padding-top     : 20px;
-        padding-bottom  : 20px;
-        display         : flex;
-        flex-wrap       : wrap;
-        gap             : 20px;
-        padding         : 27px;
-        width           : 70%;
+        display    : flex;
+        flex-wrap  : wrap;
+        gap        : 20px;
+        padding    : 25px 30px;
+        width      : 80%;
 
-        button {
+        .btn-schedule {
             border   : 1px solid grey;
             padding  : 5px 15px;
             height   : 35px;
             width    : 160px;
+
+            &.active {
+                background-color  : rgb(108, 108, 252) !important;
+            }
         }
+
     }
+
+
 
     .text-chooseDoctor {
         margin-bottom  : 10px;
@@ -33,7 +38,7 @@
     }
 
     .btnSave {
-        margin-left  : 15px;
+        margin-left  : 18px;
         width        : 80px;
     }
 

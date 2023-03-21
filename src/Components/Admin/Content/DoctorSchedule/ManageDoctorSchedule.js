@@ -4,6 +4,10 @@ import { fetchAllCode, getAllDoctors, getDetailInforDoctor } from '../../../../s
 import { useEffect, useState } from 'react';
 import MarkdownIt from 'markdown-it';
 import DatePicker from './DatePicker'
+import { NavLink } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import _, { result } from 'lodash'
+import moment from 'moment'
 
 const ManageDoctorSchedule = () => {
 
@@ -45,7 +49,13 @@ const ManageDoctorSchedule = () => {
     const fetchAllCodeService = async () => {
         let res = await fetchAllCode('TIME')
         if (res.errCode === 0) {
-            setRangTime(res.data)
+            let data = res.data
+            if (data && data.length > 0) {
+                data = data.map(item => ({
+                    ...item, isSelected: false
+                }))
+            }
+            setRangTime(data)
         }
     }
 
@@ -74,10 +84,58 @@ const ManageDoctorSchedule = () => {
     }
 
     const handleOnChangeDatePicker = (date) => {
-        setCurrentDate(date[0])
+        setCurrentDate(date)
     }
 
-    console.log(currentDate);
+    const handleClickBtnTime = (time) => {
+        {
+            if (rangeTime && rangeTime.length > 0) {
+
+                rangeTime.map(item => {
+                    if (item.id === time.id) {
+                        item.isSelected = !item.isSelected;
+                        return item;
+                    }
+                })
+            }
+            // setRangTime(rangeTime)
+            // console.log('after', rangeTime)
+        }
+    }
+
+    const handleSaveSchedule = () => {
+
+        let result = []
+
+        if (!selectedDoctor && _.isEmpty(selectedDoctor)) {
+            toast.error('Invalid Selected Doctor!')
+            return;
+        }
+
+        if (!currentDate) {
+            toast.error('Invalid date!')
+            return;
+        }
+
+        let formatedDate = moment(currentDate).format('DD/MM/YYYY')
+
+        let selectedTime = rangeTime.filter(item => item.isSelected === true)
+
+        if (selectedTime && selectedTime.length > 0) {
+            selectedTime.map((item, index) => {
+                let object = {}
+                object.doctorId = selectedDoctor.value
+                object.date = formatedDate
+                object.time = item.keyMap
+                result.push(object)
+            })
+        } else {
+            toast.error('Invalid Selected Time!')
+            return;
+        }
+        console.log(result);
+    }
+
 
     return (
         <div className='manage-schedule-container'>
@@ -102,6 +160,7 @@ const ManageDoctorSchedule = () => {
                             value={currentDate}
                             onChange={(date) => handleOnChangeDatePicker(date)}
                             minDate={new Date()}
+                            dateFormat="dd/MM/yyyy"
                         />
                     </div>
 
@@ -112,7 +171,8 @@ const ManageDoctorSchedule = () => {
                                 return (
                                     <button
                                         key={`time-${index}`}
-                                        className='btn btn-schedule'
+                                        className={item.isSelected === true ? 'btn btn-schedule active' : 'btn btn-schedule'}
+                                        onClick={() => handleClickBtnTime(item)}
                                     >
                                         {item.valueVi}
                                     </button>
@@ -122,7 +182,12 @@ const ManageDoctorSchedule = () => {
                     </div>
 
                     <div className='col-12'>
-                        <button className='btn btn-primary btnSave'>Save</button>
+                        <button
+                            className='btn btn-primary btnSave'
+                            onClick={() => handleSaveSchedule()}
+                        >
+                            Save
+                        </button>
                     </div>
                 </div>
             </div>
