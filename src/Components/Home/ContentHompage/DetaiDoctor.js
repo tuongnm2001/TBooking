@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getDetailInforDoctor } from "../../../service/userService";
+import DoctorSchedule from "../../Admin/Content/DoctorSchedule/DoctorSchedule";
 import Header from "../../Header/Header";
 import './DetailDoctor.scss'
 
@@ -60,7 +61,13 @@ const DetailDoctor = (props) => {
                 </div>
 
                 <div className="schedule-doctor">
+                    <div className="content-left">
+                        <DoctorSchedule />
+                    </div>
 
+                    <div className="content-right">
+
+                    </div>
                 </div>
 
                 <div className="detail-doctor">
