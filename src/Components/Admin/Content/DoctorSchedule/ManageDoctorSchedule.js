@@ -1,6 +1,6 @@
 import './ManageDoctorSchedule.scss'
 import Select from 'react-select';
-import { fetchAllCode, getAllDoctors, getDetailInforDoctor } from '../../../../service/userService';
+import { fetchAllCode, getAllDoctors, getDetailInforDoctor, saveBulkScheduleDoctor } from '../../../../service/userService';
 import { useEffect, useState } from 'react';
 import MarkdownIt from 'markdown-it';
 import DatePicker from './DatePicker'
@@ -11,32 +11,11 @@ import moment from 'moment'
 
 const ManageDoctorSchedule = () => {
 
-    const [contentMarkDown, setContentMarkDown] = useState('')
-    const [contentHTML, setContentHTML] = useState('')
-    const mdParser = new MarkdownIt(/* Markdown-it options */);
     const [selectedDoctor, setselectedDoctor] = useState(null)
-    const [description, setDescription] = useState('')
     const [allDoctors, setAllDoctors] = useState({})
     const [hasOldData, setHasOldData] = useState(false)
     const [currentDate, setCurrentDate] = useState('');
     const [rangeTime, setRangTime] = useState({})
-
-    const handleChangeSelect = async (selectedDoctor) => {
-        setselectedDoctor(selectedDoctor)
-        let res = await getDetailInforDoctor(selectedDoctor.value)
-        if (res && res.errCode === 0 && res.data && res.data.Markdown) {
-            let markdown = res.data.Markdown
-            setContentHTML(markdown.contentHTML)
-            setContentMarkDown(markdown.contentMarkdown)
-            setDescription(markdown.description)
-            setHasOldData(true)
-        } else {
-            setContentHTML('')
-            setContentMarkDown('')
-            setDescription('')
-            setHasOldData(false)
-        }
-    };
 
     useEffect(() => {
         handleGetAllDoctors()
@@ -45,6 +24,14 @@ const ManageDoctorSchedule = () => {
     useEffect(() => {
         fetchAllCodeService()
     }, [])
+
+    const handleChangeSelect = async (selectedDoctor) => {
+        let res = await getDetailInforDoctor(selectedDoctor.value)
+        if (res && res.errCode === 0 && res.data && res.data.Markdown) {
+            setselectedDoctor(selectedDoctor)
+        }
+    };
+
 
     const fetchAllCodeService = async () => {
         let res = await fetchAllCode('TIME')
@@ -58,6 +45,8 @@ const ManageDoctorSchedule = () => {
             setRangTime(data)
         }
     }
+
+    // console.log('rangeTime23 : ', rangeTime);
 
     const handleGetAllDoctors = async () => {
         let res = await getAllDoctors();
@@ -88,22 +77,21 @@ const ManageDoctorSchedule = () => {
     }
 
     const handleClickBtnTime = (time) => {
-        {
-            if (rangeTime && rangeTime.length > 0) {
+        console.log('check time : ', time);
 
-                rangeTime.map(item => {
-                    if (item.id === time.id) {
-                        item.isSelected = !item.isSelected;
-                        return item;
-                    }
-                })
-            }
-            // setRangTime(rangeTime)
-            // console.log('after', rangeTime)
+        if (rangeTime && rangeTime.length > 0) {
+            rangeTime.map(item => {
+                if (item.id === time.id) {
+                    item.isSelected = !item.isSelected;
+                    return item;
+                }
+            })
+            setRangTime(rangeTime)
         }
+
     }
 
-    const handleSaveSchedule = () => {
+    const handleSaveSchedule = async () => {
 
         let result = []
 
@@ -117,7 +105,8 @@ const ManageDoctorSchedule = () => {
             return;
         }
 
-        let formatedDate = moment(currentDate).format('DD/MM/YYYY')
+        // let formatedDate = moment(currentDate).format('DD/MM/YYYY')
+        let formatedDate = new Date(currentDate).getTime();
 
         let selectedTime = rangeTime.filter(item => item.isSelected === true)
 
@@ -126,15 +115,24 @@ const ManageDoctorSchedule = () => {
                 let object = {}
                 object.doctorId = selectedDoctor.value
                 object.date = formatedDate
-                object.time = item.keyMap
+                object.timeType = item.keyMap
                 result.push(object)
             })
         } else {
             toast.error('Invalid Selected Time!')
             return;
         }
-        console.log(result);
+
+        console.log('check result : ', result);
+
+        let res = await saveBulkScheduleDoctor({
+            arrSchedule: result,
+            doctorId: selectedDoctor.value,
+            formatedDate: '' + formatedDate
+        })
+        console.log('checkkk : ', res);
     }
+
 
 
     return (
@@ -171,8 +169,8 @@ const ManageDoctorSchedule = () => {
                                 return (
                                     <button
                                         key={`time-${index}`}
-                                        className={item.isSelected === true ? 'btn btn-schedule active' : 'btn btn-schedule'}
                                         onClick={() => handleClickBtnTime(item)}
+                                        className={item.isSelected === true ? "btn btn-schedule active" : "btn btn-schedule"}
                                     >
                                         {item.valueVi}
                                     </button>
