@@ -3,22 +3,26 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import { handleDeleteUser } from '../../../../service/userService';
+import './ModalAddNewUser.scss'
 
 const ModalDeleteUser = (props) => {
 
     const { show, setShow, dataDelUser, getAllUser } = props
+    const [loadingApi, setLoadingApi] = useState(false)
 
     const handleClose = () => {
         setShow(false)
     }
 
     const handleSubmitDeleteUser = async () => {
+        setLoadingApi(true)
         let data = await handleDeleteUser(dataDelUser.id)
         if (data.errCode === 0) {
-            toast.success(data.errMessage)
             getAllUser()
             handleClose()
         }
+        setLoadingApi(false)
+        toast.success(data.errMessage)
     }
 
     return (
@@ -35,8 +39,11 @@ const ModalDeleteUser = (props) => {
                 <Button variant="secondary" onClick={handleClose}>
                     <i className="fa-solid fa-xmark"></i> Close
                 </Button>
-                <Button variant="danger" onClick={() => handleSubmitDeleteUser()}>
-                    Delete
+                <Button disabled={loadingApi} variant="danger" onClick={() => handleSubmitDeleteUser()}>
+                    {
+                        loadingApi &&
+                        <i disabled={loadingApi} className="fa-solid fa-circle-notch fa-spin"></i>
+                    } Delete
                 </Button>
             </Modal.Footer>
         </Modal>

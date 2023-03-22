@@ -19,6 +19,7 @@ import 'react-awesome-lightbox/build/style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import ManageDoctorSchedule from './Components/Admin/Content/DoctorSchedule/ManageDoctorSchedule';
+import 'nprogress/nprogress.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

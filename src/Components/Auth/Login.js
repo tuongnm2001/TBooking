@@ -18,17 +18,15 @@ const Login = () => {
 
     const handleSubmitLogin = async () => {
         setLoadingApi(true)
-        setTimeout(async () => {
-            let res = await handleLogin(email.trim(), password)
-            if (res && res.errCode === 0) {
-                toast.success('Login success!')
-                navigate('/')
-            } else if (res.errCode === 3) {
-                toast.error(res.massage)
-            } else {
-                toast(res.massage)
-            }
-        }, 1500);
+        let res = await handleLogin(email.trim(), password)
+        if (res && res.errCode === 0) {
+            toast.success('Login success!')
+            navigate('/')
+        } else if (res.errCode === 3) {
+            toast.error(res.massage)
+        } else {
+            toast(res.massage)
+        }
         setLoadingApi(false)
     }
 
@@ -39,7 +37,7 @@ const Login = () => {
 
     return (
         <>
-            <div className='circle-home' onClick={() => handleGoBack()}>
+            <div title='Go back Home' className='circle-home' onClick={() => handleGoBack()}>
                 <span className='home-login'><FaHome /></span>
             </div>
 
@@ -91,15 +89,15 @@ const Login = () => {
                     <button
                         onClick={() => handleSubmitLogin()}
                         className={email && password ? 'btn-login active' : 'btn-login'}
-                        disabled={email && password ? false : true}
+                        disabled={email && password && loadingApi === false ? false : true}
                     >
-                        {
-                            loadingApi &&
-                            <i className="fa-solid fa-circle-notch fa-spin"></i>
-                        }
                         LOGIN
-
                     </button>
+                    {
+                        loadingApi &&
+                        <i disabled={loadingApi === false} className="fa-solid fa-circle-notch fa-spin spiner"></i>
+                    }
+
                 </div>
 
             </div>

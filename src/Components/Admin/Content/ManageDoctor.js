@@ -16,6 +16,7 @@ const ManageDoctor = () => {
     const [description, setDescription] = useState('')
     const [allDoctors, setAllDoctors] = useState({})
     const [hasOldData, setHasOldData] = useState(false)
+    const [loadingApi, setLoadingApi] = useState(false)
 
     const handleEditorChange = ({ html, text }) => {
         setContentMarkDown(text)
@@ -24,6 +25,7 @@ const ManageDoctor = () => {
     }
 
     const handleSaveContentMarkDown = async () => {
+        setLoadingApi(true)
         let res = await saveDetailDoctor({
             contentHTML: contentHTML,
             contentMarkdown: contentMarkDown,
@@ -33,6 +35,7 @@ const ManageDoctor = () => {
         })
 
         if (res.errCode === 0) {
+            setLoadingApi(false)
             toast.success(res.errMessage)
         } else {
             toast.success(res.errMessage)
@@ -133,8 +136,12 @@ const ManageDoctor = () => {
                 <button
                     className={hasOldData === true ? 'btn btn-warning' : 'btn btn-primary'}
                     onClick={() => handleSaveContentMarkDown()}
+                    disabled={loadingApi}
                 >
-                    {hasOldData === true ? 'Update' : 'Save'}
+                    {
+                        loadingApi &&
+                        <i disabled={loadingApi} className="fa-solid fa-circle-notch fa-spin"></i>
+                    } {hasOldData === true ? 'Update' : 'Save'}
                 </button>
             </div>
         </div>

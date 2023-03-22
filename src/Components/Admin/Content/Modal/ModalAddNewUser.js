@@ -15,6 +15,7 @@ const ModalAddNewUser = (props) => {
 
     const { show, setShow, genders, positions, roles, getAllUser, dataUpdateUser } = props
 
+    const [loadingApi, setLoadingApi] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [firstName, setFirstName] = useState('')
@@ -43,6 +44,7 @@ const ModalAddNewUser = (props) => {
     }
 
     const handleSubmit = async () => {
+        setLoadingApi(true)
         let data = await postCreateNewUser({
             email: email,
             password: password,
@@ -56,7 +58,6 @@ const ModalAddNewUser = (props) => {
             avatar: avatar
         })
         if (data.errCode === 0) {
-            toast.success('Add new User success!')
             setEmail('')
             setPassword('')
             setFirstName('')
@@ -71,6 +72,9 @@ const ModalAddNewUser = (props) => {
             handleClose()
             getAllUser()
         }
+        setLoadingApi(false)
+        toast.success('Add new User success!')
+
     }
 
     return (
@@ -229,6 +233,8 @@ const ModalAddNewUser = (props) => {
                                     onClose={() => setZoomInImage(false)}
                                 />
                             }
+
+
                         </div>
                     </Row>
                 </Form>
@@ -238,8 +244,11 @@ const ModalAddNewUser = (props) => {
                 <Button variant="secondary" onClick={handleClose}>
                     <i className="fa-solid fa-xmark"></i> Close
                 </Button>
-                <Button variant="primary" onClick={() => handleSubmit()}>
-                    Save Changes
+                <Button disabled={loadingApi} variant="primary" onClick={() => handleSubmit()}>
+                    {
+                        loadingApi &&
+                        <i disabled={loadingApi} className="fa-solid fa-circle-notch fa-spin"></i>
+                    } Save
                 </Button>
             </Modal.Footer>
         </Modal>

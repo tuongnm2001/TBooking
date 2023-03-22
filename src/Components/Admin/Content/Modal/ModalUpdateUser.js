@@ -28,6 +28,7 @@ const ModalUpdateUser = (props) => {
     const [avatar, setAvatar] = useState('')
     const [previewImage, setPreviewImage] = useState('')
     const [zoomInImage, setZoomInImage] = useState(false)
+    const [loadingApi, setLoadingApi] = useState(false)
 
 
     let imageBase64 = ''
@@ -64,14 +65,16 @@ const ModalUpdateUser = (props) => {
     }
 
     const handleSubmitUpdate = async () => {
+        setLoadingApi(true)
         let res = await handleUpdateUser({
             id, email, password, firstName, lastName, address,
             role, position, gender, phoneNumber, avatar
         })
         if (res && res.errCode === 0) {
-            toast.success(res.errMessage)
             handleClose()
             getAllUser()
+            setLoadingApi(false)
+            toast.success(res.errMessage)
         } else {
             toast.error(res.errMessage)
         }
@@ -243,8 +246,11 @@ const ModalUpdateUser = (props) => {
                 <Button variant="secondary" onClick={handleClose}>
                     <i className="fa-solid fa-xmark"></i> Close
                 </Button>
-                <Button variant="primary" onClick={() => handleSubmitUpdate()}>
-                    Save Changes
+                <Button disabled={loadingApi} variant="warning" onClick={() => handleSubmitUpdate()}>
+                    {
+                        loadingApi &&
+                        <i disabled={loadingApi} className="fa-solid fa-circle-notch fa-spin"></i>
+                    } Save Update
                 </Button>
             </Modal.Footer>
         </Modal>

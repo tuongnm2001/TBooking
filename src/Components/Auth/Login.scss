@@ -33,7 +33,7 @@
     border-radius  : 12px;
     background     : #ffffff;
     box-shadow     : rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    overflow       : hidden;
+    margin-top     : 40px;
 
     h1 {
         font-size      : 36px;
@@ -63,6 +63,12 @@
             border         : 1px solid #1618230f;
             border-radius  : 5px;
 
+            &:disabled {
+                background-color  : #dddddd !important;
+                color             : #afafaf !important;
+                cursor            : no-drop;
+            }
+
             &.active {
                 background-color  : #4f97de;
                 color             : white;
@@ -71,6 +77,13 @@
             &:hover {
                 opacity  : 0.9;
             }
+        }
+
+        .spiner {
+            margin-top    : -25px;
+            font-size     : 17px;
+            margin-right  : 204px;
+            color         : white;
         }
     }
 

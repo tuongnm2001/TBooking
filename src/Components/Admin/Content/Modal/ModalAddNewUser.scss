@@ -64,4 +64,12 @@
             object-fit  : cover;
         }
     }
+
+    .spinerSave {
+        &:disabled {
+            background-color  : #dddddd !important;
+            color             : #afafaf !important;
+            cursor            : no-drop;
+        }
+    }
 }
