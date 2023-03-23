@@ -16,6 +16,8 @@ const ManageDoctorSchedule = () => {
     const [hasOldData, setHasOldData] = useState(false)
     const [currentDate, setCurrentDate] = useState('');
     const [rangeTime, setRangTime] = useState({})
+    let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+
 
     useEffect(() => {
         handleGetAllDoctors()
@@ -130,10 +132,12 @@ const ManageDoctorSchedule = () => {
             doctorId: selectedDoctor.value,
             formatedDate: '' + formatedDate
         })
-        console.log('checkkk : ', res);
+        if (res && res.errCode === 0) {
+            toast.success('Save infor Success')
+        } else {
+            toast.error('Save infor faild')
+        }
     }
-
-
 
     return (
         <div className='manage-schedule-container'>
@@ -157,7 +161,7 @@ const ManageDoctorSchedule = () => {
                             selected={currentDate}
                             value={currentDate}
                             onChange={(date) => handleOnChangeDatePicker(date)}
-                            minDate={new Date()}
+                            minDate={yesterday}
                             dateFormat="dd/MM/yyyy"
                         />
                     </div>

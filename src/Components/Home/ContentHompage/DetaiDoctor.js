@@ -8,6 +8,7 @@ import './DetailDoctor.scss'
 const DetailDoctor = (props) => {
 
     const [detailDoctors, setDetailDoctors] = useState({})
+    const [currentDoctorId, setCurrentDoctorId] = useState(-1)
 
     let params = useParams();
 
@@ -21,6 +22,7 @@ const DetailDoctor = (props) => {
         let res = await getDetailInforDoctor(id)
         if (res.errCode === 0) {
             setDetailDoctors(res.data)
+            setCurrentDoctorId(id)
         }
     }
 
@@ -62,7 +64,9 @@ const DetailDoctor = (props) => {
 
                 <div className="schedule-doctor">
                     <div className="content-left">
-                        <DoctorSchedule />
+                        <DoctorSchedule
+                            currentDoctorId={currentDoctorId}
+                        />
                     </div>
 
                     <div className="content-right">

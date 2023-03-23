@@ -29,23 +29,33 @@
         }
 
         .time-content {
+            .time-content-btns {
 
-            display    : flex;
-            gap        : 15px;
-            flex-wrap  : wrap;
+                display    : flex;
+                gap        : 15px;
+                flex-wrap  : wrap;
 
-            .btn-time {
-                padding           : 5px 15px;
-                height            : 35px;
-                width             : 160px;
-                background-color  : #fff04b;
-                font-weight       : 500;
 
-                &:hover {
-                    color             : white;
-                    background-color  : #45c3d2;
+                .btn-time {
+                    padding           : 5px 15px;
+                    height            : 35px;
+                    width             : 160px;
+                    background-color  : #fff04b;
+                    font-weight       : 500;
+                    outline           : none;
+
+                    &:hover {
+                        color             : white;
+                        background-color  : #45c3d2;
+                    }
                 }
+
             }
+
+            .book-free {
+                margin-top  : 10px;
+            }
+
 
             .text-noSchedule {
                 color       : red;

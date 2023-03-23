@@ -4,14 +4,18 @@ import moment from 'moment/moment';
 import localization from 'moment/locale/vi'
 import { getScheduleByDate } from '../../../../service/userService';
 import { useParams } from "react-router-dom";
+import { FaRegHandPointUp } from 'react-icons/fa';
 
-const DoctorSchedule = () => {
+
+const DoctorSchedule = (props) => {
 
     const [allDays, setAllDays] = useState([])
     const [allAvailabelTime, setAllAvailabelTime] = useState({})
 
-    let params = useParams();
+    const { currentDoctorId } = props
 
+    let params = useParams();
+    let id = params.id
 
     useEffect(() => {
         getArrDay()
@@ -30,10 +34,8 @@ const DoctorSchedule = () => {
             object.value = moment(new Date()).add(i, 'days').startOf('day').valueOf();
             arrDays.push(object)
         }
-
         setAllDays(arrDays)
     }
-
 
     const handleOnchangeSelect = async (event) => {
         let doctorId = params.id
@@ -43,6 +45,20 @@ const DoctorSchedule = () => {
             setAllAvailabelTime(res.data)
         }
     }
+
+    useEffect(() => {
+        fetchScheduleFirstDay()
+    }, [allDays])
+
+    const fetchScheduleFirstDay = async () => {
+        let doctorId = params.id
+        let res = await getScheduleByDate(doctorId, allDays[0].value)
+        if (res && res.errCode === 0) {
+            setAllAvailabelTime(res.data)
+        }
+
+    }
+
 
     return (
         <div className='doctor-schedule-container'>
@@ -73,22 +89,32 @@ const DoctorSchedule = () => {
                 <div className='time-content'>
                     {
                         allAvailabelTime && allAvailabelTime.length > 0 ?
-                            allAvailabelTime.map((item, index) => {
-                                return (
-                                    <button
-                                        key={`time-${index}`}
-                                        className='btn btn-time'
-                                    >
-                                        {item.timeTypeData.valueVi}
-                                    </button>
-                                )
-                            })
+                            <>
+                                <div className='time-content-btns'>
+                                    {
+
+                                        allAvailabelTime.map((item, index) => {
+                                            return (
+                                                <button
+                                                    key={`time-${index}`}
+                                                    className='btn btn-time'
+                                                >
+                                                    {item.timeTypeData.valueVi}
+                                                </button>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                <div className='book-free'>
+                                    <span>Chọn</span> <FaRegHandPointUp /> <span>và đặt (miễn phí)</span>
+                                </div>
+                            </>
                             :
                             <div className='text-noSchedule'>Không lịch hẹn trong thời gian này , vui lòng chọn thời gian khác !</div>
                     }
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
