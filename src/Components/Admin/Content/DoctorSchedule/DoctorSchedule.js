@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 const DoctorSchedule = () => {
 
     const [allDays, setAllDays] = useState([])
+    const [allAvailabelTime, setAllAvailabelTime] = useState({})
+
     let params = useParams();
 
 
@@ -15,26 +17,31 @@ const DoctorSchedule = () => {
         getArrDay()
     }, [])
 
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     const getArrDay = async () => {
         let arrDays = []
         for (let i = 0; i < 7; i++) {
             let object = {}
-            object.label = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+            let labelVi = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+            object.label = capitalizeFirstLetter(labelVi)
             object.value = moment(new Date()).add(i, 'days').startOf('day').valueOf();
             arrDays.push(object)
         }
 
-
         setAllDays(arrDays)
     }
 
-    console.log(allDays);
 
     const handleOnchangeSelect = async (event) => {
         let doctorId = params.id
         let date = event.target.value
         let res = await getScheduleByDate(doctorId, date)
-        console.log('check : ', res);
+        if (res && res.errCode === 0) {
+            setAllAvailabelTime(res.data)
+        }
     }
 
     return (
@@ -58,7 +65,28 @@ const DoctorSchedule = () => {
             </div>
 
             <div className='all-available-time'>
+                <div className='text-canlendar'>
+                    <i className='fa-solid fa-calendar-days'></i>
+                    <span>Lịch khám</span>
+                </div>
 
+                <div className='time-content'>
+                    {
+                        allAvailabelTime && allAvailabelTime.length > 0 ?
+                            allAvailabelTime.map((item, index) => {
+                                return (
+                                    <button
+                                        key={`time-${index}`}
+                                        className='btn btn-time'
+                                    >
+                                        {item.timeTypeData.valueVi}
+                                    </button>
+                                )
+                            })
+                            :
+                            <div className='text-noSchedule'>Không lịch hẹn trong thời gian này , vui lòng chọn thời gian khác !</div>
+                    }
+                </div>
             </div>
         </div>
     );
