@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { fetchAllCode, getAllDoctors, getDetailInforDoctor, saveDetailDoctor } from '../../../service/userService';
 import { toast } from 'react-toastify';
-import Form from 'react-bootstrap/Form';
 
 const ManageDoctor = () => {
 
@@ -18,17 +17,17 @@ const ManageDoctor = () => {
     const [hasOldData, setHasOldData] = useState(false)
 
     const [allDoctors, setAllDoctors] = useState({})
-    const [selectedDoctor, setSelectedDoctor] = useState(null)
+    const [selectedDoctor, setSelectedDoctor] = useState('')
 
     //doctor infor table
     const [listPrice, setListPrice] = useState({})
-    const [selectedPrice, setSelectedPrice] = useState(null)
+    const [selectedPrice, setSelectedPrice] = useState('')
 
     const [listPayment, setListPayment] = useState({})
-    const [selectedPayment, setSelectedPayment] = useState(null)
+    const [selectedPayment, setSelectedPayment] = useState('')
 
     const [listProvince, setListProvince] = useState({})
-    const [selectedProvince, setSelectedProvince] = useState(null)
+    const [selectedProvince, setSelectedProvince] = useState('')
 
     const [nameClinic, setNameClinic] = useState('')
     const [addressClinic, setAddressClinic] = useState('')
@@ -47,17 +46,24 @@ const ManageDoctor = () => {
             contentMarkdown: contentMarkDown,
             description: description,
             doctorId: selectedDoctor.value,
-            action: hasOldData === true ? 'EDIT' : 'CREATE'
+            action: hasOldData === true ? 'EDIT' : 'CREATE',
+
+            selectedPrice: selectedPrice.value,
+            selectedPayment: selectedPayment.value,
+            selectedProvince: selectedProvince.value,
+            nameClinic: nameClinic,
+            addressClinic: addressClinic,
+            note: note,
+
         })
 
         if (res.errCode === 0) {
             setLoadingApi(false)
             toast.success(res.errMessage)
         } else {
-            toast.success(res.errMessage)
+            toast.error(res.errMessage)
+            setLoadingApi(false)
         }
-
-        console.log(selectedDoctor);
     }
 
     const handleChangeSelect = async (selectedDoctor) => {
@@ -75,11 +81,26 @@ const ManageDoctor = () => {
             setDescription('')
             setHasOldData(false)
         }
+        console.log(res);
     };
 
-    const handleOnChangeDescription = (event) => {
-        setDescription(event.target.value)
+    const handleChangeSelectPrice = async (selectedOption) => {
+        let selectedPrice = selectedOption
+        setSelectedPrice(selectedPrice)
     }
+
+    const handleChangeSelectPayment = async (selectedOption) => {
+        let selectedPayment = selectedOption
+        setSelectedPayment(selectedPayment)
+    }
+
+    const handleChangeSelectProvince = async (selectedOption) => {
+        let selectedProvince = selectedOption
+        setSelectedProvince(selectedProvince)
+    }
+
+    console.log(selectedPrice, selectedPayment
+        , selectedProvince);
 
     useEffect(() => {
         handleGetAllDoctors()
@@ -93,23 +114,6 @@ const ManageDoctor = () => {
         }
     }
 
-    // const getRequiredDoctorInfor = async () => {
-    //     let resPrice = await fetchAllCode('PRICE');
-    //     let resPayment = await fetchAllCode('PAYMENT');
-    //     let resProvince = await fetchAllCode('PROVINCE');
-
-    //     if (resPrice && resPrice.errCode === 0 &&
-    //         resPayment && resPayment.errCode === 0 &&
-    //         resProvince && resProvince.errCode === 0 &&
-    //     ) {
-    //         let data = {
-    //             resPrice: resPrice.data,
-    //             resPayment: resPayment.data,
-    //             resProvince: resProvince.data
-    //         }
-    //     }
-    // }
-
     useEffect(() => {
         fetAllCodePrice()
         fetAllCodePayment()
@@ -119,22 +123,40 @@ const ManageDoctor = () => {
     const fetAllCodePrice = async () => {
         let res = await fetchAllCode('PRICE')
         if (res.errCode === 0) {
-            setListPrice(res.data)
+            let dataSelectPrice = buidDataSelectInforDoctor(res.data, 'PRICE')
+            setListPrice(dataSelectPrice)
         }
     }
 
     const fetAllCodePayment = async () => {
         let res = await fetchAllCode('PAYMENT')
         if (res.errCode === 0) {
-            setListPayment(res.data)
+            let dataSelectPayment = buidDataSelectInforDoctor(res.data, 'PAYMENT')
+            setListPayment(dataSelectPayment)
         }
     }
 
     const fetAllCodeProvince = async () => {
         let res = await fetchAllCode('PROVINCE')
         if (res.errCode === 0) {
-            setListProvince(res.data)
+            let dataSelectProvince = buidDataSelectInforDoctor(res.data, 'PROVINCE')
+            setListProvince(dataSelectProvince)
         }
+    }
+
+    const buidDataSelectInforDoctor = (inputData, type) => {
+        let result = [];
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let obj = {};
+                let labelVi = `${item.valueVi}`
+
+                obj.label = labelVi
+                obj.value = item.keyMap
+                result.push(obj)
+            })
+        }
+        return result;
     }
 
     const buidDataSelect = (inputData) => {
@@ -151,6 +173,7 @@ const ManageDoctor = () => {
         }
         return result;
     }
+
 
     return (
         <div className='manage-doctor-container'>
@@ -177,83 +200,74 @@ const ManageDoctor = () => {
                         className='form-control infor'
                         rows={4}
                         value={description}
-                        onChange={(event) => handleOnChangeDescription(event)}
-                    >
-                        a
-                    </textarea>
+                        onChange={(event) => setDescription(event.target.value)}
+                    />
                 </div>
             </div>
 
             <div className='more-infor-extra row'>
                 <div className='col-4 form-group'>
-                    {/* <label>Chọn giá</label>
+                    <label>Chọn giá</label>
                     <Select
                         placeholder='Chọn giá'
-                        className='select'
-                        // value={selectedDoctor}
-                        // onChange={handleChangeSelect}
                         options={listPrice}
-                    /> */}
-                    <Form.Label>Chọn giá</Form.Label>
-                    <Form.Select >
-                        {
-                            listPrice && listPrice.length > 0 &&
-                            listPrice.map((item, index) => {
-                                return (
-                                    <option key={`gender-${index}`} value={item.keyMap} >
-                                        {item.valueVi}
-                                    </option>
-                                )
-                            })
-                        }
-                    </Form.Select>
+                        className='select'
+                        onChange={handleChangeSelectPrice}
+                        value={selectedPrice}
+                        name='selectedPrice'
+                    />
                 </div>
 
                 <div className='col-4 form-group'>
-                    <Form.Label>Phương thức thanh toán</Form.Label>
-                    <Form.Select >
-                        {
-                            listPayment && listPayment.length > 0 &&
-                            listPayment.map((item, index) => {
-                                return (
-                                    <option key={`gender-${index}`} value={item.keyMap} >
-                                        {item.valueVi}
-                                    </option>
-                                )
-                            })
-                        }
-                    </Form.Select>
+                    <label>Phương thức thanh toán</label>
+                    <Select
+                        placeholder='Phương thức thanh toán'
+                        className='select'
+                        onChange={handleChangeSelectPayment}
+                        options={listPayment}
+                        value={selectedPayment}
+                        name='selectedPayment'
+                    />
                 </div>
 
                 <div className='col-4 form-group'>
-                    <Form.Label>Chọn tỉnh thành</Form.Label>
-                    <Form.Select >
-                        {
-                            listProvince && listProvince.length > 0 &&
-                            listProvince.map((item, index) => {
-                                return (
-                                    <option key={`gender-${index}`} value={item.keyMap} >
-                                        {item.valueVi}
-                                    </option>
-                                )
-                            })
-                        }
-                    </Form.Select>
+                    <label>Chọn tỉnh thành</label>
+                    <Select
+                        placeholder='Chọn tỉnh thành'
+                        className='select'
+                        onChange={handleChangeSelectProvince}
+                        options={listProvince}
+                        value={selectedProvince}
+                        name='selectedProvince'
+
+                    />
                 </div>
 
                 <div className='col-4 form-group'>
                     <label>Tên phòng khám</label>
-                    <input className='form-control' />
+                    <input
+                        className='form-control'
+                        value={nameClinic}
+                        onChange={(event) => setNameClinic(event.target.value)}
+                    />
                 </div>
 
                 <div className='col-4 form-group'>
                     <label>Địa chỉ phòng khám</label>
-                    <input className='form-control' />
+                    <input
+                        className='form-control'
+                        value={addressClinic}
+                        onChange={(event) => setAddressClinic(event.target.value)}
+                    />
                 </div>
 
                 <div className='col-4 form-group'>
                     <label>Lưu ý</label>
-                    <input className='form-control' />
+                    <input
+                        className='form-control'
+                        value={note}
+                        onChange={(event) => setNote(event.target.value)}
+                    />
                 </div>
             </div>
 
