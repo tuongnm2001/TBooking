@@ -71,15 +71,53 @@ const ManageDoctor = () => {
         let res = await getDetailInforDoctor(selectedDoctor.value)
         if (res && res.errCode === 0 && res.data && res.data.Markdown) {
             let markdown = res.data.Markdown
+
+            let nameClinic = '', addressClinic = '', paymentId = '',
+                priceId = '', provinceId = '', note = '', selectedPayment = '', selectedPrice = '',
+                selectedProvince = ''
+            if (res.data.Doctor_Infor) {
+                nameClinic = res.data.Doctor_Infor.nameClinic
+                addressClinic = res.data.Doctor_Infor.addressClinic
+                note = res.data.Doctor_Infor.note
+
+                paymentId = res.data.Doctor_Infor.paymentId
+                priceId = res.data.Doctor_Infor.priceId
+                provinceId = res.data.Doctor_Infor.provinceId
+
+                selectedPayment = listPayment.find(item => {
+                    return item && item.value === paymentId
+                })
+
+                selectedPrice = listPrice.find(item => {
+                    return item && item.value === priceId
+                })
+
+                selectedProvince = listProvince.find(item => {
+                    return item && item.value === provinceId
+                })
+            }
+
             setContentHTML(markdown.contentHTML)
             setContentMarkDown(markdown.contentMarkdown)
             setDescription(markdown.description)
             setHasOldData(true)
+            setNameClinic(nameClinic)
+            setAddressClinic(addressClinic)
+            setNote(note)
+            setSelectedPayment(selectedPayment)
+            setSelectedPrice(selectedPrice)
+            setSelectedProvince(selectedProvince)
         } else {
             setContentHTML('')
             setContentMarkDown('')
             setDescription('')
             setHasOldData(false)
+            setNameClinic('')
+            setAddressClinic('')
+            setNote('')
+            setSelectedPayment('')
+            setSelectedPrice('')
+            setSelectedProvince('')
         }
         console.log(res);
     };

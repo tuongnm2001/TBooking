@@ -4,6 +4,7 @@ import { getDetailInforDoctor } from "../../../service/userService";
 import DoctorSchedule from "../../Admin/Content/DoctorSchedule/DoctorSchedule";
 import Header from "../../Header/Header";
 import './DetailDoctor.scss'
+import DoctorExtraInfor from "./DoctorExtraInfor";
 
 const DetailDoctor = (props) => {
 
@@ -70,7 +71,7 @@ const DetailDoctor = (props) => {
                     </div>
 
                     <div className="content-right">
-
+                        <DoctorExtraInfor />
                     </div>
                 </div>
 
