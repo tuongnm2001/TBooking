@@ -1,28 +1,63 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getExtraInforDoctorById } from '../../../service/userService';
 import './DoctorExtraInfor.scss'
+import NumberFormat from 'react-number-format'
 
 const DoctorExtraInfor = () => {
 
-    const [isShowDetailInfor, setIsShowDetailInfor] = useState(true)
+    const [isShowDetailInfor, setIsShowDetailInfor] = useState(false)
+    const [dataExtraInfor, setDataExtraInfor] = useState('')
+
+    let params = useParams();
+    let id = params.id
 
     const handleShowHideInforDoctor = () => {
         setIsShowDetailInfor(!isShowDetailInfor)
     }
 
+    useEffect(() => {
+        getExtraInforDoctor()
+    }, [])
+
+    const getExtraInforDoctor = async () => {
+        let res = await getExtraInforDoctorById(id)
+        if (res && res.errCode === 0) {
+            setDataExtraInfor(res.data)
+        }
+    }
+
     return (
         <div className='doctor-extra-infor-container'>
             <div className='content-up'>
-                <div className='text-address'>Địa chỉ khám</div>
-                <div className='name-clinic'>Phòng khám chuyên khoa Da Liễu</div>
-                <div className='detail-address'>207 Phố Huế - Hai Bà Trưng - Hà Nội</div>
+                <div className='text-address'><i className="fas fa-map-marker-alt"></i>Địa chỉ khám</div>
+
+                <div className='name-clinic'>
+                    {dataExtraInfor && dataExtraInfor.nameClinic ? dataExtraInfor.nameClinic : ''}
+                </div>
+
+                <div className='detail-address'>
+                    {dataExtraInfor && dataExtraInfor.addressClinic ? dataExtraInfor.addressClinic : ''}
+                </div>
             </div>
 
             <div className='content-down'>
+
                 {
                     isShowDetailInfor === false &&
                     <div className='short-infor'>
-                        GIÁ KHÁM:250.000đ.
-                        <span onClick={() => handleShowHideInforDoctor()}>Xem chi tiết</span>
+                        <span className='price-shortInfor'>GIÁ KHÁM</span>: {dataExtraInfor && dataExtraInfor.priceTypeData && dataExtraInfor.priceTypeData.valueVi &&
+                            <NumberFormat
+                                value={dataExtraInfor.priceTypeData.valueVi}
+                                displayType={'text'}
+                                suffix={' VNĐ'}
+                                className='currency'
+                                thousandSeparator={'.'}
+                                decimalSeparator={','}
+                            />
+                        }
+
+                        <span className='detail' onClick={() => handleShowHideInforDoctor()}>Xem chi tiết</span>
                     </div>
                 }
 
@@ -33,11 +68,27 @@ const DoctorExtraInfor = () => {
                         <div className='detail-infor'>
                             <div className='price'>
                                 <span className='left'>Giá khám</span>
-                                <span className='right'>250.000đ</span>
+                                <span className='right'>
+                                    {dataExtraInfor && dataExtraInfor.priceTypeData && dataExtraInfor.priceTypeData.valueVi &&
+                                        <NumberFormat
+                                            value={dataExtraInfor.priceTypeData.valueVi}
+                                            displayType={'text'}
+                                            suffix={' VNĐ'}
+                                            className='currency'
+                                            thousandSeparator={'.'}
+                                            decimalSeparator={','}
+                                        />
+                                    }
+                                </span>
                             </div>
-                            <div className='note'>Giá khám Được ưu tiên</div>
+                            <div className='note'>
+                                {dataExtraInfor && dataExtraInfor.note ? dataExtraInfor.note : ''}
+                            </div>
                         </div>
-                        <div className='payment'>THanh toán hoặc quẹt thẻ</div>
+                        <div className='payment'>
+                            Người bệnh có thể thanh toán chi phí bằng hình thức :
+                            {dataExtraInfor && dataExtraInfor.paymentTypeData ? dataExtraInfor.paymentTypeData.valueVi : ''}
+                        </div>
                         <div className='hide-price'>
                             <span onClick={() => handleShowHideInforDoctor()}>Ẩn bảng giá</span>
                         </div>

@@ -8,7 +8,7 @@
         padding     : 70px;
 
         .content-left {
-            width  : 15%;
+
 
             img {
                 width          : 130px;
@@ -20,7 +20,7 @@
         }
 
         .content-right {
-            width           : 85%;
+            margin-left     : 20px;
             display         : flex;
             flex-direction  : column;
             padding-left    : 10px;
@@ -39,7 +39,6 @@
     .schedule-doctor {
         margin   : 0 77px;
         display  : flex;
-        height   : 205px;
 
         .content-left {
             width       : 50%;
@@ -54,7 +53,7 @@
     .detail-doctor {
         background-color  : #f9f9f9;
         padding           : 17px 78px;
-        margin-top        : 70px;
+        margin-top        : 12px;
 
         h3 {
             font-size  : 17px;

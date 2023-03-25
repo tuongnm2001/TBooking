@@ -283,7 +283,7 @@ const ManageDoctor = () => {
 
                 <div className='col-4 form-group'>
                     <label>Tên phòng khám</label>
-                    <input
+                    <textarea
                         className='form-control'
                         value={nameClinic}
                         onChange={(event) => setNameClinic(event.target.value)}
@@ -292,7 +292,7 @@ const ManageDoctor = () => {
 
                 <div className='col-4 form-group'>
                     <label>Địa chỉ phòng khám</label>
-                    <input
+                    <textarea
                         className='form-control'
                         value={addressClinic}
                         onChange={(event) => setAddressClinic(event.target.value)}
@@ -301,7 +301,7 @@ const ManageDoctor = () => {
 
                 <div className='col-4 form-group'>
                     <label>Lưu ý</label>
-                    <input
+                    <textarea
                         className='form-control'
                         value={note}
                         onChange={(event) => setNote(event.target.value)}
