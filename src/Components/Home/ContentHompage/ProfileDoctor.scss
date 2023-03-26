@@ -1,0 +1,42 @@
+.intro-doctor-profile {
+    display           : flex;
+    background-color  : #f6f6f6;
+    padding           : 20px;
+
+    .content-left {
+        img {
+            width          : 130px;
+            height         : 130px;
+            border-radius  : 50%;
+            margin         : 0 10px;
+            object-fit     : cover;
+        }
+    }
+
+    .content-right {
+        margin-top      : 20px;
+        margin-left     : 15px;
+        display         : flex;
+        flex-direction  : column;
+
+        .up {
+            font-size    : 20px;
+            font-weight  : 600;
+            color        : #337ab7;
+            width        : 100% !important;
+        }
+
+        .down {
+            text-align  : justify;
+        }
+    }
+}
+
+.priceBooking {
+    padding  : 10px 0;
+
+    .currency {
+        color        : rgb(240, 53, 53);
+        font-weight  : 600;
+    }
+}

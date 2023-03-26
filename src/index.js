@@ -3,23 +3,24 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import store from './redux/store';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import store from './redux/store';
 import Admin from './Components/Admin/Admin';
 import User from './Components/User/User';
 import HomePage from './Components/Home/HomePage';
 import Login from './Components/Auth/Login';
 import DetailDoctor from './Components/Home/ContentHompage/DetaiDoctor';
+import ManageDoctorSchedule from './Components/Admin/Content/DoctorSchedule/ManageDoctorSchedule';
+import ManageUser from './Components/Admin/Content/ManageUser';
+import NotFound from './Components/Home/ContentHompage/NotFound';
+import DashBoard from './Components/Admin/Content/DashBoard';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ManageUser from './Components/Admin/Content/ManageUser';
-import DashBoard from './Components/Admin/Content/DashBoard';
 import 'react-awesome-lightbox/build/style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-perfect-scrollbar/dist/css/styles.css';
-import ManageDoctorSchedule from './Components/Admin/Content/DoctorSchedule/ManageDoctorSchedule';
 import 'nprogress/nprogress.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -39,6 +40,7 @@ root.render(
 
         <Route path='/login' element={<Login />} />
         <Route path='/detai-doctor/:id' element={<DetailDoctor />} />
+        <Route path='*' element={<NotFound />} />
 
       </Routes>
 
