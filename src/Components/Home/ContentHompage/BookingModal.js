@@ -11,6 +11,8 @@ import DatePicker from '../../Admin/Content/DoctorSchedule/DatePicker';
 import { fetchAllCode, postPatientBookingAppointment } from '../../../service/userService';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
+import _ from 'lodash'
+import moment from 'moment';
 
 const BookingModal = (props) => {
 
@@ -66,10 +68,35 @@ const BookingModal = (props) => {
         setSelectedGender(selectedOption)
     }
 
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    const buidTimeBooking = (dataSchedule) => {
+        if (dataSchedule && !_.isEmpty(dataSchedule)) {
+
+            let date = moment.unix(+dataSchedule.date / 1000).format('dddd - DD/MM/YYYY')
+            let capitalizeFirstLetterTime = capitalizeFirstLetter(date)
+            let time = dataSchedule.timeTypeData.valueVi
+
+            return `${time} -  ${date}`
+        }
+        return ``
+    }
+
+    const buidDoctorName = (dataSchedule) => {
+        if (dataSchedule && !_.isEmpty(dataSchedule)) {
+            let name = `${dataSchedule.doctorData.lastName} ${dataSchedule.doctorData.firstName}`
+            return name
+        }
+        return ``
+    }
     const handleConfirmBooking = async () => {
         let timeType = dataSchedule.timeType
         setTimeType(timeType)
 
+        let timeString = buidTimeBooking(dataSchedule)
+        let doctorName = buidDoctorName(dataSchedule)
         let date = new Date(birthday).getTime()
         let res = await postPatientBookingAppointment({
             email: email,
@@ -81,6 +108,8 @@ const BookingModal = (props) => {
             address: address,
             phoneNumber: phoneNumber,
             reason: reason,
+            timeString: timeString,
+            doctorName: doctorName
         })
 
         if (res && res.errCode === 0) {

@@ -21,6 +21,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'nprogress/nprogress.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import VerifyEmail from './Components/Auth/VerifyEmail';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -40,6 +41,7 @@ root.render(
 
         <Route path='/login' element={<Login />} />
         <Route path='/detai-doctor/:id' element={<DetailDoctor />} />
+        <Route path='/verify-booking' element={<VerifyEmail />} />
         <Route path='*' element={<NotFound />} />
 
       </Routes>

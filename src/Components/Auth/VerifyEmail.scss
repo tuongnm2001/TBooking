@@ -1,0 +1,19 @@
+.verifyEmail-container {
+    .success {
+        margin-top   : 100px;
+        margin-left  : 460px;
+        font-size    : 23px;
+        font-weight  : bold;
+        color        : green;
+        font-style   : italic;
+    }
+
+    .faild {
+        margin-top   : 100px;
+        margin-left  : 460px;
+        font-size    : 23px;
+        font-weight  : bold;
+        color        : red;
+        font-style   : italic;
+    }
+}
