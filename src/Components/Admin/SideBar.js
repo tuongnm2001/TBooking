@@ -66,15 +66,17 @@ const SideBar = (props) => {
                             title='Manage'
                         >
                             <MenuItem>
-                                <NavLink to='/admin/manage-user' className='nav-link'>Manage User</NavLink>
+                                <NavLink to='/admin/manage-user' className='nav-link'>Quản lý người dùng</NavLink>
                             </MenuItem>
 
                             <MenuItem>
 
-                                <NavLink to='/admin/manage-schedule' className='nav-link'>Manage Schedule</NavLink>
+                                <NavLink to='/admin/manage-schedule' className='nav-link'>Quản lý kế hoạch khám bệnh</NavLink>
                             </MenuItem>
 
-                            <MenuItem> 3</MenuItem>
+                            <MenuItem>
+                                <NavLink to='/admin/manage-specialty' className='nav-link'>Quản lý chuyên khoa</NavLink>
+                            </MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>

@@ -36,7 +36,6 @@ const ManageDoctor = () => {
     const handleEditorChange = ({ html, text }) => {
         setContentMarkDown(text)
         setContentHTML(html)
-        console.log('handleEditorChange', html, text);
     }
 
     const handleSaveContentMarkDown = async () => {

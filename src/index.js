@@ -22,6 +22,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'nprogress/nprogress.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VerifyEmail from './Components/Auth/VerifyEmail';
+import ManageSpecialty from './Components/Admin/Content/ManageSpecialty';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -37,6 +38,7 @@ root.render(
           <Route index element={<DashBoard />} />
           <Route path='manage-user' element={<ManageUser />} />
           <Route path='manage-schedule' element={<ManageDoctorSchedule />} />
+          <Route path='manage-specialty' element={<ManageSpecialty />} />
         </Route>
 
         <Route path='/login' element={<Login />} />

@@ -1,25 +1,57 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { getAllSpecialty } from '../../../service/userService';
 import './Specialty.scss'
 
+
 const Specialty = () => {
+
+    const [dataSpecialty, setDataSpecialty] = useState('')
+
+    useEffect(() => {
+        fetchAllSpecialty()
+    }, [])
+
+    const fetchAllSpecialty = async () => {
+        let res = await getAllSpecialty();
+        if (res && res.errCode === 0) {
+            setDataSpecialty(res.data)
+        }
+    }
+
     return (
         <div className='section-specialty-container'>
             <section id="services" className="services">
                 <div className="container">
 
                     <div className="section-title">
-                        <h2>Services</h2>
+                        <h2>Chuyên khoa phổ biến</h2>
                         <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
                     </div>
 
-                    <div className="row">
-                        <div className="col-lg-4 col-md-6 d-flex align-items-stretch">
-                            <div className="icon-box">
-                                <div className="icon"><i className="fas fa-heartbeat"></i></div>
-                                <h4><a href="">Lorem Ipsum</a></h4>
-                                <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-                            </div>
-                        </div>
+                    <div className="row specilty">
+                        {
+                            dataSpecialty && dataSpecialty.length > 0 &&
+                            dataSpecialty.map((item, index) => {
+                                return (
+                                    <div
+                                        className="col-lg-4 col-md-6 d-flex align-items-stretch p-3"
+                                        key={`specialty-${index}`}
+                                    >
+                                        <div className="icon-box">
+                                            {/* <div className='imageSpecialty'>
+                                                <img src={item.image} />
+                                            </div> */}
+                                            <div className="icon"><i className="fas fa-heartbeat"></i></div>
+                                            <h4><a href="">{item.name}</a></h4>
+                                            <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
 
+                        {/* 
                         <div className="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
                             <div className="icon-box">
                                 <div className="icon"><i className="fas fa-pills"></i></div>
@@ -58,7 +90,7 @@ const Specialty = () => {
                                 <h4><a href="">Divera don</a></h4>
                                 <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
                             </div>
-                        </div>
+                        </div> */}
 
                     </div>
 
