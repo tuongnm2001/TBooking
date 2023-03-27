@@ -10,6 +10,7 @@ import BookingModal from '../../../Home/ContentHompage/BookingModal';
 
 const DoctorSchedule = (props) => {
 
+
     const { doctorId } = props
 
     const [allDays, setAllDays] = useState([])
