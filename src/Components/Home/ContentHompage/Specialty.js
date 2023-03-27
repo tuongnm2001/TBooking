@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getAllSpecialty } from '../../../service/userService';
 import './Specialty.scss'
 
@@ -7,6 +8,7 @@ import './Specialty.scss'
 const Specialty = () => {
 
     const [dataSpecialty, setDataSpecialty] = useState('')
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchAllSpecialty()
@@ -17,6 +19,10 @@ const Specialty = () => {
         if (res && res.errCode === 0) {
             setDataSpecialty(res.data)
         }
+    }
+
+    const handleViewDetailSpecialty = (item) => {
+        navigate(`/detai-specialty/${item.id}`)
     }
 
     return (
@@ -37,13 +43,16 @@ const Specialty = () => {
                                     <div
                                         className="col-lg-4 col-md-6 d-flex align-items-stretch p-3"
                                         key={`specialty-${index}`}
+                                        onClick={() => handleViewDetailSpecialty(item)}
                                     >
                                         <div className="icon-box">
                                             {/* <div className='imageSpecialty'>
                                                 <img src={item.image} />
                                             </div> */}
                                             <div className="icon"><i className="fas fa-heartbeat"></i></div>
-                                            <h4><a href="">{item.name}</a></h4>
+                                            <h4>
+                                                <span href="">{item.name}</span>
+                                            </h4>
                                             <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
                                         </div>
                                     </div>

@@ -23,6 +23,7 @@ import 'nprogress/nprogress.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VerifyEmail from './Components/Auth/VerifyEmail';
 import ManageSpecialty from './Components/Admin/Content/ManageSpecialty';
+import DetailSpecialty from './Components/Home/ContentHompage/DetailSpecialty';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -43,6 +44,7 @@ root.render(
 
         <Route path='/login' element={<Login />} />
         <Route path='/detai-doctor/:id' element={<DetailDoctor />} />
+        <Route path='/detai-specialty/:id' element={<DetailSpecialty />} />
         <Route path='/verify-booking' element={<VerifyEmail />} />
         <Route path='*' element={<NotFound />} />
 

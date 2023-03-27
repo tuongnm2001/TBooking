@@ -4,7 +4,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { fetchAllCode, getAllDoctors, getDetailInforDoctor, saveDetailDoctor } from '../../../service/userService';
+import { fetchAllCode, getAllDoctors, getAllSpecialty, getDetailInforDoctor, saveDetailDoctor } from '../../../service/userService';
 import { toast } from 'react-toastify';
 
 const ManageDoctor = () => {
@@ -28,6 +28,12 @@ const ManageDoctor = () => {
 
     const [listProvince, setListProvince] = useState({})
     const [selectedProvince, setSelectedProvince] = useState('')
+
+    const [listClinic, setListClinic] = useState('')
+    const [selectedClinic, setSelectedClinic] = useState('')
+
+    const [listSpecialty, setListSpecialty] = useState('')
+    const [selectedSpecialty, setSelectedSpecialty] = useState('')
 
     const [nameClinic, setNameClinic] = useState('')
     const [addressClinic, setAddressClinic] = useState('')
@@ -53,6 +59,8 @@ const ManageDoctor = () => {
             nameClinic: nameClinic,
             addressClinic: addressClinic,
             note: note,
+            selectedClinic: selectedClinic.value,
+            specialtyId: selectedSpecialty.value
 
         })
 
@@ -73,7 +81,7 @@ const ManageDoctor = () => {
 
             let nameClinic = '', addressClinic = '', paymentId = '',
                 priceId = '', provinceId = '', note = '', selectedPayment = '', selectedPrice = '',
-                selectedProvince = ''
+                selectedProvince = '', specialtyId = '', selectedSpecialty = ''
             if (res.data.Doctor_Infor) {
                 nameClinic = res.data.Doctor_Infor.nameClinic
                 addressClinic = res.data.Doctor_Infor.addressClinic
@@ -82,6 +90,7 @@ const ManageDoctor = () => {
                 paymentId = res.data.Doctor_Infor.paymentId
                 priceId = res.data.Doctor_Infor.priceId
                 provinceId = res.data.Doctor_Infor.provinceId
+                specialtyId = res.data.Doctor_Infor.specialtyId
 
                 selectedPayment = listPayment.find(item => {
                     return item && item.value === paymentId
@@ -93,6 +102,10 @@ const ManageDoctor = () => {
 
                 selectedProvince = listProvince.find(item => {
                     return item && item.value === provinceId
+                })
+
+                selectedSpecialty = listSpecialty.find(item => {
+                    return item && item.value === specialtyId
                 })
             }
 
@@ -106,6 +119,7 @@ const ManageDoctor = () => {
             setSelectedPayment(selectedPayment)
             setSelectedPrice(selectedPrice)
             setSelectedProvince(selectedProvince)
+            setSelectedSpecialty(selectedSpecialty)
         } else {
             setContentHTML('')
             setContentMarkDown('')
@@ -117,6 +131,7 @@ const ManageDoctor = () => {
             setSelectedPayment('')
             setSelectedPrice('')
             setSelectedProvince('')
+            selectedSpecialty('')
         }
         console.log(res);
     };
@@ -136,8 +151,10 @@ const ManageDoctor = () => {
         setSelectedProvince(selectedProvince)
     }
 
-    console.log(selectedPrice, selectedPayment
-        , selectedProvince);
+    const handleChangeSelectSpecialty = async (selectedOption) => {
+        let selectedSpecialty = selectedOption
+        setSelectedSpecialty(selectedSpecialty)
+    }
 
     useEffect(() => {
         handleGetAllDoctors()
@@ -155,6 +172,7 @@ const ManageDoctor = () => {
         fetAllCodePrice()
         fetAllCodePayment()
         fetAllCodeProvince()
+        fetAllSpecialty()
     }, [])
 
     const fetAllCodePrice = async () => {
@@ -178,6 +196,14 @@ const ManageDoctor = () => {
         if (res.errCode === 0) {
             let dataSelectProvince = buidDataSelectInforDoctor(res.data, 'PROVINCE')
             setListProvince(dataSelectProvince)
+        }
+    }
+
+    const fetAllSpecialty = async () => {
+        let res = await getAllSpecialty()
+        if (res.errCode === 0) {
+            let dataSelectSpecialy = buidDataSelectSpecialty(res.data)
+            setListSpecialty(dataSelectSpecialy)
         }
     }
 
@@ -211,6 +237,21 @@ const ManageDoctor = () => {
         return result;
     }
 
+    const buidDataSelectSpecialty = (inputData) => {
+        let result = [];
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let obj = {};
+
+                obj.label = item.name
+                obj.value = item.id
+                result.push(obj)
+            })
+        }
+        return result;
+    }
+
+    console.log(selectedDoctor);
 
     return (
         <div className='manage-doctor-container'>
@@ -279,6 +320,34 @@ const ManageDoctor = () => {
 
                     />
                 </div>
+
+
+                <div className='col-4 form-group'>
+                    <label>Chọn chuyên khoa</label>
+                    <Select
+                        placeholder='Chọn chuyên khoa'
+                        className='select'
+                        onChange={handleChangeSelectSpecialty}
+                        options={listSpecialty}
+                        value={selectedSpecialty}
+                        name='listSpecialty'
+                    />
+                </div>
+
+
+
+                <div className='col-4 form-group'>
+                    <label>Chọn phòng khám</label>
+                    <Select
+                        placeholder='Chọn phòng khám'
+                    // className='select'
+                    // onChange={handleChangeSelectSpecialty}
+                    // options={listSpecialty}
+                    // value={selectedSpecialty}
+                    // name='listSpecialty'
+                    />
+                </div>
+
 
                 <div className='col-4 form-group'>
                     <label>Tên phòng khám</label>
