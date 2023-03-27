@@ -16,7 +16,7 @@ import moment from 'moment';
 
 const BookingModal = (props) => {
 
-    const { show, setShow, dataSchedule } = props
+    const { show, setShow, dataSchedule, doctorId } = props
     const [fullName, setFullname] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [email, setEmail] = useState('')
@@ -25,7 +25,7 @@ const BookingModal = (props) => {
     const [birthday, setBirthday] = useState('')
     const [genders, setGenders] = useState('')
     const [selectedGender, setSelectedGender] = useState('')
-    const [doctorId, setDoctorId] = useState('')
+    // const [doctorId, setDoctorId] = useState('')
     const [timeType, setTimeType] = useState('')
 
     const handleClose = () => {
@@ -100,7 +100,7 @@ const BookingModal = (props) => {
         let date = new Date(birthday).getTime()
         let res = await postPatientBookingAppointment({
             email: email,
-            doctorId: id,
+            doctorId: doctorId,
             timeType: timeType,
             date: date,
             fullName: fullName,
@@ -137,6 +137,7 @@ const BookingModal = (props) => {
                     <ProfileDoctor
                         isShowDescriptionDoctor={false}
                         dataSchedule={dataSchedule}
+                        doctorId={doctorId}
                     />
 
                     <Row className="mb-3">

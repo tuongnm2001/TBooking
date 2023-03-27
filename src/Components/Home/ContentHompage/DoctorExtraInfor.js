@@ -4,13 +4,11 @@ import { getExtraInforDoctorById } from '../../../service/userService';
 import './DoctorExtraInfor.scss'
 import NumberFormat from 'react-number-format'
 
-const DoctorExtraInfor = () => {
+const DoctorExtraInfor = (props) => {
 
     const [isShowDetailInfor, setIsShowDetailInfor] = useState(false)
     const [dataExtraInfor, setDataExtraInfor] = useState('')
-
-    let params = useParams();
-    let id = params.id
+    let { doctorId } = props
 
     const handleShowHideInforDoctor = () => {
         setIsShowDetailInfor(!isShowDetailInfor)
@@ -21,7 +19,7 @@ const DoctorExtraInfor = () => {
     }, [])
 
     const getExtraInforDoctor = async () => {
-        let res = await getExtraInforDoctorById(id)
+        let res = await getExtraInforDoctorById(doctorId)
         if (res && res.errCode === 0) {
             setDataExtraInfor(res.data)
         }

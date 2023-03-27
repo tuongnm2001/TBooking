@@ -9,7 +9,7 @@ import { FaRegHandPointUp } from 'react-icons/fa';
 
 const ProfileDoctor = (props) => {
 
-    const { isShowDescriptionDoctor, dataSchedule } = props
+    const { isShowDescriptionDoctor, dataSchedule, doctorId } = props
     const [dataProfile, setDataProfile] = useState('')
     let params = useParams();
     let id = params.id
@@ -19,7 +19,7 @@ const ProfileDoctor = (props) => {
     }, [])
 
     const getProfileDoctor = async () => {
-        let res = await getProfileDoctorById(id)
+        let res = await getProfileDoctorById(doctorId)
         if (res && res.errCode === 0) {
             setDataProfile(res.data)
         }

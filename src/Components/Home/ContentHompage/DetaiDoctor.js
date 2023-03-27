@@ -63,11 +63,15 @@ const DetailDoctor = (props) => {
 
                 <div className="schedule-doctor">
                     <div className="content-left">
-                        <DoctorSchedule />
+                        <DoctorSchedule
+                            doctorId={id}
+                        />
                     </div>
 
                     <div className="content-right">
-                        <DoctorExtraInfor />
+                        <DoctorExtraInfor
+                            doctorId={id}
+                        />
                     </div>
                 </div>
 

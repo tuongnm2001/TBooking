@@ -10,13 +10,12 @@ import BookingModal from '../../../Home/ContentHompage/BookingModal';
 
 const DoctorSchedule = (props) => {
 
+    const { doctorId } = props
+
     const [allDays, setAllDays] = useState([])
     const [allAvailabelTime, setAllAvailabelTime] = useState({})
     const [isShowModalBooking, setIsShowModalBooking] = useState(false)
     const [dataSchedule, setDataSchedule] = useState({})
-
-    let params = useParams();
-    let id = params.id
 
     useEffect(() => {
         getArrDay()
@@ -39,7 +38,6 @@ const DoctorSchedule = (props) => {
     }
 
     const handleOnchangeSelect = async (event) => {
-        let doctorId = params.id
         let date = event.target.value
         let res = await getScheduleByDate(doctorId, date)
         if (res && res.errCode === 0) {
@@ -53,7 +51,6 @@ const DoctorSchedule = (props) => {
 
     const fetchScheduleFirstDay = async () => {
         try {
-            let doctorId = params.id
             let res = await getScheduleByDate(doctorId, allDays[0].value)
             if (res && res.errCode === 0) {
                 setAllAvailabelTime(res.data)
@@ -129,6 +126,7 @@ const DoctorSchedule = (props) => {
                 show={isShowModalBooking}
                 setShow={setIsShowModalBooking}
                 dataSchedule={dataSchedule}
+                doctorId={doctorId}
             />
         </>
     );
