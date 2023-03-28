@@ -45,6 +45,8 @@ const Doctor = () => {
         setShowHedear(true)
     }
 
+    console.log(listDoctors);
+
     return (
         <>
             <div className='section-doctor-container'>
@@ -65,6 +67,7 @@ const Doctor = () => {
                                             imageBase64 = new Buffer(item.image, 'base64').toString('binary')
                                         }
                                         let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`
+                                        let positionName = `${item.Doctor_Infor.specialtyData.name}`
                                         return (
                                             <div
                                                 className="col-lg-3 col-md-6 d-flex align-items-stretch"
@@ -77,7 +80,9 @@ const Doctor = () => {
                                                     </div>
                                                     <div className="member-info">
                                                         <h4>{nameVi}</h4>
-                                                        <span>Chief Medical Officer</span>
+                                                        <span>
+                                                            {positionName}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>

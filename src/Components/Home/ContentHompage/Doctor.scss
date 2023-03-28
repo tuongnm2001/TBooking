@@ -44,7 +44,7 @@
             .member-info {
                 width    : 216px;
                 height   : 96px;
-                padding  : 25px 15px;
+                padding  : 12px 15px;
 
                 h4 {
                     font-weight    : 700;
@@ -58,10 +58,11 @@
                 }
 
                 span {
-                    display      : block;
-                    font-size    : 13px;
-                    font-weight  : 400;
-                    color        : #aaaaaa;
+                    font-size      : 15px;
+                    color          : #aaaaaa;
+                    position       : absolute;
+                    bottom         : 0;
+                    margin-bottom  : 25px;
                 }
 
                 p {

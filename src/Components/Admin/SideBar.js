@@ -77,6 +77,10 @@ const SideBar = (props) => {
                             <MenuItem>
                                 <NavLink to='/admin/manage-specialty' className='nav-link'>Quản lý chuyên khoa</NavLink>
                             </MenuItem>
+
+                            <MenuItem>
+                                <NavLink to='/admin/manage-clinic' className='nav-link'>Quản lý phòng khám</NavLink>
+                            </MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>

@@ -15,6 +15,13 @@
             margin         : 0 10px;
             object-fit     : cover;
         }
+
+        .view-detail-doctor {
+            color        : #45c3d2;
+            font-size    : 16px;
+            margin-left  : 30px;
+            cursor       : pointer;
+        }
     }
 
     .content-right {
@@ -44,12 +51,7 @@
 
 }
 
-.view-detail-doctor {
-    color        : #45c3d2;
-    font-size    : 16px;
-    margin-left  : 30px;
-    cursor       : pointer;
-}
+
 
 .priceBooking {
     padding  : 10px 0;

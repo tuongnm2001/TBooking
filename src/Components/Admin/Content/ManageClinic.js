@@ -1,14 +1,14 @@
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';
-import './ManageSpecialty.scss'
+import './ManageClinic.scss'
 import { useState } from 'react';
-import { createNewSpecialty } from '../../../service/userService';
+import { createNewClinic } from '../../../service/userService';
 import { toast } from 'react-toastify';
 import CommonUtils from '../../../ultis/CommonUtils';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
-const ManageSpecialty = () => {
+const ManageClinic = () => {
 
     const [key, setKey] = useState('home');
     const [loadingApi, setLoadingApi] = useState(false)
@@ -18,6 +18,7 @@ const ManageSpecialty = () => {
     const [descriptionHTML, setDescriptionHTML] = useState('')
     const [descriptionMarkDown, setDescriptionMarkDown] = useState('')
     const [previewImage, setPreviewImage] = useState('')
+    const [address, setAddress] = useState('')
 
     const handleEditorChange = ({ html, text }) => {
         setDescriptionMarkDown(text)
@@ -34,25 +35,26 @@ const ManageSpecialty = () => {
         }
     }
 
-    const handleSaveNewSpectialty = async () => {
+    const handleSaveNewClinic = async () => {
         setLoadingApi(true)
-        let res = await createNewSpecialty({
+        let res = await createNewClinic({
             name,
             imageBase64,
+            address,
             descriptionHTML,
             descriptionMarkDown
         })
 
         if (res && res.errCode === 0) {
             setLoadingApi(false)
-            toast.success('Tạo chuyên khoa thành công!')
+            toast.success('Tạo phòng khám thành công!')
             setName('')
             setImageBase64('')
             setDescriptionHTML('')
             setDescriptionMarkDown('')
             setPreviewImage('')
         } else {
-            toast.error('Tạo chuyên khoa thất bại!')
+            toast.error('Tạo phòng khám thất bại!')
         }
     }
 
@@ -67,16 +69,26 @@ const ManageSpecialty = () => {
         >
             <Tab eventKey="home" title="Thêm chuyên khoa">
                 <div className='manage-specialty-container'>
-                    <div className='ms-title'>Quản lý chuyên khoa</div>
+                    <div className='ms-title'>Quản lý phòng khám</div>
 
                     <div className='add-new-specialty row'>
                         <div className='col-6 form-group'>
-                            <label>Tên chuyên khoa</label>
+                            <label>Tên phòng khám</label>
                             <input
                                 className='form-control'
                                 type={'text'}
                                 value={name}
                                 onChange={(event) => setName(event.target.value)}
+                            />
+                        </div>
+
+                        <div className='col-6 form-group'>
+                            <label>Địa chỉ phòng khám</label>
+                            <textarea
+                                className='form-control'
+                                type={'text'}
+                                value={address}
+                                onChange={(event) => setAddress(event.target.value)}
                             />
                         </div>
 
@@ -93,16 +105,14 @@ const ManageSpecialty = () => {
                                     hidden
                                 />
                             </div>
-
-                        </div>
-
-                        <div className='col-md-6 img-preview'>
-                            {
-                                previewImage ?
-                                    <img src={previewImage} />
-                                    :
-                                    <span className='textPreview'>Tải ảnh lên</span>
-                            }
+                            <div className='col-md-6 img-preview'>
+                                {
+                                    previewImage ?
+                                        <img src={previewImage} />
+                                        :
+                                        <span className='textPreview'>Tải ảnh lên</span>
+                                }
+                            </div>
                         </div>
 
                         <div className='col-12'>
@@ -118,7 +128,7 @@ const ManageSpecialty = () => {
                             <button
                                 disabled={loadingApi}
                                 className='btn btn-primary my-3'
-                                onClick={() => handleSaveNewSpectialty()}
+                                onClick={() => handleSaveNewClinic()}
                             >
                                 {
                                     loadingApi &&
@@ -139,4 +149,4 @@ const ManageSpecialty = () => {
     );
 }
 
-export default ManageSpecialty;
+export default ManageClinic;
