@@ -1,6 +1,6 @@
 import './ProfileDoctor.scss'
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getProfileDoctorById } from "../../../service/userService";
 import NumberFormat from 'react-number-format'
 import _ from 'lodash'
@@ -9,10 +9,12 @@ import { FaRegHandPointUp } from 'react-icons/fa';
 
 const ProfileDoctor = (props) => {
 
-    const { isShowDescriptionDoctor, dataSchedule, doctorId } = props
+    const { isShowDescriptionDoctor, dataSchedule, doctorId, isShowLinkDetail, isShowPrice, location } = props
     const [dataProfile, setDataProfile] = useState('')
-    let params = useParams();
-    let id = params.id
+    // let params = useParams();
+    // let id = params.id
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         getProfileDoctor()
@@ -53,15 +55,30 @@ const ProfileDoctor = (props) => {
         return;
     }
 
+    console.log(dataProfile);
+
     return (
         <>
             <div className="intro-doctor-profile">
                 <div className="content-left">
                     <img src={dataProfile.image} />
+
+                    {
+                        isShowLinkDetail === true &&
+                        <span
+                            className='view-detail-doctor'
+                            onClick={() => navigate(`/detail-doctor/${doctorId}`)}
+                        >
+                            Xem thêm
+                        </span>
+                    }
                 </div>
 
                 <div className="content-right">
-                    <div className="up">
+                    <div
+                        className="up"
+                        onClick={() => navigate(`/detail-doctor/${doctorId}`)}
+                    >
                         {`${nameVi}`}
                     </div>
                     {
@@ -75,6 +92,18 @@ const ProfileDoctor = (props) => {
                                         {dataProfile.Markdown.description}
                                     </span>
                                 }
+
+                                {
+                                    location &&
+                                    <div>
+                                        <i className="fas fa-map-marker-alt my-3"></i>
+                                        {
+                                            dataProfile.Doctor_Infor && dataProfile.Doctor_Infor.provinceTypeData && dataProfile.Doctor_Infor.provinceTypeData.valueVi ?
+                                                dataProfile.Doctor_Infor.provinceTypeData.valueVi :
+                                                ''
+                                        }
+                                    </div>
+                                }
                             </div>
                             :
                             <>
@@ -82,22 +111,26 @@ const ProfileDoctor = (props) => {
                             </>
                     }
                 </div>
+
             </div>
 
-            <div className='priceBooking'>
-                <span>Giá khám : </span>
-                {
-                    dataProfile && dataProfile.Doctor_Infor && dataProfile.Doctor_Infor.priceTypeData.valueVi &&
-                    <NumberFormat
-                        value={dataProfile.Doctor_Infor.priceTypeData.valueVi}
-                        displayType={'text'}
-                        suffix={' VNĐ'}
-                        className='currency'
-                        thousandSeparator={'.'}
-                        decimalSeparator={','}
-                    />
-                }
-            </div>
+            {
+                !isShowPrice &&
+                <div className='priceBooking'>
+                    <span>Giá khám : </span>
+                    {
+                        dataProfile && dataProfile.Doctor_Infor && dataProfile.Doctor_Infor.priceTypeData.valueVi &&
+                        <NumberFormat
+                            value={dataProfile.Doctor_Infor.priceTypeData.valueVi}
+                            displayType={'text'}
+                            suffix={' VNĐ'}
+                            className='currency'
+                            thousandSeparator={'.'}
+                            decimalSeparator={','}
+                        />
+                    }
+                </div>
+            }
         </>
     );
 }

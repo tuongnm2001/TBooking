@@ -89,7 +89,7 @@ const ModalUpdateUser = (props) => {
             className='modal-add-user'
         >
             <Modal.Header closeButton>
-                <Modal.Title>UPDATE USER</Modal.Title>
+                <Modal.Title>CẬP NHẬT NGƯỜI DÙNG</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -118,7 +118,7 @@ const ModalUpdateUser = (props) => {
 
                     <Row className="mb-3">
                         <Form.Group as={Col} >
-                            <Form.Label>FirstName</Form.Label>
+                            <Form.Label>Tên</Form.Label>
                             <Form.Control
                                 type="email"
                                 value={firstName}
@@ -127,7 +127,7 @@ const ModalUpdateUser = (props) => {
                         </Form.Group>
 
                         <Form.Group as={Col} >
-                            <Form.Label>LastName</Form.Label>
+                            <Form.Label>Họ</Form.Label>
                             <Form.Control
                                 type="text"
                                 value={lastName}
@@ -138,7 +138,7 @@ const ModalUpdateUser = (props) => {
 
                     <Row className="mb-3">
                         <Form.Group as={Col}>
-                            <Form.Label>Address</Form.Label>
+                            <Form.Label>Địa chỉ</Form.Label>
                             <Form.Control
                                 type='text'
                                 value={address}
@@ -147,7 +147,7 @@ const ModalUpdateUser = (props) => {
                         </Form.Group>
 
                         <Form.Group as={Col}>
-                            <Form.Label>PhoneNumber</Form.Label>
+                            <Form.Label>Số điện thoại</Form.Label>
                             <Form.Control
                                 type='text'
                                 value={phoneNumber}
@@ -157,7 +157,7 @@ const ModalUpdateUser = (props) => {
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} >
-                            <Form.Label>Gender</Form.Label>
+                            <Form.Label>Giới tính</Form.Label>
                             <Form.Select value={gender} onChange={(event) => setGender(event.target.value)}>
                                 {
                                     genders && genders.length > 0 &&
@@ -173,7 +173,7 @@ const ModalUpdateUser = (props) => {
                         </Form.Group>
 
                         <Form.Group as={Col} >
-                            <Form.Label>Position</Form.Label>
+                            <Form.Label>Vị trí</Form.Label>
                             <Form.Select value={position} onChange={(event) => setPosition(event.target.value)}>
                                 {
                                     positions && positions.length > 0 &&
@@ -189,7 +189,7 @@ const ModalUpdateUser = (props) => {
                         </Form.Group>
 
                         <Form.Group as={Col} >
-                            <Form.Label>Role</Form.Label>
+                            <Form.Label>Vai trò</Form.Label>
                             <Form.Select value={role} onChange={(event) => setRole(event.target.value)}>
                                 {
                                     roles && roles.length > 0 &&
@@ -206,7 +206,7 @@ const ModalUpdateUser = (props) => {
 
                         <div className='col-md-12'>
                             <label className='form-label my-3 upload' htmlFor='uploadImg'>
-                                <i class="fa-regular fa-images"></i> Change Image
+                                <i class="fa-regular fa-images"></i> Đổi ảnh
                             </label>
                             <input
                                 hidden
@@ -226,7 +226,7 @@ const ModalUpdateUser = (props) => {
                                         onClick={() => setZoomInImage(true)}
                                     />
                                     :
-                                    <span className='textPreviewImg'>Upload Image</span>
+                                    <span className='textPreviewImg'>Tải ảnh lên</span>
                             }
 
                             {
@@ -244,13 +244,13 @@ const ModalUpdateUser = (props) => {
 
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                    <i className="fa-solid fa-xmark"></i> Close
+                    <i className="fa-solid fa-xmark"></i> Đóng
                 </Button>
                 <Button disabled={loadingApi} variant="warning" onClick={() => handleSubmitUpdate()}>
                     {
                         loadingApi &&
                         <i disabled={loadingApi} className="fa-solid fa-circle-notch fa-spin"></i>
-                    } Save Update
+                    } Lưu
                 </Button>
             </Modal.Footer>
         </Modal>

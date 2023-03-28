@@ -58,7 +58,7 @@ const ModalView = (props) => {
             className='modal-add-user'
         >
             <Modal.Header closeButton>
-                <Modal.Title>VIEW</Modal.Title>
+                <Modal.Title>Xem chi tiết</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -74,7 +74,7 @@ const ModalView = (props) => {
                         </Form.Group>
 
                         <Form.Group as={Col} >
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label>Mật khẩu</Form.Label>
                             <Form.Control
                                 readOnly
                                 type="password"
@@ -85,7 +85,7 @@ const ModalView = (props) => {
 
                     <Row className="mb-3">
                         <Form.Group as={Col} >
-                            <Form.Label>FirstName</Form.Label>
+                            <Form.Label>Tên</Form.Label>
                             <Form.Control
                                 readOnly
                                 type="email"
@@ -94,7 +94,7 @@ const ModalView = (props) => {
                         </Form.Group>
 
                         <Form.Group as={Col} >
-                            <Form.Label>LastName</Form.Label>
+                            <Form.Label>Họ</Form.Label>
                             <Form.Control
                                 readOnly
                                 type="text"
@@ -105,7 +105,7 @@ const ModalView = (props) => {
 
                     <Row className="mb-3">
                         <Form.Group as={Col}>
-                            <Form.Label>Address</Form.Label>
+                            <Form.Label>Địa chỉ</Form.Label>
                             <Form.Control
                                 readOnly
                                 type='text'
@@ -114,7 +114,7 @@ const ModalView = (props) => {
                         </Form.Group>
 
                         <Form.Group as={Col}>
-                            <Form.Label>PhoneNumber</Form.Label>
+                            <Form.Label>Số điện thoại</Form.Label>
                             <Form.Control
                                 readOnly
                                 type='text'
@@ -124,7 +124,7 @@ const ModalView = (props) => {
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} >
-                            <Form.Label>Gender</Form.Label>
+                            <Form.Label>Giới tính</Form.Label>
                             <Form.Select disabled value={gender}>
                                 {
                                     genders && genders.length > 0 &&
@@ -140,7 +140,7 @@ const ModalView = (props) => {
                         </Form.Group>
 
                         <Form.Group as={Col} >
-                            <Form.Label>Position</Form.Label>
+                            <Form.Label>Vị trí</Form.Label>
                             <Form.Select disabled value={position}>
                                 {
                                     positions && positions.length > 0 &&
@@ -156,7 +156,7 @@ const ModalView = (props) => {
                         </Form.Group>
 
                         <Form.Group as={Col} >
-                            <Form.Label>Role</Form.Label>
+                            <Form.Label>Vai trò</Form.Label>
                             <Form.Select disabled value={role}>
                                 {
                                     roles && roles.length > 0 &&
@@ -181,7 +181,7 @@ const ModalView = (props) => {
                                         onClick={() => setZoomInImage(true)}
                                     />
                                     :
-                                    <span className='textPreviewImgView'>No Image</span>
+                                    <span className='textPreviewImgView'>Tải ảnh lên</span>
                             }
 
                             {
@@ -199,7 +199,7 @@ const ModalView = (props) => {
 
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                    <i className="fa-solid fa-xmark"></i> Close
+                    <i className="fa-solid fa-xmark"></i> Đóng
                 </Button>
             </Modal.Footer>
         </Modal>

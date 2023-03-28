@@ -224,13 +224,13 @@ const BookingModal = (props) => {
 
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                    Close
+                    Đóng
                 </Button>
                 <Button
                     variant="primary"
                     onClick={() => handleConfirmBooking()}
                 >
-                    Save Changes
+                    Xác nhận đặt lịch
                 </Button>
             </Modal.Footer>
         </Modal>

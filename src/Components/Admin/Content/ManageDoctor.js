@@ -251,13 +251,11 @@ const ManageDoctor = () => {
         return result;
     }
 
-    console.log(selectedDoctor);
-
     return (
         <div className='manage-doctor-container'>
 
             <div className='manage-doctor-title'>
-                Add Information Doctor
+                Thông tin bác sĩ
             </div>
 
             <div className='more-infor'>

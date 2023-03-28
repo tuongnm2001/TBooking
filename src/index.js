@@ -43,8 +43,8 @@ root.render(
         </Route>
 
         <Route path='/login' element={<Login />} />
-        <Route path='/detai-doctor/:id' element={<DetailDoctor />} />
-        <Route path='/detai-specialty/:id' element={<DetailSpecialty />} />
+        <Route path='/detail-doctor/:id' element={<DetailDoctor />} />
+        <Route path='/detail-specialty/:id' element={<DetailSpecialty />} />
         <Route path='/verify-booking' element={<VerifyEmail />} />
         <Route path='*' element={<NotFound />} />
 

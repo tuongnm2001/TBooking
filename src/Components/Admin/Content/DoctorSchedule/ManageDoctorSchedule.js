@@ -188,7 +188,7 @@ const ManageDoctorSchedule = () => {
                             className='btn btn-primary btnSave'
                             onClick={() => handleSaveSchedule()}
                         >
-                            Save
+                            Lưu
                         </button>
                     </div>
                 </div>

@@ -57,13 +57,13 @@ const SideBar = (props) => {
                             icon={<FaTachometerAlt />}
                         >
 
-                            <NavLink to='/admin' > Dashboard</NavLink>
+                            <NavLink to='/admin' > Thống kê</NavLink>
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
                         <SubMenu
                             icon={<FaGem />}
-                            title='Manage'
+                            title='Quản lý'
                         >
                             <MenuItem>
                                 <NavLink to='/admin/manage-user' className='nav-link'>Quản lý người dùng</NavLink>

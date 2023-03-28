@@ -27,7 +27,7 @@ const Pagination = (props) => {
 
                 >
                     <a className="page-link" onClick={() => handlePrevPage()}>
-                        Previous
+                        <i className="fas fa-angle-double-left"></i>
                     </a>
                 </li>
 
@@ -47,7 +47,7 @@ const Pagination = (props) => {
 
                 >
                     <a className="page-link" onClick={() => handleNextPage()}>
-                        Next
+                        <i className="fas fa-angle-double-right"></i>
                     </a>
                 </li>
             </ul>

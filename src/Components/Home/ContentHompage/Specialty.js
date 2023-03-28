@@ -2,12 +2,14 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllSpecialty } from '../../../service/userService';
+import DetailSpecialty from './DetailSpecialty';
 import './Specialty.scss'
 
 
 const Specialty = () => {
 
     const [dataSpecialty, setDataSpecialty] = useState('')
+    const [isShowHide, setIsShowHide] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -22,45 +24,48 @@ const Specialty = () => {
     }
 
     const handleViewDetailSpecialty = (item) => {
-        navigate(`/detai-specialty/${item.id}`)
+        navigate(`/detail-specialty/${item.id}`)
     }
 
+    console.log('check data dataSpecialty :', dataSpecialty);
+
     return (
-        <div className='section-specialty-container'>
-            <section id="services" className="services">
-                <div className="container">
+        <>
+            <div className='section-specialty-container'>
+                <section id="services" className="services">
+                    <div className="container">
 
-                    <div className="section-title">
-                        <h2>Chuyên khoa phổ biến</h2>
-                        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-                    </div>
+                        <div className="section-title">
+                            <h2>Chuyên khoa phổ biến</h2>
+                            <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                        </div>
 
-                    <div className="row specilty">
-                        {
-                            dataSpecialty && dataSpecialty.length > 0 &&
-                            dataSpecialty.map((item, index) => {
-                                return (
-                                    <div
-                                        className="col-lg-4 col-md-6 d-flex align-items-stretch p-3"
-                                        key={`specialty-${index}`}
-                                        onClick={() => handleViewDetailSpecialty(item)}
-                                    >
-                                        <div className="icon-box">
-                                            {/* <div className='imageSpecialty'>
+                        <div className="row specilty">
+                            {
+                                dataSpecialty && dataSpecialty.length > 0 &&
+                                dataSpecialty.map((item, index) => {
+                                    return (
+                                        <div
+                                            className="col-lg-4 col-md-6 d-flex align-items-stretch p-3"
+                                            key={`specialty-${index}`}
+                                            onClick={() => handleViewDetailSpecialty(item)}
+                                        >
+                                            <div className="icon-box">
+                                                {/* <div className='imageSpecialty'>
                                                 <img src={item.image} />
                                             </div> */}
-                                            <div className="icon"><i className="fas fa-heartbeat"></i></div>
-                                            <h4>
-                                                <span href="">{item.name}</span>
-                                            </h4>
-                                            <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                                                <div className="icon"><i className="fas fa-heartbeat"></i></div>
+                                                <h4>
+                                                    <span href="">{item.name}</span>
+                                                </h4>
+                                                <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            })
-                        }
+                                    )
+                                })
+                            }
 
-                        {/* 
+                            {/* 
                         <div className="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
                             <div className="icon-box">
                                 <div className="icon"><i className="fas fa-pills"></i></div>
@@ -101,11 +106,13 @@ const Specialty = () => {
                             </div>
                         </div> */}
 
-                    </div>
+                        </div>
 
-                </div>
-            </section>
-        </div>
+                    </div>
+                </section>
+
+            </div>
+        </>
     );
 }
 

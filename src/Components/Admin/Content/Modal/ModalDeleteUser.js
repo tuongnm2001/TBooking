@@ -32,18 +32,18 @@ const ModalDeleteUser = (props) => {
             backdrop='static'
         >
             <Modal.Header closeButton>
-                <Modal.Title>DELETE USER</Modal.Title>
+                <Modal.Title>XÓA NGƯỜI DÙNG</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Are you sure you want to delete account <span style={{ color: 'red' }}>{dataDelUser.email}</span> ? </Modal.Body>
+            <Modal.Body>Bạn có muốn xóa tài khoản <span style={{ color: 'red' }}>{dataDelUser.email}</span> không? </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                    <i className="fa-solid fa-xmark"></i> Close
+                    <i className="fa-solid fa-xmark"></i> Đóng
                 </Button>
                 <Button disabled={loadingApi} variant="danger" onClick={() => handleSubmitDeleteUser()}>
                     {
                         loadingApi &&
                         <i disabled={loadingApi} className="fa-solid fa-circle-notch fa-spin"></i>
-                    } Delete
+                    } Xóa
                 </Button>
             </Modal.Footer>
         </Modal>

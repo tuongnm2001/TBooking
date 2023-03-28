@@ -1,5 +1,6 @@
 import './ManageUser.scss'
 import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
 import { Container } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import ModalAddNewUser from './Modal/ModalAddNewUser';
@@ -12,7 +13,8 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Pagination from './Pagination/Pagination';
 import ManageDoctor from './ManageDoctor';
-
+import { BsArrowDownUp } from 'react-icons/bs';
+import _, { debounce } from 'lodash'
 
 const ManageUser = (props) => {
 
@@ -30,6 +32,7 @@ const ManageUser = (props) => {
     const pageSize = 8;
     const [key, setKey] = useState('home');
     const [loading, setLoading] = useState(false);
+    const [sortUpDown, setSortUpDown] = useState(false)
 
     const handleShowView = (user) => {
         setShowView(true)
@@ -93,9 +96,48 @@ const ManageUser = (props) => {
 
     const paginateListUser = paginate(listUsers, currentPage, pageSize);
 
+
+    const handleSortEmail = () => {
+        setSortUpDown(!sortUpDown)
+
+        const sortEmailUp = _.orderBy(listUsers, ['email'], ['asc']);
+        const sortEmailDown = _.orderBy(listUsers, ['email'], ['desc']);
+
+        if (sortUpDown === true) {
+            setListUsers(sortEmailDown)
+        }
+        if (sortUpDown === false) {
+            setListUsers(sortEmailUp)
+        }
+    }
+
+    const handleSortFirstName = () => {
+        setSortUpDown(!sortUpDown)
+
+        const sortFirstNamelUp = _.orderBy(listUsers, ['firstName'], ['asc']);
+        const sortFirstNameDown = _.orderBy(listUsers, ['firstName'], ['desc']);
+
+        if (sortUpDown === true) {
+            setListUsers(sortFirstNameDown)
+        }
+        if (sortUpDown === false) {
+            setListUsers(sortFirstNamelUp)
+        }
+    }
+
+    const handleSearchByEmail = debounce((event) => {
+        let tern = event.target.value
+        if (tern) {
+            let cloneListUser = _.cloneDeep(listUsers)
+            cloneListUser = cloneListUser.filter(item => item.email.includes(tern))
+            setListUsers(cloneListUser)
+        } else {
+            getAllUser()
+        }
+    }, 300)
+
     return (
         <>
-
             <Tabs
                 id="controlled-tab-example"
                 activeKey={key}
@@ -104,15 +146,23 @@ const ManageUser = (props) => {
                 fill
                 justify
             >
-                <Tab eventKey="home" title="Manage Users">
+                <Tab eventKey="home" title="Quản lý ngưới dùng">
                     <div className="manage-user-container">
-                        <div className="title">Manage Users</div>
+                        <div className="title">Quản lý ngưới dùng</div>
                         <div className="users-content">
                             <button
                                 className='btn btn-success mx-3 my-3'
                                 onClick={() => handleShowModalAddUser()}>
-                                <i className="fa-solid fa-user-plus"></i> Add New User
+                                <i className="fa-solid fa-user-plus"></i> Thêm mới
                             </button>
+
+                            <Form>
+                                <Form.Control
+                                    onChange={(event) => handleSearchByEmail(event)}
+                                    className="search "
+                                    placeholder="Nhập Email"
+                                />
+                            </Form>
                         </div>
 
                         <div className="table-user">
@@ -121,11 +171,18 @@ const ManageUser = (props) => {
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Email</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Address</th>
-                                            <th>Actions</th>
+
+                                            <th>
+                                                Email <BsArrowDownUp className='sortEmail' onClick={() => handleSortEmail()} />
+                                            </th>
+
+                                            <th>
+                                                Tên <BsArrowDownUp className='sortEmail' onClick={() => handleSortFirstName()} />
+                                            </th>
+                                            <th>Họ</th>
+
+                                            <th>Địa chỉ</th>
+                                            <th>Cài đặt</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -141,21 +198,21 @@ const ManageUser = (props) => {
                                                         <td>{item.address}</td>
                                                         <td>
                                                             <button className='btn btn-primary' onClick={() => handleShowView(item)}>
-                                                                <i className="fa-solid fa-eye"></i> View
+                                                                <i className="fa-solid fa-eye"></i> Xem chi tiết
                                                             </button>
 
                                                             <button
                                                                 className='btn btn-warning mx-3'
                                                                 onClick={() => handleUpdateUser(item)}
                                                             >
-                                                                <i className="fa-solid fa-pencil"></i> Update
+                                                                <i className="fa-solid fa-pencil"></i> Cập nhật
                                                             </button>
 
                                                             <button
                                                                 className='btn btn-danger'
                                                                 onClick={() => handleShowModalDelUser(item)}
                                                             >
-                                                                <i className="fas fa-user-times"></i> Delete
+                                                                <i className="fas fa-user-times"></i> Xóa
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -184,7 +241,7 @@ const ManageUser = (props) => {
                     }
                 </Tab>
 
-                <Tab eventKey="profile" title="Doctor's Information">
+                <Tab eventKey="profile" title="Thông tin bác sĩ">
                     <ManageDoctor />
                 </Tab>
 

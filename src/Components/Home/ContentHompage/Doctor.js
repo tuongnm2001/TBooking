@@ -41,7 +41,7 @@ const Doctor = () => {
 
     const handleViewDetailDoctor = (doctor) => {
         setDataDoctorInfor(doctor);
-        navigate(`/detai-doctor/${doctor.id}`);
+        navigate(`/detail-doctor/${doctor.id}`);
         setShowHedear(true)
     }
 

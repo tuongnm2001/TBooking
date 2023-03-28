@@ -1,11 +1,30 @@
 .manage-user-container {
     .title {
-        font-size    : 30px;
-        font-weight  : 600;
-        text-align   : center;
+        font-size       : 30px;
+        font-weight     : 600;
+        text-align      : center;
+        padding-bottom  : 20px;
     }
 
-    .users-content {}
+    .users-content {
+        display  : flex;
+
+        .search {
+            width       : 150%;
+            margin-top  : 16px;
+        }
+    }
+
+    .table-user {
+        .sortEmail {
+            margin-top  : 4px;
+            float       : right;
+
+            &:hover {
+                opacity  : 0.8;
+            }
+        }
+    }
 }
 
 .pagination {

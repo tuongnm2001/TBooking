@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 import _ from 'lodash'
 import { Buffer } from 'buffer';
 
-
 const DetailSpecialty = () => {
     const [arrDoctorId, setArrDoctorId] = useState([])
     const [dataDetailSpecialty, setDataDetailSpecialty] = useState({})
@@ -42,14 +41,45 @@ const DetailSpecialty = () => {
                     })
                 }
             }
+
+            let dataProvince = resProvince.data
+            if (dataProvince && dataProvince.length > 0) {
+                dataProvince.unshift({
+                    createdAt: null,
+                    keyMap: 'ALL',
+                    type: 'PROVINCE',
+                    valueVi: 'Toàn quốc'
+                })
+            }
+
             setDataDetailSpecialty(res.data)
             setArrDoctorId(arrDoctorId)
-            setListProvince(resProvince.data)
+            setListProvince(dataProvince)
         }
     }
 
-    const handleOnchangeSelect = (event) => {
-        console.log(event.target.value);
+    const handleOnchangeSelect = async (event) => {
+        let id = params.id
+        let location = event.target.value
+
+        let res = await getDetailSpecialtyById({
+            id: id,
+            location: location
+        })
+        if (res && res.errCode === 0) {
+            let data = res.data
+            let arrDoctorId = []
+            if (data && !_.isEmpty(res.data)) {
+                let arr = data.doctorSpecialty
+                if (arr && arr.length > 0) {
+                    arr.map(item => {
+                        arrDoctorId.push(item.doctorId)
+                    })
+                }
+            }
+            setDataDetailSpecialty(res.data)
+            setArrDoctorId(arrDoctorId)
+        }
     }
 
     console.log(dataDetailSpecialty);
@@ -66,21 +96,6 @@ const DetailSpecialty = () => {
                                 <div dangerouslySetInnerHTML={{
                                     __html: dataDetailSpecialty.descriptionHTML
                                 }} />
-                            }
-                        </div>
-
-                        <div>
-                            {
-                                dataDetailSpecialty && dataDetailSpecialty.length > 0 &&
-                                dataDetailSpecialty.map((item, index) => {
-                                    let imageBase64 = ''
-                                    if (item.image) {
-                                        imageBase64 = new Buffer(item.image, 'base64').toString('binary')
-                                    }
-                                    return (
-                                        < img src={imageBase64} />
-                                    )
-                                })
                             }
                         </div>
                     </div>
@@ -115,6 +130,9 @@ const DetailSpecialty = () => {
                                         <ProfileDoctor
                                             doctorId={item}
                                             isShowDescriptionDoctor={true}
+                                            isShowLinkDetail={true}
+                                            isShowPrice={true}
+                                            location={true}
                                         />
                                     </div>
 

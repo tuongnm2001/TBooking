@@ -1,57 +1,90 @@
 .detail-specialty-container {
     .detail-specialty-body {
-        margin  : 0 60px;
-    }
-
-    .description-specialty {
-        margin-top  : 82px;
-        border      : 1px solid red;
-    }
-
-    .search-doctor {}
-
-    .each-doctor {
+        padding           : 0 60px;
+        background-color  : #eee;
         display           : flex;
-        width             : 100%;
-        min-height        : 350px;
-        margin            : 15px 0;
-        background-color  : #fff;
-        box-shadow        : 0 1px 6px rgb(32 33 36 / 28%);
-        border-radius     : 8px;
+        flex-direction    : column;
 
-        .detail-content-left {
-            width  : 50%;
+        .description-specialty {
+            background-image             : url('../../../assets/img/about.jpg');
+            margin-top                   : 95px;
+            border-radius                : 8px;
+            box-shadow                   : 0 1px 6px rgb(32 33 36 / 28%);
+            background-repeat            : no-repeat;
+            background-size              : cover;
+            // background-color        : white;
 
-            img {
-                margin-top  : 25px !important;
-            }
 
-            .priceBooking {
-                margin-left  : 30px !important;
-            }
+            .profile-doctor {
+                background-image  : linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5), rgb(255, 255, 255));
+                padding           : 30px;
+                border-radius     : 8px;
+                color             : #555;
 
-            .intro-doctor-profile {
-                display           : flex !important;
-                padding           : 20px !important;
-                background-color  : unset !important;
-            }
-        }
-
-        .detail-content-right {
-            width           : 50%;
-            padding-top     : 8px !important;
-            padding-bottom  : 8px !important;
-
-            .doctor-extra-infor {
-                border-top      : 1px solid #eee;
-                padding-bottom  : 10px !important;
-
-                .doctor-extra-infor-container {
-                    padding-left  : 0 !important;
+                h2,
+                h3 {
+                    font-size    : 25px;
+                    font-weight  : 600;
                 }
             }
         }
     }
+}
 
 
+
+.search-doctor {
+
+    select {
+        height         : 40px;
+        padding        : 5px 8px;
+        border         : none;
+        outline        : none;
+        border-radius  : 3px;
+        cursor         : pointer;
+    }
+}
+
+.each-doctor {
+    display           : flex;
+    width             : 100%;
+    min-height        : 350px;
+    margin            : 15px 0;
+    background-color  : #fff;
+    box-shadow        : 0 1px 6px rgb(32 33 36 / 28%);
+    border-radius     : 8px;
+
+    .detail-content-left {
+        width  : 50%;
+
+        img {
+            margin-top  : 25px !important;
+        }
+
+        .priceBooking {
+            margin-left  : 30px !important;
+        }
+
+        .intro-doctor-profile {
+            display           : flex !important;
+            padding           : 20px !important;
+            background-color  : unset !important;
+        }
+    }
+
+    .detail-content-right {
+        width           : 50%;
+        padding-top     : 8px !important;
+        padding-bottom  : 8px !important;
+
+        .doctor-extra-infor {
+            margin-right    : 10px;
+            border-top      : 1px solid #eee;
+            padding-bottom  : 10px !important;
+
+            .doctor-extra-infor-container {
+                padding-left  : 0 !important;
+            }
+        }
+    }
 }
