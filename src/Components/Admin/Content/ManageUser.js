@@ -146,7 +146,7 @@ const ManageUser = (props) => {
                 fill
                 justify
             >
-                <Tab eventKey="home" title="Quản lý ngưới dùng">
+                <Tab eventKey="home" title="Quản lý người dùng">
                     <div className="manage-user-container">
                         <div className="title">Quản lý ngưới dùng</div>
                         <div className="users-content">

@@ -55,8 +55,6 @@ const ProfileDoctor = (props) => {
         return;
     }
 
-    console.log(dataProfile);
-
     return (
         <>
             <div className="intro-doctor-profile">

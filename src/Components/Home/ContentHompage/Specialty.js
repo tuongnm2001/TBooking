@@ -9,7 +9,6 @@ import './Specialty.scss'
 const Specialty = () => {
 
     const [dataSpecialty, setDataSpecialty] = useState('')
-    const [isShowHide, setIsShowHide] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {

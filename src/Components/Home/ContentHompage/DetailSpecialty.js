@@ -82,8 +82,6 @@ const DetailSpecialty = () => {
         }
     }
 
-    console.log(dataDetailSpecialty);
-
     return (
         <>
             <div className='detail-specialty-container'>

@@ -25,6 +25,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'nprogress/nprogress.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import DetailClinic from './Components/Home/ContentHompage/DetailClinic';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -47,6 +48,7 @@ root.render(
         <Route path='/login' element={<Login />} />
         <Route path='/detail-doctor/:id' element={<DetailDoctor />} />
         <Route path='/detail-specialty/:id' element={<DetailSpecialty />} />
+        <Route path='/detail-clinic/:id' element={<DetailClinic />} />
         <Route path='/verify-booking' element={<VerifyEmail />} />
         <Route path='*' element={<NotFound />} />
 

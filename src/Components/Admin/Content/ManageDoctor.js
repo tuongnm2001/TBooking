@@ -4,7 +4,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { fetchAllCode, getAllDoctors, getAllSpecialty, getDetailInforDoctor, saveDetailDoctor } from '../../../service/userService';
+import { fetchAllClinic, fetchAllCode, getAllDoctors, getAllSpecialty, getDetailInforDoctor, saveDetailDoctor } from '../../../service/userService';
 import { toast } from 'react-toastify';
 
 const ManageDoctor = () => {
@@ -59,7 +59,7 @@ const ManageDoctor = () => {
             nameClinic: nameClinic,
             addressClinic: addressClinic,
             note: note,
-            selectedClinic: selectedClinic.value,
+            clinicId: selectedClinic.value,
             specialtyId: selectedSpecialty.value
 
         })
@@ -81,7 +81,7 @@ const ManageDoctor = () => {
 
             let nameClinic = '', addressClinic = '', paymentId = '',
                 priceId = '', provinceId = '', note = '', selectedPayment = '', selectedPrice = '',
-                selectedProvince = '', specialtyId = '', selectedSpecialty = ''
+                selectedProvince = '', specialtyId = '', selectedSpecialty = '', clinicId = '', selectedClinic = ''
             if (res.data.Doctor_Infor) {
                 nameClinic = res.data.Doctor_Infor.nameClinic
                 addressClinic = res.data.Doctor_Infor.addressClinic
@@ -91,6 +91,7 @@ const ManageDoctor = () => {
                 priceId = res.data.Doctor_Infor.priceId
                 provinceId = res.data.Doctor_Infor.provinceId
                 specialtyId = res.data.Doctor_Infor.specialtyId
+                clinicId = res.data.Doctor_Infor.clinicId
 
                 selectedPayment = listPayment.find(item => {
                     return item && item.value === paymentId
@@ -107,6 +108,10 @@ const ManageDoctor = () => {
                 selectedSpecialty = listSpecialty.find(item => {
                     return item && item.value === specialtyId
                 })
+
+                selectedClinic = listClinic.find(item => {
+                    return item && item.value === clinicId
+                })
             }
 
             setContentHTML(markdown.contentHTML)
@@ -120,6 +125,7 @@ const ManageDoctor = () => {
             setSelectedPrice(selectedPrice)
             setSelectedProvince(selectedProvince)
             setSelectedSpecialty(selectedSpecialty)
+            setSelectedClinic(selectedClinic)
         } else {
             setContentHTML('')
             setContentMarkDown('')
@@ -132,8 +138,8 @@ const ManageDoctor = () => {
             setSelectedPrice('')
             setSelectedProvince('')
             selectedSpecialty('')
+            setSelectedClinic('')
         }
-        console.log(res);
     };
 
     const handleChangeSelectPrice = async (selectedOption) => {
@@ -156,6 +162,11 @@ const ManageDoctor = () => {
         setSelectedSpecialty(selectedSpecialty)
     }
 
+    const handleChangeSelectClinic = async (selectedOption) => {
+        let selectedClinic = selectedOption
+        setSelectedClinic(selectedClinic)
+    }
+
     useEffect(() => {
         handleGetAllDoctors()
     }, [])
@@ -173,6 +184,7 @@ const ManageDoctor = () => {
         fetAllCodePayment()
         fetAllCodeProvince()
         fetAllSpecialty()
+        fetAllClinic()
     }, [])
 
     const fetAllCodePrice = async () => {
@@ -204,6 +216,14 @@ const ManageDoctor = () => {
         if (res.errCode === 0) {
             let dataSelectSpecialy = buidDataSelectSpecialty(res.data)
             setListSpecialty(dataSelectSpecialy)
+        }
+    }
+
+    const fetAllClinic = async () => {
+        let res = await fetchAllClinic()
+        if (res.errCode === 0) {
+            let dataSelectClinic = buidDataSelectSpecialty(res.data)
+            setListClinic(dataSelectClinic)
         }
     }
 
@@ -338,11 +358,11 @@ const ManageDoctor = () => {
                     <label>Chọn phòng khám</label>
                     <Select
                         placeholder='Chọn phòng khám'
-                    // className='select'
-                    // onChange={handleChangeSelectSpecialty}
-                    // options={listSpecialty}
-                    // value={selectedSpecialty}
-                    // name='listSpecialty'
+                        className='select'
+                        onChange={handleChangeSelectClinic}
+                        options={listClinic}
+                        value={selectedClinic}
+                        name='listClinic'
                     />
                 </div>
 

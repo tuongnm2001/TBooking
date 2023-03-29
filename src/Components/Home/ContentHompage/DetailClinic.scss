@@ -1,0 +1,122 @@
+.detail-clinic-container {
+    .detail-clinic-body {
+        padding           : 0 60px;
+        background-color  : #eee;
+        display           : flex;
+        flex-direction    : column;
+
+        .title-clinic {
+            margin-top        : 100px;
+            height            : 200px;
+            background-color  : rgba(255, 255, 255, 0.8);
+            box-shadow        : rgba(32, 33, 36, 0.28) 0px 1px 6px;
+            display           : flex;
+
+            img {
+                width       : 30%;
+                object-fit  : contain;
+                max-width   : 100%;
+                max-height  : 100%;
+            }
+
+            .content-right-title {
+                margin-left  : 0 20px;
+                margin-top   : 50px;
+
+                .content-up-name {
+                    font-size    : 30px;
+                    font-weight  : 600;
+                    color        : #555;
+                }
+
+                .content-down-address {
+                    font-size    : 16px;
+                    font-weight  : 400;
+                    color        : #555;
+                }
+            }
+        }
+
+        .description-clinic {
+            background-image   : url('../../../assets/img/bg-clinic.avif');
+            margin-top         : 15px;
+            border-radius      : 3px;
+            box-shadow         : 0 1px 6px rgb(32 33 36 / 28%);
+            background-repeat  : no-repeat;
+            background-size    : cover;
+            background-color   : white;
+
+
+            .profile-doctor {
+                background-image  : linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5), rgb(255, 255, 255));
+                padding           : 30px;
+                border-radius     : 3px;
+                color             : #555;
+
+                h2,
+                h3 {
+                    font-size    : 25px;
+                    font-weight  : 600;
+                }
+            }
+        }
+    }
+}
+
+
+
+.search-doctor {
+
+    select {
+        height         : 40px;
+        padding        : 5px 8px;
+        border         : none;
+        outline        : none;
+        border-radius  : 3px;
+        cursor         : pointer;
+    }
+}
+
+.each-doctor {
+    display           : flex;
+    width             : 100%;
+    min-height        : 350px;
+    margin            : 15px 0;
+    background-color  : #fff;
+    box-shadow        : 0 1px 6px rgb(32 33 36 / 28%);
+    border-radius     : 8px;
+
+    .detail-content-left {
+        width  : 50%;
+
+        img {
+            margin-top  : 25px !important;
+        }
+
+        .priceBooking {
+            margin-left  : 30px !important;
+        }
+
+        .intro-doctor-profile {
+            display           : flex !important;
+            padding           : 20px !important;
+            background-color  : unset !important;
+        }
+    }
+
+    .detail-content-right {
+        width           : 50%;
+        padding-top     : 8px !important;
+        padding-bottom  : 8px !important;
+
+        .doctor-extra-infor {
+            margin-right    : 10px;
+            border-top      : 1px solid #eee;
+            padding-bottom  : 10px !important;
+
+            .doctor-extra-infor-container {
+                padding-left  : 0 !important;
+            }
+        }
+    }
+}

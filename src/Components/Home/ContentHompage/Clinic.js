@@ -2,10 +2,12 @@ import './Clinic.scss'
 import { fetchAllClinic } from '../../../service/userService';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Clinic = () => {
 
     const [dataClinic, setDataClinic] = useState({})
+    const navigate = useNavigate()
 
     useEffect(() => {
         getAllClinic()
@@ -18,8 +20,8 @@ const Clinic = () => {
         }
     }
 
-    const handleClinic = () => {
-        alert('hello')
+    const handleClinic = (item) => {
+        navigate(`/detail-clinic/${item.id}`)
     }
 
     return (
@@ -38,7 +40,7 @@ const Clinic = () => {
                             dataClinic.map((item, index) => {
                                 return (
                                     <div className="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="200" key={`clinic-${index}`}>
-                                        <div className="service-item" onClick={() => handleClinic()}>
+                                        <div className="service-item" onClick={() => handleClinic(item)}>
                                             <div className='content-up'>
                                                 <img src={item.image} className="img-fluid" alt="" />
                                             </div>
