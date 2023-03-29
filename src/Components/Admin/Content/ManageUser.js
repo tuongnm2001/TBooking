@@ -245,9 +245,9 @@ const ManageUser = (props) => {
                     <ManageDoctor />
                 </Tab>
 
-                <Tab eventKey="contact" title="Contact">
+                {/* <Tab eventKey="contact" title="Contact">
                     b
-                </Tab>
+                </Tab> */}
             </Tabs>
 
             <ModalAddNewUser

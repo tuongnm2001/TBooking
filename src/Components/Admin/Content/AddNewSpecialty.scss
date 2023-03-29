@@ -1,4 +1,4 @@
-.manage-clinic-container {
+.add-new-specialty-container {
     padding  : 0 15px;
 
     .ms-title {
@@ -8,13 +8,14 @@
         font-size    : 25px;
     }
 
-    .add-new-clinic {
-        .img-preview-clinic {
+    .add-new-specialty {
+        .img-preview {
             height         : 200px;
             width          : 400px;
             border         : 1px solid #d7d3d3;
             margin         : 20px 0;
             border-radius  : 5px;
+            margin-left    : 514px;
 
             img {
                 max-width   : 100%;

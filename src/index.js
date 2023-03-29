@@ -16,7 +16,7 @@ import ManageUser from './Components/Admin/Content/ManageUser';
 import NotFound from './Components/Home/ContentHompage/NotFound';
 import DashBoard from './Components/Admin/Content/DashBoard';
 import VerifyEmail from './Components/Auth/VerifyEmail';
-import ManageSpecialty from './Components/Admin/Content/ManageSpecialty';
+import AddNewSpecialty from './Components/Admin/Content/AddNewSpecialty';
 import ManageClinic from './Components/Admin/Content/ManageClinic';
 import DetailSpecialty from './Components/Home/ContentHompage/DetailSpecialty';
 import 'react-toastify/dist/ReactToastify.css';
@@ -40,7 +40,7 @@ root.render(
           <Route index element={<DashBoard />} />
           <Route path='manage-user' element={<ManageUser />} />
           <Route path='manage-schedule' element={<ManageDoctorSchedule />} />
-          <Route path='manage-specialty' element={<ManageSpecialty />} />
+          <Route path='manage-specialty' element={<AddNewSpecialty />} />
           <Route path='manage-clinic' element={<ManageClinic />} />
         </Route>
 
