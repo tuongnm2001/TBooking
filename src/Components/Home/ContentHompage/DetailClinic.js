@@ -46,8 +46,6 @@ const DetailClinic = () => {
         }
     }
 
-    console.log(dataDetailClinic);
-
     return (
         <>
             <div className='detail-clinic-container'>

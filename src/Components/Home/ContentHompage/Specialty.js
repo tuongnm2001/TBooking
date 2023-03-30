@@ -26,8 +26,6 @@ const Specialty = () => {
         navigate(`/detail-specialty/${item.id}`)
     }
 
-    console.log('check data dataSpecialty :', dataSpecialty);
-
     return (
         <>
             <div className='section-specialty-container'>

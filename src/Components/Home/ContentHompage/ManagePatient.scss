@@ -1,0 +1,18 @@
+.manage-patient-container {
+    .manage-patient-title {
+        text-align   : center;
+        font-weight  : 600;
+        color        : #555;
+        font-size    : 24px;
+        margin-top   : 20px;
+    }
+
+    .manage-patient-body {
+        margin-top   : 15px;
+        margin-left  : 20px;
+
+        label {
+            margin-bottom  : 10px;
+        }
+    }
+}

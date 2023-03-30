@@ -87,6 +87,10 @@ const getDetailClinicById = (data) => {
     return axios.get(`/api/get-detetail-clinic-by-id?id=${data.id}`)
 }
 
+const getAllPatientForDoctor = (data) => {
+    return axios.get(`/api/get-list-patient-for-doctor?doctorId=${data.doctorId}&date=${data.date}`)
+}
+
 export {
     handleLogin, fetchAllCode, postCreateNewUser, fetchAllUsers,
     handleDeleteUser, handleUpdateUser, getTopDoctor, getAllDoctors,
@@ -94,5 +98,5 @@ export {
     getScheduleByDate, getExtraInforDoctorById, getProfileDoctorById,
     postPatientBookingAppointment, postVerifyBookingAppoitment,
     createNewSpecialty, getAllSpecialty, getDetailSpecialtyById,
-    createNewClinic, fetchAllClinic, getDetailClinicById
+    createNewClinic, fetchAllClinic, getDetailClinicById, getAllPatientForDoctor
 }

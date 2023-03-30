@@ -26,6 +26,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'nprogress/nprogress.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DetailClinic from './Components/Home/ContentHompage/DetailClinic';
+import ManagePatient from './Components/Home/ContentHompage/ManagePatient';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -43,6 +44,7 @@ root.render(
           <Route path='manage-schedule' element={<ManageDoctorSchedule />} />
           <Route path='manage-specialty' element={<AddNewSpecialty />} />
           <Route path='manage-clinic' element={<ManageClinic />} />
+          <Route path='manage-patient' element={<ManagePatient />} />
         </Route>
 
         <Route path='/login' element={<Login />} />

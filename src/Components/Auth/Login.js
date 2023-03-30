@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { FaHome } from 'react-icons/fa'
 import { handleLogin } from '../../service/userService'
+import { useDispatch } from 'react-redux'
+import { doLogin } from '../../redux/action/userAction'
 
 const Login = () => {
 
@@ -13,14 +15,15 @@ const Login = () => {
     const [isShowPassword, setIsShowPassword] = useState('')
     const [loadingApi, setLoadingApi] = useState(false)
     const navigate = useNavigate();
-    // const {loginContext} = useContext(UserContext)
     const passwordRef = useRef()
+    const dispatch = useDispatch()
 
     const handleSubmitLogin = async () => {
         setLoadingApi(true)
         let res = await handleLogin(email.trim(), password)
         if (res && res.errCode === 0) {
-            toast.success('Login success!')
+            dispatch(doLogin(res.user))
+            toast.success('Đăng nhập thành công!')
             navigate('/')
         } else if (res.errCode === 3) {
             toast.error(res.massage)

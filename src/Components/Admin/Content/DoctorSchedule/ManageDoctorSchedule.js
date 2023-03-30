@@ -2,12 +2,9 @@ import './ManageDoctorSchedule.scss'
 import Select from 'react-select';
 import { fetchAllCode, getAllDoctors, getDetailInforDoctor, saveBulkScheduleDoctor } from '../../../../service/userService';
 import { useEffect, useState } from 'react';
-import MarkdownIt from 'markdown-it';
 import DatePicker from './DatePicker'
-import { NavLink } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import _, { result } from 'lodash'
-import moment from 'moment'
 
 const ManageDoctorSchedule = () => {
 
@@ -48,8 +45,6 @@ const ManageDoctorSchedule = () => {
         }
     }
 
-    // console.log('rangeTime23 : ', rangeTime);
-
     const handleGetAllDoctors = async () => {
         let res = await getAllDoctors();
         if (res.errCode === 0) {
@@ -79,7 +74,6 @@ const ManageDoctorSchedule = () => {
     }
 
     const handleClickBtnTime = (time) => {
-        console.log('check time : ', time);
 
         if (rangeTime && rangeTime.length > 0) {
             rangeTime.map(item => {

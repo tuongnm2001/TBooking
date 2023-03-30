@@ -5,8 +5,13 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, NavLink } from 'react-router-dom'
 import './Header.scss'
 import logo from '../../assets/img/logo.png'
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+
+    const account = useSelector(state => state.user.account)
+    const isAuthenticated = useSelector(state => state.user.isAuthenticated)
+
     return (
         <>
             <Navbar bg="light" expand="lg" className='header-container fixed-top'>
@@ -23,9 +28,18 @@ const Header = () => {
                         </Nav>
 
                         <Nav>
+                            <h2>{account.email}</h2>
                             <NavDropdown title="Setting" id="basic-nav-dropdown">
-                                <NavLink className='dropdown-item' to='/login'>Login</NavLink>
-                                <NavDropdown.Item>Logout</NavDropdown.Item>
+                                {
+                                    isAuthenticated === false ?
+                                        <>
+                                            <NavLink className='dropdown-item' to='/login'>Login</NavLink>
+
+                                        </>
+                                        :
+                                        <NavDropdown.Item>Logout</NavDropdown.Item>
+
+                                }
                             </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>

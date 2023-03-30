@@ -45,8 +45,6 @@ const Doctor = () => {
         setShowHedear(true)
     }
 
-    console.log(listDoctors);
-
     return (
         <>
             <div className='section-doctor-container'>

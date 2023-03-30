@@ -81,6 +81,10 @@ const SideBar = (props) => {
                             <MenuItem>
                                 <NavLink to='/admin/manage-clinic' className='nav-link'>Quản lý phòng khám</NavLink>
                             </MenuItem>
+
+                            <MenuItem>
+                                <NavLink to='/admin/manage-patient' className='nav-link'>Quản lý bệnh nhân </NavLink>
+                            </MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>
