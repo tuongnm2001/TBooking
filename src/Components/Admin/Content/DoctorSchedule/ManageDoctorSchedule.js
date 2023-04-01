@@ -10,7 +10,6 @@ const ManageDoctorSchedule = () => {
 
     const [selectedDoctor, setselectedDoctor] = useState(null)
     const [allDoctors, setAllDoctors] = useState({})
-    const [hasOldData, setHasOldData] = useState(false)
     const [currentDate, setCurrentDate] = useState('');
     const [rangeTime, setRangTime] = useState({})
     let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
@@ -73,6 +72,7 @@ const ManageDoctorSchedule = () => {
         setCurrentDate(date)
     }
 
+
     const handleClickBtnTime = (time) => {
 
         if (rangeTime && rangeTime.length > 0) {
@@ -81,8 +81,8 @@ const ManageDoctorSchedule = () => {
                     item.isSelected = !item.isSelected;
                     return item;
                 }
+                setRangTime(rangeTime)
             })
-            setRangTime(rangeTime)
         }
 
     }

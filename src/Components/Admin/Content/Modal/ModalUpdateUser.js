@@ -206,7 +206,7 @@ const ModalUpdateUser = (props) => {
 
                         <div className='col-md-12'>
                             <label className='form-label my-3 upload' htmlFor='uploadImg'>
-                                <i class="fa-regular fa-images"></i> Đổi ảnh
+                                <i className="fa-regular fa-images"></i> Đổi ảnh
                             </label>
                             <input
                                 hidden

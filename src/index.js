@@ -5,7 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import store from './redux/store';
+import { store, persistor } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react'
 import Admin from './Components/Admin/Admin';
 import User from './Components/User/User';
 import HomePage from './Components/Home/HomePage';
@@ -19,57 +20,60 @@ import VerifyEmail from './Components/Auth/VerifyEmail';
 import AddNewSpecialty from './Components/Admin/Content/AddNewSpecialty';
 import ManageClinic from './Components/Admin/Content/ManageClinic';
 import DetailSpecialty from './Components/Home/ContentHompage/DetailSpecialty';
+import DetailClinic from './Components/Home/ContentHompage/DetailClinic';
+import ManagePatient from './Components/Home/ContentHompage/ManagePatient';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-awesome-lightbox/build/style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'nprogress/nprogress.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import DetailClinic from './Components/Home/ContentHompage/DetailClinic';
-import ManagePatient from './Components/Home/ContentHompage/ManagePatient';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<App />} >
-          <Route index element={<HomePage />} />
-          <Route path='/user' element={<User />} />
-        </Route>
+    <PersistGate loading={null} persistor={persistor}>
 
-        <Route path='/admin' element={<Admin />}>
-          <Route index element={<DashBoard />} />
-          <Route path='manage-user' element={<ManageUser />} />
-          <Route path='manage-schedule' element={<ManageDoctorSchedule />} />
-          <Route path='manage-specialty' element={<AddNewSpecialty />} />
-          <Route path='manage-clinic' element={<ManageClinic />} />
-          <Route path='manage-patient' element={<ManagePatient />} />
-        </Route>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<App />} >
+            <Route index element={<HomePage />} />
+            <Route path='/user' element={<User />} />
+          </Route>
 
-        <Route path='/login' element={<Login />} />
-        <Route path='/detail-doctor/:id' element={<DetailDoctor />} />
-        <Route path='/detail-specialty/:id' element={<DetailSpecialty />} />
-        <Route path='/detail-clinic/:id' element={<DetailClinic />} />
-        <Route path='/verify-booking' element={<VerifyEmail />} />
-        <Route path='*' element={<NotFound />} />
+          <Route path='/admin' element={<Admin />}>
+            <Route index element={<DashBoard />} />
+            <Route path='manage-user' element={<ManageUser />} />
+            <Route path='manage-schedule' element={<ManageDoctorSchedule />} />
+            <Route path='manage-specialty' element={<AddNewSpecialty />} />
+            <Route path='manage-clinic' element={<ManageClinic />} />
+            <Route path='manage-patient' element={<ManagePatient />} />
+          </Route>
 
-      </Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='/detail-doctor/:id' element={<DetailDoctor />} />
+          <Route path='/detail-specialty/:id' element={<DetailSpecialty />} />
+          <Route path='/detail-clinic/:id' element={<DetailClinic />} />
+          <Route path='/verify-booking' element={<VerifyEmail />} />
+          <Route path='*' element={<NotFound />} />
 
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+        </Routes>
 
-    </BrowserRouter>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+
+      </BrowserRouter>
+    </PersistGate>
   </Provider>
 );
 

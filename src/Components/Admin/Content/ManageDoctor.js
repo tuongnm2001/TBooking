@@ -65,8 +65,19 @@ const ManageDoctor = () => {
         })
 
         if (res.errCode === 0) {
+            setDescription('')
+            setAllDoctors('')
+            setListPrice('')
+            setListPayment('')
+            setListProvince('')
+            setListClinic('')
+            setListSpecialty('')
+            setNameClinic('')
+            setAddressClinic('')
+            setNote('')
             setLoadingApi(false)
             toast.success(res.errMessage)
+
         } else {
             toast.error(res.errMessage)
             setLoadingApi(false)

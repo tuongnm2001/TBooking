@@ -24,7 +24,7 @@ const handleUpdateUser = (inputId) => {
 }
 
 const getTopDoctor = (limit) => {
-    return axios.get(`/api/top-doctor-home?=${limit}`)
+    return axios.get(`/api/top-doctor-home?limit=${limit}`)
 }
 
 const getAllDoctors = () => {
@@ -91,6 +91,10 @@ const getAllPatientForDoctor = (data) => {
     return axios.get(`/api/get-list-patient-for-doctor?doctorId=${data.doctorId}&date=${data.date}`)
 }
 
+const postSendRemedy = (data) => {
+    return axios.post(`/api/send-remedy`, data)
+}
+
 export {
     handleLogin, fetchAllCode, postCreateNewUser, fetchAllUsers,
     handleDeleteUser, handleUpdateUser, getTopDoctor, getAllDoctors,
@@ -98,5 +102,6 @@ export {
     getScheduleByDate, getExtraInforDoctorById, getProfileDoctorById,
     postPatientBookingAppointment, postVerifyBookingAppoitment,
     createNewSpecialty, getAllSpecialty, getDetailSpecialtyById,
-    createNewClinic, fetchAllClinic, getDetailClinicById, getAllPatientForDoctor
+    createNewClinic, fetchAllClinic, getDetailClinicById, getAllPatientForDoctor,
+    postSendRemedy
 }

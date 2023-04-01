@@ -1,0 +1,67 @@
+.dashboard-container {
+    padding      : 20px;
+    margin-left  : 20px;
+
+    .title {
+        font-size       : 30px;
+        font-weight     : 600;
+        text-transform  : uppercase;
+        color           : #555;
+    }
+
+    .content {
+        display     : flex;
+        margin-top  : 40px;
+
+        .content-left {
+            display    : flex;
+            width      : 50%;
+            flex-wrap  : wrap;
+            display    : flex;
+            gap        : 20px;
+
+            .child {
+                border-radius    : 10px;
+                width            : calc(50% - 10px);
+                height           : 150px;
+                border           : 1px solid #ccc;
+                display          : flex;
+                align-items      : center;
+                justify-content  : center;
+                box-shadow       : rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+                flex-direction   : column;
+
+                .text-2 {
+                    font-size    : 25px;
+                    font-weight  : 600;
+                }
+            }
+
+            .doctor {
+                background-color  : rgb(209, 233, 252);
+            }
+
+            .specialty {
+                background-color  : rgb(208, 242, 255);
+            }
+
+            .clinic {
+                background-color  : rgb(255, 247, 205);
+            }
+
+            .blog {
+                background-color  : rgb(255, 231, 217);
+            }
+        }
+
+        .content-right {
+            width   : 50%;
+            height  : 300px;
+
+            .barChart {
+                margin-top   : 58px;
+                margin-left  : 30px;
+            }
+        }
+    }
+}

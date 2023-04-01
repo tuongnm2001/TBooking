@@ -40,7 +40,7 @@ const Login = () => {
 
     return (
         <>
-            <div title='Go back Home' className='circle-home' onClick={() => handleGoBack()}>
+            <div title='Trang chủ' className='circle-home' onClick={() => handleGoBack()}>
                 <span className='home-login'><FaHome /></span>
             </div>
 

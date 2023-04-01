@@ -2,6 +2,7 @@ import { FETCH_USER_LOGIN_SUCCESS } from '../action/userAction';
 
 const INITIAL_STATE = {
     account: {
+        id: '',
         email: '',
         image: '',
         roleId: ''
@@ -15,6 +16,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
             console.log('check actions : ', action);
             return {
                 ...state, account: {
+                    id: action?.payload?.id,
                     email: action?.payload?.email,
                     image: action?.payload?.image,
                     roleId: action?.payload?.roleId

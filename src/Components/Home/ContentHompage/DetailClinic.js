@@ -10,7 +10,6 @@ import { useParams } from 'react-router-dom';
 import ProfileDoctor from './ProfileDoctor';
 import { useEffect } from 'react';
 import _ from 'lodash'
-import CommonUtils from '../../../ultis/CommonUtils';
 
 const DetailClinic = () => {
 

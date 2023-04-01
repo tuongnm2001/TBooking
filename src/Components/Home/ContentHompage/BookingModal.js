@@ -98,11 +98,13 @@ const BookingModal = (props) => {
         let timeString = buidTimeBooking(dataSchedule)
         let doctorName = buidDoctorName(dataSchedule)
         let date = new Date(birthday).getTime()
+
         let res = await postPatientBookingAppointment({
             email: email,
             doctorId: doctorId,
             timeType: timeType,
-            date: date,
+            date: dataSchedule.date,
+            birthday: date,
             fullName: fullName,
             selectedGender: selectedGender.value,
             address: address,

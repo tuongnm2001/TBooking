@@ -1,3 +1,4 @@
+import Footer from "../Auth/Footer";
 import Banner from "./ContentHompage/Banner";
 import Clinic from "./ContentHompage/Clinic";
 import Doctor from "./ContentHompage/Doctor";
@@ -11,7 +12,7 @@ const HomePage = (props) => {
             <Specialty />
             <Doctor />
             <Clinic />
-            <div style={{ height: '300px' }}></div>
+            <Footer />
         </div>
     );
 }

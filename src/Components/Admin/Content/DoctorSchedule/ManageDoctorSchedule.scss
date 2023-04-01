@@ -7,24 +7,28 @@
         font-weight  : 600;
     }
 
-    .pick-hour-container {
-        display    : flex;
-        flex-wrap  : wrap;
-        gap        : 20px;
-        padding    : 25px 30px;
-        width      : 80%;
+    .container {
 
-        .btn-schedule {
-            border   : 1px solid grey;
-            padding  : 5px 15px;
-            height   : 35px;
-            width    : 160px;
+        .pick-hour-container {
+            display    : flex;
+            flex-wrap  : wrap;
+            gap        : 20px;
+            padding    : 25px 30px;
+            width      : 80%;
 
-            &.active {
-                background-color  : yellow !important;
+            .btn-schedule {
+                border   : 1px solid grey;
+                padding  : 5px 15px;
+                height   : 35px;
+                width    : 160px;
+
+                &.active {
+                    background-color  : yellow !important;
+                }
             }
         }
     }
+
 
 
 

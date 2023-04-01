@@ -32,7 +32,7 @@ const Doctor = () => {
 
     const handleGetTopDoctor = async () => {
         setLoading(true)
-        let res = await getTopDoctor('');
+        let res = await getTopDoctor(8);
         if (res.errCode === 0) {
             setListDoctors(res.data)
         }
