@@ -59,7 +59,6 @@ const ModalUpdateUser = (props) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
             let base64 = await CommonUtils.getBase64(event.target.files[0])
-
             setAvatar(base64)
         }
     }

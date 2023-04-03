@@ -75,6 +75,10 @@ const getDetailSpecialtyById = (data) => {
     return axios.get(`/api/get-all-detail-specialty-by-id?id=${data.id}&location=${data.location}`)
 }
 
+const getDetailUpdelSpecialtyById = (inputId) => {
+    return axios.get(`/api/get-updel-specialty-by-id?id=${inputId}`)
+}
+
 const createNewClinic = (data) => {
     return axios.post(`/api/create-new-clinic`, data)
 }
@@ -95,6 +99,10 @@ const postSendRemedy = (data) => {
     return axios.post(`/api/send-remedy`, data)
 }
 
+const deleteSpecialty = (inputId) => {
+    return axios.delete(`/api/delete-specialty`, { data: { id: inputId } })
+}
+
 export {
     handleLogin, fetchAllCode, postCreateNewUser, fetchAllUsers,
     handleDeleteUser, handleUpdateUser, getTopDoctor, getAllDoctors,
@@ -103,5 +111,5 @@ export {
     postPatientBookingAppointment, postVerifyBookingAppoitment,
     createNewSpecialty, getAllSpecialty, getDetailSpecialtyById,
     createNewClinic, fetchAllClinic, getDetailClinicById, getAllPatientForDoctor,
-    postSendRemedy
+    postSendRemedy, getDetailUpdelSpecialtyById, deleteSpecialty
 }

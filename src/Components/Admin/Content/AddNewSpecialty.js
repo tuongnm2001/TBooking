@@ -9,7 +9,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import ManageSpecialty from './ManageSpecialty';
 
-const AddNewSpecialty = () => {
+const AddNewSpecialty = (props) => {
 
     const [key, setKey] = useState('home');
     const [loadingApi, setLoadingApi] = useState(false)
@@ -38,6 +38,7 @@ const AddNewSpecialty = () => {
     const handleSaveNewSpectialty = async () => {
         setLoadingApi(true)
         let res = await createNewSpecialty({
+            action: 'CREATE',
             name,
             imageBase64,
             descriptionHTML,

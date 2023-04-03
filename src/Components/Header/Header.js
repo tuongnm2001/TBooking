@@ -37,7 +37,7 @@ const Header = () => {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <NavLink to='/' className='nav-link'>HOME</NavLink>
-                            <NavLink to='/user' className='nav-link'>USER</NavLink>
+                            <NavLink to='/blog' className='nav-link'>BLOG</NavLink>
                             {
                                 account && account.roleId === 'R1' || account.roleId === 'R2' ?
                                     <NavLink to='/admin' className='nav-link'>ADMIN</NavLink> : ''

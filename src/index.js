@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { store, persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react'
 import Admin from './Components/Admin/Admin';
-import User from './Components/User/User';
+import Blog from './Components/Blog/Blog';
 import HomePage from './Components/Home/HomePage';
 import Login from './Components/Auth/Login';
 import DetailDoctor from './Components/Home/ContentHompage/DetaiDoctor';
@@ -28,6 +28,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'nprogress/nprogress.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-toggle/style.css"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -38,7 +39,7 @@ root.render(
         <Routes>
           <Route path='/' element={<App />} >
             <Route index element={<HomePage />} />
-            <Route path='/user' element={<User />} />
+            <Route path='/blog' element={<Blog />} />
           </Route>
 
           <Route path='/admin' element={<Admin />}>

@@ -11,8 +11,15 @@
         width  : 100%;
 
         .admin-header {
-            height  : 40px;
-            border  : 1px solid green;
+            display          : flex;
+            justify-content  : space-between;
+            height           : 50px;
+            border-bottom    : 1px solid gray;
+            padding          : 15px;
+
+            .setting {
+                margin-top  : -8px;
+            }
         }
 
         .admin-main {

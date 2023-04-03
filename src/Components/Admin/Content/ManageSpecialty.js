@@ -2,12 +2,14 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Select from 'react-select';
-import { getAllSpecialty } from '../../../service/userService';
+import { createNewSpecialty, getAllSpecialty, getDetailUpdelSpecialtyById } from '../../../service/userService';
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';
 import CommonUtils from '../../../ultis/CommonUtils';
 import Table from 'react-bootstrap/Table';
 import './ManageSpecialty.scss'
+import ModalDeleteSpecialty from './Modal/ModalDeleteSpecialty';
+import { toast } from 'react-toastify';
 
 
 const ManageSpecialty = () => {
@@ -19,7 +21,9 @@ const ManageSpecialty = () => {
     const [descriptionHTML, setDescriptionHTML] = useState('')
     const [descriptionMarkDown, setDescriptionMarkDown] = useState('')
     const [imageBase64, setImageBase64] = useState('')
-
+    const [showModalDelete, setShowModalDelete] = useState(false)
+    const [dataSpecialty, setDataSpecialty] = useState({})
+    const [loadingApi, setLoadingApi] = useState(false)
 
     const buidDataSelectSpecialty = (inputData) => {
         let result = [];
@@ -47,8 +51,15 @@ const ManageSpecialty = () => {
         }
     }
 
-    const handleChangeSelectSpecialty = (selectedOption) => {
-        console.log(selectedOption);
+    const handleChangeSelectSpecialty = async (selectedOption) => {
+        setSelectedSpecialty(selectedOption);
+        let res = await getDetailUpdelSpecialtyById(selectedOption.value)
+
+        if (res && res.errCode === 0) {
+            setDescriptionHTML(res.data.descriptionHTML)
+            setDescriptionMarkDown(res.data.descriptionMarkDown)
+            setPreviewImage(res.data.image)
+        }
     }
 
     const handleEditorChange = ({ html, text }) => {
@@ -64,6 +75,29 @@ const ManageSpecialty = () => {
             }
             setImageBase64(base64)
         }
+    }
+
+    // console.log(selectedSpecialty);
+
+    const handleUpdateSpecialty = async () => {
+        setLoadingApi(true)
+        let res = await createNewSpecialty({
+            name: selectedSpecialty.label,
+            action: 'EDIT',
+            descriptionHTML: descriptionHTML,
+            descriptionMarkDown: descriptionMarkDown,
+        })
+        if (res && res.errCode === 0) {
+            toast.success('Sửa chuyên khoa thành công!')
+            setLoadingApi(false)
+        }
+
+        console.log(res);
+    }
+
+    const handleDeleteSpecialty = (item) => {
+        setShowModalDelete(true)
+        setDataSpecialty(item)
     }
 
     return (
@@ -87,7 +121,7 @@ const ManageSpecialty = () => {
                         <div className='col-6 form-group'>
                             <label htmlFor='img' className='titleImg'>
                                 <span>
-                                    <i className="far fa-image"></i> Tải ảnh lên
+                                    <i className="far fa-image"></i> Đổi ảnh
                                 </span>
                             </label>
                             <div>
@@ -107,7 +141,7 @@ const ManageSpecialty = () => {
                                 previewImage ?
                                     <img src={previewImage} />
                                     :
-                                    <span className='textPreview'>Tải ảnh lên</span>
+                                    <span className='textPreview'>Ảnh</span>
                             }
                         </div>
                     </div>
@@ -130,7 +164,12 @@ const ManageSpecialty = () => {
                                                 <td>{item.value}</td>
                                                 <td>{item.label}</td>
                                                 <td>
-                                                    <button className='btn btn-danger'>Xóa</button>
+                                                    <button
+                                                        className='btn btn-danger'
+                                                        onClick={() => handleDeleteSpecialty(item)}
+                                                    >
+                                                        Xóa
+                                                    </button>
                                                 </td>
 
                                             </tr>
@@ -153,19 +192,26 @@ const ManageSpecialty = () => {
                 </div>
 
                 <div>
-                    {/* <button
+                    <button
                         disabled={loadingApi}
-                        className='btn btn-primary my-3'
-                        onClick={() => handleSaveNewSpectialty()}
+                        className='btn btn-warning my-3'
+                        onClick={() => handleUpdateSpecialty()}
                     >
                         {
                             loadingApi &&
                             <i disabled={loadingApi} className="fa-solid fa-circle-notch fa-spin"></i>
-                        } Lưu
-                    </button> */}
-                    <button className='btn btn-primary my-3'>Lưu</button>
+                        } Sửa
+                    </button>
+
                 </div>
             </div>
+
+            <ModalDeleteSpecialty
+                show={showModalDelete}
+                setShow={setShowModalDelete}
+                dataSpecialty={dataSpecialty}
+                fetchAllSpecialty={fetchAllSpecialty}
+            />
         </Container>
     );
 }

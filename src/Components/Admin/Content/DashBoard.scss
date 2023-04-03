@@ -1,6 +1,6 @@
 .dashboard-container {
-    padding      : 20px;
-    margin-left  : 20px;
+    padding       : 20px;
+    margin-right  : 25px;
 
     .title {
         font-size       : 30px;
@@ -32,25 +32,41 @@
                 flex-direction   : column;
 
                 .text-2 {
-                    font-size    : 25px;
+                    font-size    : 35px;
                     font-weight  : 600;
                 }
             }
 
             .doctor {
                 background-color  : rgb(209, 233, 252);
+
+                span {
+                    color  : rgb(6, 27, 100);
+                }
             }
 
             .specialty {
                 background-color  : rgb(208, 242, 255);
+
+                span {
+                    color  : rgb(4, 41, 122);
+                }
             }
 
             .clinic {
                 background-color  : rgb(255, 247, 205);
+
+                span {
+                    color  : rgb(122, 79, 1);
+                }
             }
 
             .blog {
                 background-color  : rgb(255, 231, 217);
+
+                span {
+                    color  : rgb(122, 12, 46);
+                }
             }
         }
 
