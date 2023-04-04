@@ -1,6 +1,6 @@
 import './DashBoard.scss'
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, ResponsiveContainer } from 'recharts';
-import { fetchAllClinic, getAllDoctors, getAllSpecialty } from '../../../service/userService';
+import { fetchAllBlogs, fetchAllClinic, getAllDoctors, getAllSpecialty } from '../../../service/userService';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
@@ -9,6 +9,7 @@ const DashBoard = (props) => {
     const [listTotalDoctor, setListTotalDoctor] = useState({})
     const [listTotalSpecialty, setListTotalSpecialty] = useState({})
     const [listTotalClinic, setListTotalClinic] = useState({})
+    const [listTotalBlogs, setListTotalBlogs] = useState({})
 
     const data = [
         {
@@ -25,7 +26,7 @@ const DashBoard = (props) => {
         },
         {
             "name": "Bài Blog",
-            "BL": 10
+            "BL": listTotalBlogs.length
         }
     ]
 
@@ -33,6 +34,7 @@ const DashBoard = (props) => {
         totalDoctor()
         totalSpecialty()
         totalClinic()
+        totalBlogs()
     }, [])
 
     let totalDoctor = async () => {
@@ -53,6 +55,13 @@ const DashBoard = (props) => {
         let res = await fetchAllClinic()
         if (res && res.errCode === 0) {
             setListTotalClinic(res.data)
+        }
+    }
+
+    let totalBlogs = async () => {
+        let res = await fetchAllBlogs()
+        if (res && res.errCode === 0) {
+            setListTotalBlogs(res.data)
         }
     }
 
@@ -78,7 +87,7 @@ const DashBoard = (props) => {
 
                     <div className='child blog'>
                         <span className='text-1'>Tổng bài blog</span>
-                        <span className='text-2'>100</span>
+                        <span className='text-2'>{listTotalBlogs.length}</span>
                     </div>
                 </div>
 

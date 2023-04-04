@@ -103,6 +103,18 @@ const deleteSpecialty = (inputId) => {
     return axios.delete(`/api/delete-specialty`, { data: { id: inputId } })
 }
 
+const createNewBlog = (data) => {
+    return axios.post(`/api/create-new-blog`, data)
+}
+
+const fetchAllBlogs = () => {
+    return axios.get(`/api/get-all-blog`)
+}
+
+const getDetailBlogById = (data) => {
+    return axios.get(`/api/get-detail-blog-by-id?id=${data.id}`)
+}
+
 export {
     handleLogin, fetchAllCode, postCreateNewUser, fetchAllUsers,
     handleDeleteUser, handleUpdateUser, getTopDoctor, getAllDoctors,
@@ -111,5 +123,6 @@ export {
     postPatientBookingAppointment, postVerifyBookingAppoitment,
     createNewSpecialty, getAllSpecialty, getDetailSpecialtyById,
     createNewClinic, fetchAllClinic, getDetailClinicById, getAllPatientForDoctor,
-    postSendRemedy, getDetailUpdelSpecialtyById, deleteSpecialty
+    postSendRemedy, getDetailUpdelSpecialtyById, deleteSpecialty, createNewBlog,
+    fetchAllBlogs, getDetailBlogById
 }

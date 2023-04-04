@@ -1,62 +1,81 @@
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import './Blog.scss'
-import img from '../../assets/img/about.jpg'
+import { fetchAllBlogs } from '../../service/userService'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Footer from '../Auth/Footer'
 
 const Blog = () => {
+
+    const [listBlogs, setListBlogs] = useState({})
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        getAllBlog()
+    }, [])
+
+    const getAllBlog = async () => {
+        let res = await fetchAllBlogs()
+        if (res && res.errCode === 0) {
+            setListBlogs(res.data)
+        }
+    }
+
+    const handleClickBlogDetail = (item) => {
+        navigate(`/detail-blog/${item.id}`)
+    }
+
     return (
         <>
-            <div className='blog-container'>
-                <div className='breadcrumb'>
-                    <Breadcrumb>
-                        <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
-                        <Breadcrumb.Item href="#">
-                            Library
-                        </Breadcrumb.Item>
-                        <Breadcrumb.Item active>Data</Breadcrumb.Item>
-                    </Breadcrumb>
+            <section id="blog" className="blog-mf sect-pt4 route">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-12">
+                            <div className="title-box text-center">
+                                <h3 className="title-a">
+                                    Blog
+                                </h3>
+                                <p className="subtitle-a">
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                </p>
+                                <div className="line-mf"></div>
+                            </div>
+                        </div>
+                    </div>
+                    {
+                        listBlogs && listBlogs.length > 0 &&
+                        listBlogs.map((item, index) => {
+                            return (
+                                <div className="row" key={`blog-${index}`}>
+                                    <div className="col-md-4 items-blog">
+                                        <div className="card card-blog">
+                                            <div className="card-img">
+                                                <span><img src={item.image} /></span>
+                                            </div>
+                                            <div className="card-body">
+                                                <h3 className="card-title"><span>{item.name}</span></h3>
+                                                <p className="card-description">
+                                                    {item.descriptionBlog}
+                                                </p>
+                                            </div>
+                                            <div className="card-footer">
+                                                <div className="post-date">
+                                                    <button
+                                                        className='btn btn-primary'
+                                                        onClick={() => handleClickBlogDetail(item)}
+                                                    >
+                                                        Đọc thêm
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
-
-            </div>
-
-            <div className='content-main'>
-                <div className='content'>
-                    <img src={img} />
-                    <label>
-                        Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia
-                    </label>
-                </div>
-
-                <div className='content'>
-                    <img src={img} />
-                    <label>
-                        Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia
-                    </label>
-                </div>
-
-                <div className='content'>
-                    <img src={img} />
-                    <label>
-                        Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia
-                    </label>
-                </div>
-
-                <div className='content'>
-                    <img src={img} />
-                    <label>
-                        Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia
-                    </label>
-                </div>
-                <div className='content'>
-                    <img src={img} />
-                    <label>
-                        Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia
-                    </label>
-                </div>
-            </div>
-
-            <div className='footer'>
-
-            </div>
+            </section>
+            <Footer />
         </>
     );
 }

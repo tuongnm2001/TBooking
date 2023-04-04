@@ -24,8 +24,6 @@ const Header = () => {
         navigate('/login')
     }
 
-    console.log('check account', account);
-
     return (
         <>
             <Navbar bg="light" expand="lg" className='header-container fixed-top'>
