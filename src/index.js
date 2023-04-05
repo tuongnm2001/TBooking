@@ -18,7 +18,6 @@ import NotFound from './Components/Home/ContentHompage/NotFound';
 import DashBoard from './Components/Admin/Content/DashBoard';
 import VerifyEmail from './Components/Auth/VerifyEmail';
 import AddNewSpecialty from './Components/Admin/Content/AddNewSpecialty';
-import ManageClinic from './Components/Admin/Content/ManageClinic';
 import DetailSpecialty from './Components/Home/ContentHompage/DetailSpecialty';
 import DetailClinic from './Components/Home/ContentHompage/DetailClinic';
 import ManagePatient from './Components/Home/ContentHompage/ManagePatient';
@@ -31,6 +30,7 @@ import 'nprogress/nprogress.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-toggle/style.css"
 import BlogDetail from './Components/Blog/BlogDetail';
+import AddNewClinic from './Components/Admin/Content/AddNewClinic';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -49,7 +49,7 @@ root.render(
             <Route path='manage-user' element={<ManageUser />} />
             <Route path='manage-schedule' element={<ManageDoctorSchedule />} />
             <Route path='manage-specialty' element={<AddNewSpecialty />} />
-            <Route path='manage-clinic' element={<ManageClinic />} />
+            <Route path='manage-clinic' element={<AddNewClinic />} />
             <Route path='manage-patient' element={<ManagePatient />} />
             <Route path='manage-blog' element={<ManageBlog />} />
           </Route>

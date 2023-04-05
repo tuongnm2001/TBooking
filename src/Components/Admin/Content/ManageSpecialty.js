@@ -14,13 +14,13 @@ import { toast } from 'react-toastify';
 
 const ManageSpecialty = () => {
 
+    const mdParser = new MarkdownIt();
     const [listSpecialty, setListSpecialty] = useState({})
     const [selectedSpecialty, setSelectedSpecialty] = useState({})
-    const [previewImage, setPreviewImage] = useState('')
-    const mdParser = new MarkdownIt();
+    const [previewImageSp, setPreviewImageSp] = useState('')
     const [descriptionHTML, setDescriptionHTML] = useState('')
     const [descriptionMarkDown, setDescriptionMarkDown] = useState('')
-    const [imageBase64, setImageBase64] = useState('')
+    const [imageBase64, setImageBase64Sp] = useState('')
     const [showModalDelete, setShowModalDelete] = useState(false)
     const [dataSpecialty, setDataSpecialty] = useState({})
     const [loadingApi, setLoadingApi] = useState(false)
@@ -58,7 +58,7 @@ const ManageSpecialty = () => {
         if (res && res.errCode === 0) {
             setDescriptionHTML(res.data.descriptionHTML)
             setDescriptionMarkDown(res.data.descriptionMarkDown)
-            setPreviewImage(res.data.image)
+            setPreviewImageSp(res.data.image)
         }
     }
 
@@ -67,17 +67,15 @@ const ManageSpecialty = () => {
         setDescriptionHTML(html)
     }
 
-    const handleUploadImage = async (event) => {
+    const handleUploadImageSp = async (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             let base64 = await CommonUtils.getBase64(event.target.files[0])
             if (event.target.files[0] !== 0) {
-                setPreviewImage(URL.createObjectURL(event.target.files[0]));
+                setPreviewImageSp(URL.createObjectURL(event.target.files[0]));
             }
-            setImageBase64(base64)
+            setImageBase64Sp(base64)
         }
     }
-
-    // console.log(selectedSpecialty);
 
     const handleUpdateSpecialty = async () => {
         setLoadingApi(true)
@@ -119,27 +117,26 @@ const ManageSpecialty = () => {
                         </div>
 
                         <div className='col-6 form-group'>
-                            <label htmlFor='img' className='titleImg'>
+                            <label htmlFor='imgSp' className='titleImgSp'>
                                 <span>
-                                    <i className="far fa-image"></i> Đổi ảnh
+                                    <i className="far fa-image"></i> Đổi ảnh 1
                                 </span>
                             </label>
                             <div>
                                 <input
                                     className='form-control-file'
                                     type={'file'}
-                                    onChange={(event) => handleUploadImage(event)}
-                                    id='img'
+                                    onChange={(event) => handleUploadImageSp(event)}
+                                    id='imgSp'
                                     hidden
                                 />
                             </div>
-
                         </div>
 
                         <div className='col-md-6 img-preview-sp'>
                             {
-                                previewImage ?
-                                    <img src={previewImage} />
+                                previewImageSp ?
+                                    <img src={previewImageSp} />
                                     :
                                     <span className='textPreview'>Ảnh</span>
                             }

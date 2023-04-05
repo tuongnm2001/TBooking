@@ -2,10 +2,10 @@
     height  : 550px;
 
     .title-specialty {
-        margin       : 10px 40px;
-        text-align   : center;
-        font-weight  : 600;
-        font-size    : 25px;
+        text-align     : left;
+        font-weight    : 600;
+        font-size      : 25px;
+        margin-bottom  : 20px;
     }
 
     .content-up {
@@ -36,7 +36,7 @@
                 }
             }
 
-            label.titleImg {
+            label.titleImgSp {
                 padding           : 6px;
                 border-radius     : 5px;
                 margin-top        : 24px;

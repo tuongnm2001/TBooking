@@ -4,6 +4,7 @@
         background-color  : #eee;
         display           : flex;
         flex-direction    : column;
+        text-align        : justify;
 
         .title-clinic {
             margin-top        : 100px;
@@ -22,6 +23,7 @@
             .content-right-title {
                 margin-left  : 0 20px;
                 margin-top   : 50px;
+                padding      : 0 20px;
 
                 .content-up-name {
                     font-size    : 30px;
@@ -38,7 +40,7 @@
         }
 
         .description-clinic {
-            background-image   : url('../../../assets/img/bg-clinic.avif');
+            // background-image   : url('../../../assets/img/bg-clinic.avif');
             margin-top         : 15px;
             border-radius      : 3px;
             box-shadow         : 0 1px 6px rgb(32 33 36 / 28%);

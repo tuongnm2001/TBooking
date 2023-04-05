@@ -2,27 +2,27 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
-import { deleteSpecialty } from '../../../../service/userService';
+import { deleteClinic } from '../../../../service/userService';
 import './ModalAddNewUser.scss'
 
-const ModalDeleteSpecialty = (props) => {
+const ModalDeleteClinic = (props) => {
 
-    const { show, setShow, dataSpecialty, fetchAllSpecialty } = props
+    const { show, setShow, dataClinic, getAllClinic } = props
     const [loadingApi, setLoadingApi] = useState(false)
 
     const handleClose = () => {
         setShow(false)
     }
 
-    const handleSubmitDeleteSpecialty = async () => {
+    const handleSubmitDeleteClinic = async () => {
         setLoadingApi(true)
-        let data = await deleteSpecialty(dataSpecialty.value)
+        let data = await deleteClinic(dataClinic.value)
         if (data.errCode === 0) {
-            fetchAllSpecialty()
+            getAllClinic()
             handleClose()
         }
         setLoadingApi(false)
-        toast.success('Xóa chuyên khoa thành công!')
+        toast.success(data.errMessage)
     }
 
     return (
@@ -33,11 +33,11 @@ const ModalDeleteSpecialty = (props) => {
                 backdrop='static'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>XÓA CHUYÊN KHOA</Modal.Title>
+                    <Modal.Title>XÓA PHÒNG KHÁM</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Bạn có muốn xóa chuyên khoa <span style={{ color: 'red' }}>{dataSpecialty.label}</span> không? </Modal.Body>
+                <Modal.Body>Bạn có muốn xóa chuyên khoa <span style={{ color: 'red' }}>{dataClinic.label}</span> không? </Modal.Body>
                 <Modal.Footer>
-                    <Button disabled={loadingApi} variant="danger" onClick={() => handleSubmitDeleteSpecialty()}>
+                    <Button disabled={loadingApi} variant="danger" onClick={() => handleSubmitDeleteClinic()}>
                         {
                             loadingApi &&
                             <i disabled={loadingApi} className="fa-solid fa-circle-notch fa-spin"></i>
@@ -53,4 +53,4 @@ const ModalDeleteSpecialty = (props) => {
     );
 }
 
-export default ModalDeleteSpecialty;
+export default ModalDeleteClinic;
