@@ -21,7 +21,9 @@ import AddNewSpecialty from './Components/Admin/Content/AddNewSpecialty';
 import DetailSpecialty from './Components/Home/ContentHompage/DetailSpecialty';
 import DetailClinic from './Components/Home/ContentHompage/DetailClinic';
 import ManagePatient from './Components/Home/ContentHompage/ManagePatient';
-import ManageBlog from './Components/Admin/Content/ManageBlog';
+// import ManageBlog from './Components/Admin/Content/ManageBlog';  
+import BlogDetail from './Components/Blog/BlogDetail';
+import AddNewClinic from './Components/Admin/Content/AddNewClinic';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-awesome-lightbox/build/style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
@@ -29,8 +31,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'nprogress/nprogress.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-toggle/style.css"
-import BlogDetail from './Components/Blog/BlogDetail';
-import AddNewClinic from './Components/Admin/Content/AddNewClinic';
+import AddNewBlog from './Components/Admin/Content/AddNewBlog';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -51,7 +52,7 @@ root.render(
             <Route path='manage-specialty' element={<AddNewSpecialty />} />
             <Route path='manage-clinic' element={<AddNewClinic />} />
             <Route path='manage-patient' element={<ManagePatient />} />
-            <Route path='manage-blog' element={<ManageBlog />} />
+            <Route path='manage-blog' element={<AddNewBlog />} />
           </Route>
 
           <Route path='/login' element={<Login />} />

@@ -24,6 +24,9 @@ const Blog = () => {
         navigate(`/detail-blog/${item.id}`)
     }
 
+    console.log('check listBlogs : ', listBlogs);
+
+
     return (
         <>
             <section id="blog" className="blog-mf sect-pt4 route">
@@ -41,38 +44,43 @@ const Blog = () => {
                             </div>
                         </div>
                     </div>
-                    {
-                        listBlogs && listBlogs.length > 0 &&
-                        listBlogs.map((item, index) => {
-                            return (
-                                <div className="row" key={`blog-${index}`}>
-                                    <div className="col-md-4 items-blog">
-                                        <div className="card card-blog">
-                                            <div className="card-img">
-                                                <span><img src={item.image} /></span>
-                                            </div>
-                                            <div className="card-body">
-                                                <h3 className="card-title"><span>{item.name}</span></h3>
-                                                <p className="card-description">
-                                                    {item.descriptionBlog}
-                                                </p>
-                                            </div>
-                                            <div className="card-footer">
-                                                <div className="post-date">
-                                                    <button
-                                                        className='btn btn-primary'
-                                                        onClick={() => handleClickBlogDetail(item)}
-                                                    >
-                                                        Đọc thêm
-                                                    </button>
+
+                    <div className='items-blog'>
+                        <div className='col-sm-12'>
+                            {
+                                listBlogs && listBlogs.length > 0 &&
+                                listBlogs.map((item, index) => {
+                                    return (
+                                        <div className="row " key={`blog-${index}`}>
+                                            <div className="col-md-4 ">
+                                                <div className="card card-blog">
+                                                    <div className="card-img">
+                                                        <span><img src={item.image} /></span>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <h3 className="card-title"><span>{item.name}</span></h3>
+                                                        <p className="card-description">
+                                                            {item.descriptionBlog}
+                                                        </p>
+                                                    </div>
+                                                    <div className="card-footer">
+                                                        <div className="post-date">
+                                                            <button
+                                                                className='btn btn-primary'
+                                                                onClick={() => handleClickBlogDetail(item)}
+                                                            >
+                                                                Đọc thêm
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
                 </div>
             </section>
             <Footer />

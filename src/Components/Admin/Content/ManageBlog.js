@@ -1,28 +1,70 @@
 import './ManageBlog.scss'
+import { Container } from 'react-bootstrap';
+import Select from 'react-select';
+import { useEffect, useState } from 'react';
+import { createNewBlog, fetchAllBlogs, getDetailUpdelBlogById } from '../../../service/userService';
+import Table from 'react-bootstrap/Table';
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
-import { useState } from 'react';
-import { createNewBlog } from '../../../service/userService';
-import { toast } from 'react-toastify';
 import CommonUtils from '../../../ultis/CommonUtils';
+import { toast } from 'react-toastify';
+import ModalDeleteClinic from './Modal/ModalDeleteClinic';
+import ModalDeleteBlog from './Modal/ModalDeleteBlog';
 
 const ManageBlog = () => {
 
-    const [key, setKey] = useState('home');
-    const [loadingApi, setLoadingApi] = useState(false)
-    const mdParser = new MarkdownIt(/* Markdown-it options */);
-    const [name, setName] = useState('')
-    const [imageBase64, setImageBase64] = useState('')
+    const [previewImage, setPreviewImage] = useState('')
     const [descriptionHTML, setDescriptionHTML] = useState('')
     const [descriptionMarkDown, setDescriptionMarkDown] = useState('')
-    const [previewImage, setPreviewImage] = useState('')
+    const [listBlogs, setListBlogs] = useState({})
+    const [selectedBlog, setSelectedBlog] = useState({})
+    const mdParser = new MarkdownIt();
+    const [loadingApi, setLoadingApi] = useState(false)
+    const [imageBase64, setImageBase64] = useState('')
+    const [showModalDelBlog, setShowModalDelBlog] = useState(false)
+    const [dataBlog, setDataBlog] = useState({})
     const [descriptionBlog, setDescriptionBlog] = useState('')
 
     const handleEditorChange = ({ html, text }) => {
         setDescriptionMarkDown(text)
         setDescriptionHTML(html)
+    }
+
+    const buildDataSelectedBlog = (inputData) => {
+        let result = []
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let obj = {};
+                obj.label = item.name
+                obj.value = item.id
+                result.push(obj)
+            })
+        }
+        return result;
+    }
+
+    useEffect(() => {
+        getAllBlog()
+    }, [])
+
+    const getAllBlog = async () => {
+        let res = await fetchAllBlogs();
+        if (res && res.errCode === 0) {
+            let dataSelectBlog = buildDataSelectedBlog(res.data)
+            setListBlogs(dataSelectBlog)
+        }
+    }
+
+    const handleChangeSelectBlog = async (selectedOption) => {
+        setSelectedBlog(selectedOption)
+
+        let res = await getDetailUpdelBlogById(selectedOption.value)
+        if (res && res.errCode === 0) {
+            setDescriptionHTML(res.data.descriptionHTML)
+            setDescriptionMarkDown(res.data.descriptionMarkDown)
+            setPreviewImage(res.data.image)
+            setDescriptionBlog(res.data.descriptionBlog)
+        }
     }
 
     const handleUploadImage = async (event) => {
@@ -32,63 +74,57 @@ const ManageBlog = () => {
                 setPreviewImage(URL.createObjectURL(event.target.files[0]));
             }
             setImageBase64(base64)
+            setPreviewImage(base64)
         }
     }
 
-    const handleSaveNewBlog = async () => {
+    const handleDeleteClinic = (item) => {
+        setShowModalDelBlog(true)
+        setDataBlog(item)
+    }
+
+    const handleSaveUpdateBlog = async () => {
         setLoadingApi(true)
         let res = await createNewBlog({
-            imageBase64,
-            name,
-            descriptionBlog,
-            descriptionHTML,
-            descriptionMarkDown
+            action: 'EDIT',
+            name: selectedBlog.label,
+            descriptionBlog: descriptionBlog,
+            image: previewImage,
+            descriptionHTML: descriptionHTML,
+            descriptionMarkDown: descriptionMarkDown,
         })
-
         if (res && res.errCode === 0) {
+            toast.success('Sửa Blog thành công!')
             setLoadingApi(false)
-            toast.success('Tạo bài Blog thành công!')
-            setName('')
-            setImageBase64('')
-            setDescriptionHTML('')
-            setDescriptionMarkDown('')
-            setPreviewImage('')
-            setDescriptionBlog('')
         } else {
-            toast.error('Tạo bài Blog thất bại!')
+            toast.error('Sửa Blog thất bại!')
             setLoadingApi(false)
         }
     }
 
 
     return (
-        <Tabs
-            id="controlled-tab-example"
-            activeKey={key}
-            onSelect={(k) => setKey(k)}
-            className="mb-3"
-            fill
-            justify
-        >
-            <Tab eventKey="home" title="Thêm bài Blog">
-                <div className='manage-clinic-container'>
-                    <div className='ms-title'>Thêm bài Blog</div>
-
-                    <div className='add-new-clinic row'>
-                        <div className='col-6 form-group'>
-                            <label>Tên Blog</label>
-                            <input
-                                className='form-control'
-                                type={'text'}
-                                value={name}
-                                onChange={(event) => setName(event.target.value)}
+        <>
+            <div className='manage-blog-container'>
+                <div className='title-blogs'>Quản lý bài Blog</div>
+                <div className='content-up'>
+                    <div className='content-left'>
+                        <div className='col-8 form-group'>
+                            <label>Chọn bài Blog</label>
+                            <Select
+                                placeholder='Chọn bài Blog'
+                                className='select'
+                                onChange={handleChangeSelectBlog}
+                                options={listBlogs}
+                                value={selectedBlog}
+                                name='listBlogs'
                             />
                         </div>
 
                         <div className='col-6 form-group'>
                             <label>Tiêu đề</label>
                             <textarea
-                                className='form-control'
+                                className='form-control descriptionBlog'
                                 type={'text'}
                                 value={descriptionBlog}
                                 onChange={(event) => setDescriptionBlog(event.target.value)}
@@ -96,59 +132,100 @@ const ManageBlog = () => {
                         </div>
 
                         <div className='col-6 form-group'>
-                            <label htmlFor='img' className='titleImg'><span>
-                                <i className="far fa-image"></i> Tải ảnh lên
-                            </span></label>
+                            <label htmlFor='imgBlog' className='titleImg'>
+                                <span>
+                                    <i className="far fa-image"></i> Đổi ảnh
+                                </span>
+                            </label>
                             <div>
                                 <input
                                     className='form-control-file'
                                     type={'file'}
                                     onChange={(event) => handleUploadImage(event)}
-                                    id='img'
+                                    id='imgBlog'
                                     hidden
                                 />
                             </div>
-                            <div className='col-md-6 img-preview-clinic'>
-                                {
-                                    previewImage ?
-                                        <img src={previewImage} />
-                                        :
-                                        <span className='textPreview'>Tải ảnh lên</span>
-                                }
-                            </div>
+
                         </div>
 
-                        <div className='col-12'>
-                            <MdEditor
-                                style={{ height: '300px' }}
-                                renderHTML={text => mdParser.render(text)}
-                                onChange={handleEditorChange}
-                                value={descriptionMarkDown}
-                            />
-                        </div>
-
-                        <div>
-                            <button
-                                disabled={loadingApi}
-                                className='btn btn-primary my-3'
-                                onClick={() => handleSaveNewBlog()}
-                            >
-                                {
-                                    loadingApi &&
-                                    <i disabled={loadingApi} className="fa-solid fa-circle-notch fa-spin"></i>
-                                } Lưu
-                            </button>
+                        <div className='col-md-6 img-preview-blog'>
+                            {
+                                previewImage ?
+                                    <img src={previewImage} />
+                                    :
+                                    <span className='textPreview'>Ảnh</span>
+                            }
                         </div>
                     </div>
 
-                </div >
+                    <div className='content-right'>
+                        <Table striped bordered hover size="sm">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên phòng khám</th>
+                                    <th>Xóa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    listBlogs && listBlogs.length > 0 &&
+                                    listBlogs.map((item, index) => {
+                                        return (
+                                            <tr key={`specialty-${index}`}>
+                                                <td>{item.value}</td>
+                                                <td>{item.label}</td>
+                                                <td>
+                                                    <button
+                                                        className='btn btn-danger'
+                                                        onClick={() => handleDeleteClinic(item)}
+                                                    >
+                                                        Xóa
+                                                    </button>
+                                                </td>
 
-            </Tab>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </Table>
+                    </div>
+                </div>
 
-            <Tab eventKey="profile" title="Quản lý bài Blog">
-                <div>a</div>
-            </Tab>
-        </Tabs>
+                <div className='col-12'>
+                    <MdEditor
+                        className='mdEditor'
+                        style={{ height: '500px' }}
+                        renderHTML={text => mdParser.render(text)}
+                        onChange={handleEditorChange}
+                        value={descriptionMarkDown}
+                    />
+                </div>
+
+                <div>
+                    <button
+                        disabled={loadingApi}
+                        className='btn btn-warning my-3'
+                        onClick={() => handleSaveUpdateBlog()}
+                    >
+                        {
+                            loadingApi &&
+                            <i disabled={loadingApi} className="fa-solid fa-circle-notch fa-spin"></i>
+                        } Sửa
+                    </button>
+
+                </div>
+
+            </div>
+            <ModalDeleteBlog
+                show={showModalDelBlog}
+                setShow={setShowModalDelBlog}
+                dataBlog={dataBlog}
+                fetchAllBlogs={fetchAllBlogs}
+            />
+        </>
     );
 }
 

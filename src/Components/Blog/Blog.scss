@@ -5,11 +5,22 @@
     }
 
     .items-blog {
-        display  : flex;
+        display    : flex;
+        flex-wrap  : wrap;
+
+        .col-sm-12 {
+            width      : 100%;
+            display    : flex;
+            flex-wrap  : wrap;
+        }
 
         .card-blog {
             margin-bottom  : 3rem;
             box-shadow     : 0 13px 8px -10px rgba(0, 0, 0, 0.1);
+            height         : 540px;
+            width          : 300px;
+            margin         : 15px 30px;
+            text-align     : justify;
 
             .card-img {
                 img {

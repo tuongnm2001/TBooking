@@ -119,7 +119,7 @@ const ManageSpecialty = () => {
                         <div className='col-6 form-group'>
                             <label htmlFor='imgSp' className='titleImgSp'>
                                 <span>
-                                    <i className="far fa-image"></i> Đổi ảnh 1
+                                    <i className="far fa-image"></i> Đổi ảnh
                                 </span>
                             </label>
                             <div>

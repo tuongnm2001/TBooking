@@ -15,7 +15,7 @@ const Clinic = () => {
 
     const getAllClinic = async () => {
         let res = await fetchAllClinic()
-        if (res.errCode === 0) {
+        if (res && res.errCode === 0) {
             setDataClinic(res.data)
         }
     }

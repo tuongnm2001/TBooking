@@ -22,7 +22,7 @@ const ModalDeleteUser = (props) => {
             handleClose()
         }
         setLoadingApi(false)
-        toast.success(data.errMessage)
+        toast.success('Xóa tài khoản thành công!')
     }
 
     return (

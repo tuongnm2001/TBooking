@@ -293,6 +293,7 @@ const ManageDoctor = () => {
                 <div className='content-left'>
                     <label>Chọn bác sĩ</label>
                     <Select
+                        validate={true}
                         placeholder='Chọn bác sĩ'
                         className='select'
                         value={selectedDoctor}

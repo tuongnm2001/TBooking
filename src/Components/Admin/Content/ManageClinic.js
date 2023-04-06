@@ -71,6 +71,7 @@ const ManageClinic = () => {
                 setPreviewImage(URL.createObjectURL(event.target.files[0]));
             }
             setImageBase64(base64)
+            setPreviewImage(base64)
         }
     }
 
@@ -79,7 +80,7 @@ const ManageClinic = () => {
         setDataClinic(item)
     }
 
-    const handleSaveUpdateSpecialty = async () => {
+    const handleSaveUpdateClinic = async () => {
         setLoadingApi(true)
         let res = await createNewClinic({
             action: 'EDIT',
@@ -192,7 +193,7 @@ const ManageClinic = () => {
                     <button
                         disabled={loadingApi}
                         className='btn btn-warning my-3'
-                        onClick={() => handleSaveUpdateSpecialty()}
+                        onClick={() => handleSaveUpdateClinic()}
                     >
                         {
                             loadingApi &&
